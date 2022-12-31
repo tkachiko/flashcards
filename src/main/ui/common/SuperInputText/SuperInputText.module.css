@@ -1,0 +1,40 @@
+.input:focus {
+}
+
+.input {
+  width: 372px;
+  height: 36px;
+  border: 1px solid #D1D1D1;
+  border-radius: 5px;
+  outline: none;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+.superInput {
+  width: 372px;
+  height: 36px;
+  border: 1px solid #D1D1D1;
+  margin: 10px 0 10px 0;
+  border-radius: 5px;
+}
+
+.errorInput {
+  border: 1px solid #CC1439;
+  border-radius: 5px;
+}
+
+.errorInput:focus {
+
+}
+
+.error {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  line-height: 12px;
+  color: #CC1439;
+  padding: 0 0 5px 0;
+}
