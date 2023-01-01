@@ -1,25 +1,61 @@
-import React from 'react'
-import {SuperButton} from '../../main/ui/common/SuperButton/SuperButton'
-import {SuperRange} from '../../main/ui/common/SuperRange/SuperRange'
-import {SuperCheckbox} from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
-import {SuperEditableSpan} from '../../main/ui/common/SuperEditableSpan/SuperEditableSpan'
-import {SuperInputText} from '../../main/ui/common/SuperInputText/SuperInputText'
-import {SuperRadio} from '../../main/ui/common/SuperRadio/SuperRadio'
-import {SuperSelect} from '../../main/ui/common/SuperSelect/SuperSelect'
-import {SuperSort} from '../../main/ui/common/SuperSort/SuperSort'
+import React, {ChangeEvent, useState} from 'react'
+import {SuperButton} from '../../main/ui/common/components/SuperButton/SuperButton'
+import {SuperRange} from '../../main/ui/common/components/SuperRange/SuperRange'
+import {SuperCheckbox} from '../../main/ui/common/components/SuperCheckbox/SuperCheckbox'
+import {SuperEditableSpan} from '../../main/ui/common/components/SuperEditableSpan/SuperEditableSpan'
+import {SuperInputText} from '../../main/ui/common/components/SuperInputText/SuperInputText'
+import {SuperRadio} from '../../main/ui/common/components/SuperRadio/SuperRadio'
+import {SuperSelect} from '../../main/ui/common/components/SuperSelect/SuperSelect'
+import {SuperSort} from '../../main/ui/common/components/SuperSort/SuperSort'
+import styleContainer from './../../main/ui/common/styles/Container.module.css'
+import style from './TestPage.module.css'
 
 export const TestPage = () => {
+  const [value, onChangeOption] = useState(1)
+  const [inputValue, setInputValue] = useState<string>('')
+  const [stateForAllInputs, setValue] = useState<string>('')
+  const [rangeValue, setRangeValue] = useState<number>(0)
+
+  const change = (e: ChangeEvent<HTMLInputElement>) => {
+    setRangeValue(+e.currentTarget.value)
+  }
+
+  const [stateForAllCheckboxes, setChecked] = useState<boolean>(false)
+
   return (
-    <div>
-      <SuperButton />
-      <SuperCheckbox />
-      <SuperEditableSpan />
-      <SuperInputText />
-      <SuperRadio />
-      <SuperRange />
-      <SuperSelect />
-      <SuperSort sort={'1'} value={'1'} onChange={() => {
-      }} />
+    <div className={`${styleContainer.container}`}>
+      <div className={style.testPage}>
+        <SuperButton>I am a button</SuperButton>
+        <SuperCheckbox checked={stateForAllCheckboxes}
+                       onChangeChecked={setChecked}>Some text</SuperCheckbox>
+        <SuperEditableSpan spanProps={{
+          id: 'hw6-editable-span',
+          defaultText: 'enter text...',
+        }}
+                           value={inputValue}
+                           onChangeText={setInputValue}
+        />
+        <SuperInputText value={stateForAllInputs}
+                        onChange={(e) => setValue(e.currentTarget.value)} />
+        <SuperRadio options={[
+          {id: 1, value: 'React'},
+          {id: 2, value: 'Redux'},
+          {id: 3, value: 'TypeScript'},
+        ]}
+                    value={value}
+                    onChangeOption={onChangeOption} />
+        <SuperRange onChange={change}
+                    value={rangeValue}/>
+        <SuperSelect options={[
+          {id: 1, value: 'React'},
+          {id: 2, value: 'Redux'},
+          {id: 3, value: 'TypeScript'},
+        ]}
+                     value={value}
+                     onChangeOption={onChangeOption} />
+        <SuperSort sort={'1'} value={'1'} onChange={() => {
+        }} />
+      </div>
     </div>
   )
 }
