@@ -1,17 +1,26 @@
 {
   "files": {
-    "main.css": "/flashcards/static/css/main.c7f46099.css",
-    "main.js": "/flashcards/static/js/main.cb982a01.js",
+    "main.css": "/flashcards/static/css/main.ab0ab5e5.css",
+    "main.js": "/flashcards/static/js/main.49c34eef.js",
     "static/js/787.bc597fc4.chunk.js": "/flashcards/static/js/787.bc597fc4.chunk.js",
+    "static/media/Montserrat-SemiBold.ttf": "/flashcards/static/media/Montserrat-SemiBold.d5e0cc788cba9ced1fb9.ttf",
+    "static/media/Montserrat-ExtraBold.ttf": "/flashcards/static/media/Montserrat-ExtraBold.3a9ee100617f45a96d92.ttf",
+    "static/media/Montserrat-Medium.ttf": "/flashcards/static/media/Montserrat-Medium.c86e3b9010ff63c99166.ttf",
+    "static/media/Montserrat-Bold.ttf": "/flashcards/static/media/Montserrat-Bold.2c155811b35513d5beaa.ttf",
+    "static/media/Montserrat-Light.ttf": "/flashcards/static/media/Montserrat-Light.6fcc9263a21be961d246.ttf",
+    "static/media/Montserrat-Regular.ttf": "/flashcards/static/media/Montserrat-Regular.ceb11275ab638627a643.ttf",
+    "static/media/Montserrat-Black.ttf": "/flashcards/static/media/Montserrat-Black.08437fd0aa82576d3678.ttf",
+    "static/media/Montserrat-ExtraLight.ttf": "/flashcards/static/media/Montserrat-ExtraLight.ef3c777f702c89a0f300.ttf",
+    "static/media/Montserrat-Thin.ttf": "/flashcards/static/media/Montserrat-Thin.413b6b9f23ece3b343a7.ttf",
     "static/media/editIcon.svg": "/flashcards/static/media/editIcon.0a0cefd2190b593b4f76bb1a5afe0c1f.svg",
     "static/media/checked.svg": "/flashcards/static/media/checked.b75ca55e8759862b4083.svg",
     "index.html": "/flashcards/index.html",
-    "main.c7f46099.css.map": "/flashcards/static/css/main.c7f46099.css.map",
-    "main.cb982a01.js.map": "/flashcards/static/js/main.cb982a01.js.map",
+    "main.ab0ab5e5.css.map": "/flashcards/static/css/main.ab0ab5e5.css.map",
+    "main.49c34eef.js.map": "/flashcards/static/js/main.49c34eef.js.map",
     "787.bc597fc4.chunk.js.map": "/flashcards/static/js/787.bc597fc4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7f46099.css",
-    "static/js/main.cb982a01.js"
+    "static/css/main.ab0ab5e5.css",
+    "static/js/main.49c34eef.js"
   ]
 }
