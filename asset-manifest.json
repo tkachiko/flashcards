@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/flashcards/static/css/main.4800f1f4.css",
-    "main.js": "/flashcards/static/js/main.290f87e9.js",
+    "main.css": "/flashcards/static/css/main.4e1deb63.css",
+    "main.js": "/flashcards/static/js/main.94c69e96.js",
     "static/js/787.bc597fc4.chunk.js": "/flashcards/static/js/787.bc597fc4.chunk.js",
     "static/media/Montserrat-SemiBold.ttf": "/flashcards/static/media/Montserrat-SemiBold.d5e0cc788cba9ced1fb9.ttf",
     "static/media/Montserrat-ExtraBold.ttf": "/flashcards/static/media/Montserrat-ExtraBold.3a9ee100617f45a96d92.ttf",
@@ -12,17 +12,20 @@
     "static/media/Montserrat-Black.ttf": "/flashcards/static/media/Montserrat-Black.08437fd0aa82576d3678.ttf",
     "static/media/Montserrat-ExtraLight.ttf": "/flashcards/static/media/Montserrat-ExtraLight.ef3c777f702c89a0f300.ttf",
     "static/media/Montserrat-Thin.ttf": "/flashcards/static/media/Montserrat-Thin.413b6b9f23ece3b343a7.ttf",
+    "static/media/person.png": "/flashcards/static/media/person.4c6981b3aa26e18ed4ec.png",
     "static/media/email.svg": "/flashcards/static/media/email.836e246556dd50d082cf.svg",
-    "static/media/editIcon.svg": "/flashcards/static/media/editIcon.0a0cefd2190b593b4f76bb1a5afe0c1f.svg",
+    "static/media/camera.svg": "/flashcards/static/media/camera.cba2d0780c64c8702573.svg",
+    "static/media/editIcon.svg": "/flashcards/static/media/editIcon.bfa4b2e1af6a228b611dc4f867effc02.svg",
     "static/media/checked.svg": "/flashcards/static/media/checked.e88d49d50ff33abc4eed.svg",
     "index.html": "/flashcards/index.html",
+    "static/media/logout.svg": "/flashcards/static/media/logout.819881059549eb959ed2.svg",
     "static/media/eye.svg": "/flashcards/static/media/eye.62c6acbae2e97a7ce1a0.svg",
-    "main.4800f1f4.css.map": "/flashcards/static/css/main.4800f1f4.css.map",
-    "main.290f87e9.js.map": "/flashcards/static/js/main.290f87e9.js.map",
+    "main.4e1deb63.css.map": "/flashcards/static/css/main.4e1deb63.css.map",
+    "main.94c69e96.js.map": "/flashcards/static/js/main.94c69e96.js.map",
     "787.bc597fc4.chunk.js.map": "/flashcards/static/js/787.bc597fc4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4800f1f4.css",
-    "static/js/main.290f87e9.js"
+    "static/css/main.4e1deb63.css",
+    "static/js/main.94c69e96.js"
   ]
 }
