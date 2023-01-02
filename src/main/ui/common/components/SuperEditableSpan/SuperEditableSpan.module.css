@@ -1,17 +1,47 @@
+.label {
+  display: flex;
+  margin-top: 24px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  opacity: 0.5;
+  align-self: flex-start;
+}
+
 .spanBlock {
-  padding: 0 0 20px 0;
+  margin: 16px 0 0;
   display: flex;
   align-items: center;
 }
 
 .span {
-  font-family: 'Montserrat', sans-serif;
-  color: #0080FF;
-  padding: 0 0 0 20px;
+  color: #000;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 0 10px 0 0;
 }
 
-.input {
+.inputBlock {
+  position: relative;
+}
+
+.saveButton {
+  background-color: var(--primaryColor);
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  padding: 4px 12px;
+  position: absolute;
+  bottom: 6px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.saveButton:hover {
+  background: #0080FF;
 }
 
 .pen {
+  width: 16px;
+  height: 16px;
 }
