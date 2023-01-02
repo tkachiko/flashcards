@@ -81,6 +81,7 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   line-height: 1.5;
+  background-color: var(--bgPrimaryColor);
 }
 
 code {
@@ -134,6 +135,14 @@ textarea,
 select {
   font: inherit;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   * {

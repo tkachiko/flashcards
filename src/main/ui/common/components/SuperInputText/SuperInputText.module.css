@@ -1,12 +1,16 @@
 .input:focus {
+
 }
 
 .input {
-  width: 372px;
-  height: 36px;
-  border: 1px solid #D1D1D1;
-  border-radius: 5px;
+  width: 347px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background: transparent;
   outline: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .inputWrapper {
@@ -15,11 +19,13 @@
 }
 
 .superInput {
-  width: 372px;
-  height: 36px;
-  border: 1px solid #D1D1D1;
-  margin: 10px 0 10px 0;
-  border-radius: 5px;
+  width: 347px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  background: transparent;
 }
 
 .errorInput {
