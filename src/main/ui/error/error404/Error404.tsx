@@ -1,10 +1,10 @@
 import React from 'react'
 import styleContainer from './../../common/styles/Container.module.css'
-import style from './NotFound.module.css'
+import style from './Error404.module.css'
 import {NavLink} from 'react-router-dom'
 import {PATH} from '../../routes/routes'
 
-export const NonFound = () => {
+export const Error404 = () => {
   return (
     <div className={`${style.notFoundBlock} ${styleContainer.container}`}>
       <div>

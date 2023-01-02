@@ -28,14 +28,16 @@ export const TestPage = () => {
         <SuperButton>I am a button</SuperButton>
         <SuperCheckbox checked={stateForAllCheckboxes}
                        onChangeChecked={setChecked}>Some text</SuperCheckbox>
-        <SuperEditableSpan spanProps={{
-          id: 'hw6-editable-span',
-          defaultText: 'enter text...',
-        }}
+        <SuperEditableSpan type={'text'}
+                           spanProps={{
+                             id: 'hw6-editable-span',
+                             defaultText: 'enter text...',
+                           }}
                            value={inputValue}
                            onChangeText={setInputValue}
         />
-        <SuperInputText value={stateForAllInputs}
+        <SuperInputText type={'text'}
+                        value={stateForAllInputs}
                         onChange={(e) => setValue(e.currentTarget.value)} />
         <SuperRadio options={[
           {id: 1, value: 'React'},
@@ -45,7 +47,7 @@ export const TestPage = () => {
                     value={value}
                     onChangeOption={onChangeOption} />
         <SuperRange onChange={change}
-                    value={rangeValue}/>
+                    value={rangeValue} />
         <SuperSelect options={[
           {id: 1, value: 'React'},
           {id: 2, value: 'Redux'},

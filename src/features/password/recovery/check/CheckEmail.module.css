@@ -1,4 +1,4 @@
-.formWrapper {
+.wrapper {
   width: 413px;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   place-content: center;
 }
 
-.formContainer {
+.container {
   margin: 34px 0 38px 0;
   display: flex;
   flex-direction: column;
@@ -23,41 +23,20 @@
   line-height: 32px;
 }
 
-.form {
-  margin: 40px 34px;
-  display: flex;
-  flex-direction: column;
-  place-content: center;
-  position: relative;
+.image {
+  margin: 30px 0 0;
+  width: 108px;
+  height: 108px;
+  background: url("./../../../../assets/icons/email.svg");
 }
 
-.label {
-  display: inline-block;
-  margin-top: 24px;
+.instructions {
+  padding: 30px 0 40px;
   font-weight: 400;
-  font-size: 13px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 24px;
   opacity: 0.5;
-}
-
-.showHidePassword {
-  position: absolute;
-  background: url("./../../../assets/icons/eye.svg");
-  width: 24px;
-  height: 24px;
-  bottom: 4px;
-  left: 310px;
-  cursor: pointer;
-}
-
-.password {
-  position: relative;
-}
-
-.button {
-  margin-top: 60px;
-  width: 347px;
-  height: 36px;
+  text-align: center;
 }
 
 .account {
@@ -69,9 +48,18 @@
   margin-bottom: 7px;
 }
 
-.formContainer a {
-  color: var(--primaryColor);
-  font-weight: 600;
+.container a {
+  width: 347px;
+  height: 36px;
+  text-align: center;
+  color: var(--textSecondColor);
+  text-decoration: none;
+  font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  background: var(--primaryColor);
+  box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  padding:8px 0;
 }

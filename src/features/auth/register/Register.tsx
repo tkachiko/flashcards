@@ -29,7 +29,7 @@ export const Register = () => {
           <SuperButton className={style.button}>Sign Up</SuperButton>
         </form>
         <div className={style.account}>Already have an account?</div>
-        <NavLink to={PATH.REGISTER}>Sign In</NavLink>
+        <NavLink to={PATH.LOGIN}>Sign In</NavLink>
       </div>
     </div>
   )

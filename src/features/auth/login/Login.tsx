@@ -14,17 +14,17 @@ export const Login = () => {
         <h1 className={style.heading}>Sign In</h1>
         <form className={style.form}>
           <div className={style.email}>
-          <label htmlFor={'email'} className={style.label}>Email</label>
-          <SuperInputText id={'email'} name={'email'} type={'text'} />
+            <label htmlFor={'email'} className={style.label}>Email</label>
+            <SuperInputText id={'email'} name={'email'} type={'text'} />
           </div>
           <div className={style.password}>
-          <label htmlFor={'password'} className={style.label}>Password</label>
-          <SuperInputText id={'password'} name={'password'} type={'password'} />
-          <div className={style.showHidePassword}></div>
+            <label htmlFor={'password'} className={style.label}>Password</label>
+            <SuperInputText id={'password'} name={'password'} type={'password'} />
+            <div className={style.showHidePassword}></div>
           </div>
           <div className={style.rememberMe}>
-          <label htmlFor={'rememberMe'} className={style.label}></label>
-          <SuperCheckbox name={'rememberMe'}>Remember me</SuperCheckbox>
+            <label htmlFor={'rememberMe'} className={style.label}></label>
+            <SuperCheckbox name={'rememberMe'}>Remember me</SuperCheckbox>
           </div>
           <NavLink to={PATH.PASSWORD_RECOVERY}>Forgot Password?</NavLink>
           <SuperButton className={style.button}>Sign In</SuperButton>
