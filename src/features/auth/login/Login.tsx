@@ -6,7 +6,7 @@ import { PATH } from '../../../app/routes/routes'
 import { SuperButton } from '../../../common/components/SuperButton/SuperButton'
 import { SuperCheckbox } from '../../../common/components/SuperCheckbox/SuperCheckbox'
 import { SuperInputText } from '../../../common/components/SuperInputText/SuperInputText'
-import styleContainer from '../../../common/styles/Container.module.css'
+import styleContainer from '../../../common/styles/Container.module.scss'
 
 import style from './Login.module.css'
 

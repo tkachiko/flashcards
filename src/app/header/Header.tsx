@@ -2,7 +2,7 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 
-import styleContainer from '../../common/styles/Container.module.css'
+import styleContainer from '../../common/styles/Container.module.scss'
 import { PATH } from '../routes/routes'
 
 import style from './Header.module.css'

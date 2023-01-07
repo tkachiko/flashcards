@@ -74,15 +74,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-:root {
-  --textPrimaryColor: #000;
-  --textSecondColor: #fff;
-  --primaryColor: #366eff;
-  --bgPrimaryColor: #f9f9fa;
-  --bgSecondColor: #fcfcfc;
-  --primary-font: 'Montserrat', sans serif;
-}
-
 body {
   scroll-behavior: smooth;
 
@@ -93,7 +84,7 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
 
-  background-color: var(--bgPrimaryColor);
+  background-color: #f9f9fa;
 }
 
 code {
