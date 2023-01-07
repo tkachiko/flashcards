@@ -1,0 +1,7 @@
+@import './../common/styles/sass/variables';
+
+.App {
+  font-family: $primaryFontFamily;
+  font-weight: 500;
+  color: $textColor;
+}
