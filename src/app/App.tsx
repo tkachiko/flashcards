@@ -1,13 +1,13 @@
 import React from 'react'
 
 import './App.css'
-import { Main } from './Main'
 import { RoutesComponent } from './routes/RoutesComponent'
+import {Header} from "./header/Header";
 
 function App() {
   return (
     <div className="App">
-      <Main />
+      <Header />
       <RoutesComponent />
     </div>
   )

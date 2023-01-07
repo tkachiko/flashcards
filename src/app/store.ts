@@ -1,10 +1,10 @@
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
-import { authReducer } from '../../features/auth/login/auth-reducer'
-import { registerReducer } from '../../features/auth/register/register-reducer'
-import { passwordReducer } from '../../features/password/password-reducer'
-import { profileReducer } from '../ui/profile/profile-reducer'
+import { authReducer } from '../features/auth/login/auth-reducer'
+import { registerReducer } from '../features/auth/register/register-reducer'
+import { passwordReducer } from '../features/password/password-reducer'
+import { profileReducer } from '../features/profile/profile-reducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,

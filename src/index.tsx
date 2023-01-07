@@ -4,7 +4,7 @@ import './index.css'
 import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 
-import App from './main/ui/App'
+import App from './app/App'
 import reportWebVitals from './reportWebVitals'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)

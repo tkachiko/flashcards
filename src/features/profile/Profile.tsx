@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { SuperEditableSpan } from '../common/components/SuperEditableSpan/SuperEditableSpan'
+import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
 
-import styleContainer from './../common/styles/Container.module.css'
+import styleContainer from '../../common/styles/Container.module.css'
 import style from './Profile.module.css'
 
 export const Profile = () => {

@@ -2,14 +2,14 @@ import React from 'react'
 
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { Login } from '../../../features/auth/login/Login'
-import { Register } from '../../../features/auth/register/Register'
-import { NewPassword } from '../../../features/password/new/NewPassword'
-import { CheckEmail } from '../../../features/password/recovery/check/CheckEmail'
-import { PasswordRecovery } from '../../../features/password/recovery/PasswordRecovery'
-import { TestPage } from '../../../features/test/testPage'
-import { Error404 } from '../error/error404/Error404'
-import { Profile } from '../profile/Profile'
+import { Login } from '../../features/auth/login/Login'
+import { Register } from '../../features/auth/register/Register'
+import { NewPassword } from '../../features/password/new/NewPassword'
+import { CheckEmail } from '../../features/password/recovery/check/CheckEmail'
+import { PasswordRecovery } from '../../features/password/recovery/PasswordRecovery'
+import { TestPage } from '../../features/test/testPage'
+import { Error404 } from '../../common/error/error404/Error404'
+import { Profile } from '../../features/profile/Profile'
 
 import { PATH } from './routes'
 

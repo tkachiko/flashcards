@@ -2,12 +2,12 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 
-import { SuperButton } from '../../../main/ui/common/components/SuperButton/SuperButton'
-import { SuperCheckbox } from '../../../main/ui/common/components/SuperCheckbox/SuperCheckbox'
-import { SuperInputText } from '../../../main/ui/common/components/SuperInputText/SuperInputText'
-import { PATH } from '../../../main/ui/routes/routes'
+import { SuperButton } from '../../../common/components/SuperButton/SuperButton'
+import { SuperCheckbox } from '../../../common/components/SuperCheckbox/SuperCheckbox'
+import { SuperInputText } from '../../../common/components/SuperInputText/SuperInputText'
+import { PATH } from '../../../app/routes/routes'
 
-import styleContainer from './../../../main/ui/common/styles/Container.module.css'
+import styleContainer from '../../../common/styles/Container.module.css'
 import style from './Login.module.css'
 
 export const Login = () => {

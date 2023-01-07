@@ -1,8 +1,8 @@
 import React from 'react'
 
-import down from '../../../../../assets/icons/down.png'
-import up from '../../../../../assets/icons/up.png'
-import updown from '../../../../../assets/icons/updown.png'
+import down from '../../../assets/icons/down.png'
+import up from '../../../assets/icons/up.png'
+import updown from '../../../assets/icons/updown.png'
 
 const downIcon = down
 const upIcon = up

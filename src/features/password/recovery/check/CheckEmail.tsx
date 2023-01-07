@@ -2,8 +2,8 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 
-import styleContainer from '../../../../main/ui/common/styles/Container.module.css'
-import { PATH } from '../../../../main/ui/routes/routes'
+import styleContainer from '../../../../common/styles/Container.module.css'
+import { PATH } from '../../../../app/routes/routes'
 
 import style from './CheckEmail.module.css'
 

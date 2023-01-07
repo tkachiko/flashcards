@@ -33,7 +33,7 @@
   height: 96px;
   margin: 30px 0 0;
 
-  background: url('./../../../assets/images/person.png');
+  background: url('../../assets/images/person.png');
   background-size: cover;
   border-radius: 50%;
 }
@@ -48,7 +48,7 @@
   width: 32px;
   height: 32px;
 
-  background: url('./../../../assets/icons/camera.svg');
+  background: url('../../assets/icons/camera.svg');
   background-size: cover;
   border: 1px solid #fff;
   border-radius: 50%;
@@ -94,5 +94,5 @@
   width: 16px;
   height: 16px;
 
-  background: url('./../../../assets/icons/logout.svg');
+  background: url('../../assets/icons/logout.svg');
 }

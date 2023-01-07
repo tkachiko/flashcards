@@ -1,15 +1,15 @@
 import React, { ChangeEvent, useState } from 'react'
 
-import { SuperButton } from '../../main/ui/common/components/SuperButton/SuperButton'
-import { SuperCheckbox } from '../../main/ui/common/components/SuperCheckbox/SuperCheckbox'
-import { SuperEditableSpan } from '../../main/ui/common/components/SuperEditableSpan/SuperEditableSpan'
-import { SuperInputText } from '../../main/ui/common/components/SuperInputText/SuperInputText'
-import { SuperRadio } from '../../main/ui/common/components/SuperRadio/SuperRadio'
-import { SuperRange } from '../../main/ui/common/components/SuperRange/SuperRange'
-import { SuperSelect } from '../../main/ui/common/components/SuperSelect/SuperSelect'
-import { SuperSort } from '../../main/ui/common/components/SuperSort/SuperSort'
+import { SuperButton } from '../../common/components/SuperButton/SuperButton'
+import { SuperCheckbox } from '../../common/components/SuperCheckbox/SuperCheckbox'
+import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
+import { SuperInputText } from '../../common/components/SuperInputText/SuperInputText'
+import { SuperRadio } from '../../common/components/SuperRadio/SuperRadio'
+import { SuperRange } from '../../common/components/SuperRange/SuperRange'
+import { SuperSelect } from '../../common/components/SuperSelect/SuperSelect'
+import { SuperSort } from '../../common/components/SuperSort/SuperSort'
 
-import styleContainer from './../../main/ui/common/styles/Container.module.css'
+import styleContainer from '../../common/styles/Container.module.css'
 import style from './TestPage.module.css'
 
 export const TestPage = () => {
