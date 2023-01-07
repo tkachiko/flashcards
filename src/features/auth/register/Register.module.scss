@@ -1,0 +1,83 @@
+@import './src/common/styles/sass/variables';
+
+@import './src/common/styles/sass/mixins';
+
+.formWrapper {
+  justify-content: center;
+
+  margin: 60px auto;
+
+  .heading {
+
+    @include text(26px, 600, 32px);
+
+    margin-bottom: 40px;
+  }
+
+  .form {
+
+    @include flex(column, center, center, nowrap, center);
+
+    margin: 40px 34px;
+
+    .fieldError {
+
+      @include text(14px, 600, 22px);
+
+      position: absolute;
+      top: 48px;
+
+      width: 347px;
+
+      color: $errorColor;
+      text-align: center;
+    }
+
+    .passwordEye {
+      cursor: pointer;
+    }
+
+    .button {
+      width: 347px;
+      height: 36px;
+      margin-top: 60px;
+
+      background-color: $primaryColor;
+      border-radius: 30px;
+
+      &:hover {
+        background-color: $secondColor;
+      }
+    }
+  }
+
+  .account {
+
+    @include text(16px, 600, 24px);
+
+    @include flex(column, center, center, nowrap, center);
+
+    text-align: center;
+
+    span {
+      margin-bottom: 12px;
+
+      font-size: 14px;
+
+      opacity: 0.5;
+    }
+
+    a {
+      margin-bottom: 42px;
+
+      font-size: 16px;
+      color: $primaryColor;
+
+      opacity: 100%;
+
+      &:hover {
+        color: $secondColor;
+      }
+    }
+  }
+}
