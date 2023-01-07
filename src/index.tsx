@@ -10,9 +10,9 @@ import reportWebVitals from './reportWebVitals'
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-    <HashRouter>
-      <App />
-    </HashRouter>
+  <HashRouter>
+    <App />
+  </HashRouter>
 )
 
 // If you want to start measuring performance in your app, pass a function

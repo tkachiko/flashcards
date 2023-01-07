@@ -2,8 +2,8 @@ import React from 'react'
 
 import { SuperButton } from '../../../common/components/SuperButton/SuperButton'
 import { SuperInputText } from '../../../common/components/SuperInputText/SuperInputText'
-
 import styleContainer from '../../../common/styles/Container.module.css'
+
 import style from './NewPassword.module.css'
 
 export const NewPassword = () => {

@@ -2,11 +2,11 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 
+import { PATH } from '../../../app/routes/routes'
 import { SuperButton } from '../../../common/components/SuperButton/SuperButton'
 import { SuperInputText } from '../../../common/components/SuperInputText/SuperInputText'
-import { PATH } from '../../../app/routes/routes'
-
 import styleContainer from '../../../common/styles/Container.module.css'
+
 import style from './PasswordRecovery.module.css'
 
 export const PasswordRecovery = () => {
