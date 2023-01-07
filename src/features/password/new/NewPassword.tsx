@@ -1,8 +1,10 @@
 import React from 'react'
+
+import { SuperButton } from '../../../main/ui/common/components/SuperButton/SuperButton'
+import { SuperInputText } from '../../../main/ui/common/components/SuperInputText/SuperInputText'
+
 import styleContainer from './../../../main/ui/common/styles/Container.module.css'
 import style from './NewPassword.module.css'
-import {SuperInputText} from '../../../main/ui/common/components/SuperInputText/SuperInputText'
-import {SuperButton} from '../../../main/ui/common/components/SuperButton/SuperButton'
 
 export const NewPassword = () => {
   return (
@@ -12,10 +14,16 @@ export const NewPassword = () => {
         <form className={style.form}>
           <div className={style.password}>
             <label htmlFor={'password'} className={style.label}></label>
-            <SuperInputText placeholder={'Password'} id={'password'} name={'password'} type={'password'} />
+            <SuperInputText
+              placeholder={'Password'}
+              id={'password'}
+              name={'password'}
+              type={'password'}
+            />
             <div className={style.showHidePassword}></div>
           </div>
-          <div className={style.instructions}>Create new password and we will send you further instructions to email
+          <div className={style.instructions}>
+            Create new password and we will send you further instructions to email
           </div>
           <SuperButton className={style.button}>Create new password</SuperButton>
         </form>

@@ -1,7 +1,8 @@
 import React from 'react'
+
 import './App.css'
-import {RoutesComponent} from './routes/RoutesComponent'
-import {Main} from './Main'
+import { Main } from './Main'
+import { RoutesComponent } from './routes/RoutesComponent'
 
 function App() {
   return (
