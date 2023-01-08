@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 
+import axios from 'axios'
 import { NavLink } from 'react-router-dom'
 
 import { PATH } from '../../../app/routes/routes'
@@ -10,11 +11,15 @@ import styleContainer from '../../../common/styles/Container.module.scss'
 import style from './PasswordRecovery.module.css'
 
 export const PasswordRecovery = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+  }
+
   return (
     <div className={`${style.formWrapper} ${styleContainer.container}`}>
       <div className={style.formContainer}>
         <h1 className={style.heading}>Forgot your password?</h1>
-        <form className={style.form}>
+        <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.email}>
             <label htmlFor={'email'} className={style.label}>
               Email
