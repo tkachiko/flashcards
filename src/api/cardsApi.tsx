@@ -6,6 +6,4 @@ export const instance = axios.create({
   withCredentials: true,
 })
 
-export const cardsAuthApi = {
-
-}
+export const cardsAuthApi = {}

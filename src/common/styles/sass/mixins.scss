@@ -6,12 +6,13 @@
   flex-wrap: $wrap;
   align-items: $alignItems;
   justify-content: $justifyContent;
+
   text-align: $textAlign;
 }
 
 @mixin text($fontSize, $fontWeight, $lineHeight) {
   font-size: $fontSize;
+  font-weight: $fontWeight;
   line-height: $lineHeight;
   color: $textColor;
-  font-weight: $fontWeight;
 }
