@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
 import styleContainer from '../../common/styles/Container.module.scss'
 
-import style from './Profile.module.css'
+import style from './Profile.module.scss'
 
 type FormikErrorType = {
   nickname?: string
@@ -52,11 +52,11 @@ export const Profile = () => {
               type={'text'}
               onEnter={formik.handleSubmit}
               {...formik.getFieldProps('nickname')}
-              onBlur={formik.handleBlur}
+              onBlur={() => formik.handleSubmit()}
+              onClick={() => formik.handleSubmit()}
+              disabled={!formik.isValid}
             />
-            {formik.touched.nickname && formik.errors.nickname && (
-              <div style={{ color: 'red' }}>{formik.errors.nickname}</div>
-            )}
+            {formik.errors.nickname && <div style={{ color: 'red' }}>{formik.errors.nickname}</div>}
             <div className={style.email}>{email}</div>
             <button className={style.button}>
               Log out

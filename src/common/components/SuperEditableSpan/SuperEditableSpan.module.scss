@@ -12,47 +12,45 @@
 
   opacity: 0.5;
 }
+.inputBlock {
+  position: relative;
+  .saveButton {
+    cursor: pointer;
+
+    position: absolute;
+    right: 20px;
+    bottom: 6px;
+
+    padding: 4px 12px;
+
+    color: #fff;
+
+    background-color: $primaryColor;
+    border: none;
+    border-radius: 2px;
+    & :hover {
+      background: #0080ff;
+    }
+  }
+  .disabledButton {
+    opacity: 0.2;
+  }
+}
 
 .spanBlock {
   display: flex;
   align-items: center;
 
   margin: 16px 0 0;
-}
+  .span {
+    margin: 0 10px 0 0;
 
-.span {
-  margin: 0 10px 0 0;
-
-  font-size: 20px;
-  font-weight: 500;
-  color: #000;
-}
-
-.inputBlock {
-  position: relative;
-}
-
-.saveButton {
-  cursor: pointer;
-
-  position: absolute;
-  right: 20px;
-  bottom: 6px;
-
-  padding: 4px 12px;
-
-  color: #fff;
-
-  background-color: $primaryColor;
-  border: none;
-  border-radius: 2px;
-}
-
-.saveButton:hover {
-  background: #0080ff;
-}
-
-.pen {
-  width: 16px;
-  height: 16px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #000;
+  }
+  .pen {
+    width: 16px;
+    height: 16px;
+  }
 }

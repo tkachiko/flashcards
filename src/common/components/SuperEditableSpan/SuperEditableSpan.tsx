@@ -22,6 +22,8 @@ type SuperEditableSpanType = Omit<DefaultInputPropsType, 'type'> & {
   error?: string
   type: string
   labelValue?: string
+  onClick?: () => void
+  disabled: boolean
 
   spanProps?: DefaultSpanPropsType & { defaultText?: string } // пропсы для спана
 }
@@ -33,6 +35,8 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
   spanProps,
   type,
   labelValue,
+  onClick,
+  disabled,
 
   ...restProps // все остальные пропсы попадут в объект restProps
 }) => {
@@ -53,6 +57,8 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
   }
 
   const spanClassName = style.span + (className ? ' ' + className : '')
+  const disabledButton = style.disabledButton
+  const btnClassName = style.saveButton + (disabled ? ' ' + disabledButton : '')
 
   return (
     <>
@@ -65,10 +71,12 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
               autoFocus={autoFocus || true}
               onBlur={onBlurCallback}
               onEnter={onEnterCallback}
-              className={style.input}
+              disabled={false}
               {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
-            <button className={style.saveButton}>SAVE</button>
+            <button disabled={disabled} onClick={onClick} className={btnClassName}>
+              SAVE
+            </button>
           </div>
         </>
       ) : (
