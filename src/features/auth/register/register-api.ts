@@ -1,4 +1,4 @@
-import { instance } from '../../../api/recoveryApi'
+import { instance } from '../../../api/instanceAxios'
 
 export const registerAPI = {
   createUser(email: string, password: string) {
