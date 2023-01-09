@@ -16,7 +16,7 @@ import { PATH } from './routes'
 export const RoutesComponent = () => {
   return (
     <Routes>
-      <Route path={PATH.MAIN} element={<Navigate to={PATH.PROFILE} />} />
+      <Route path={PATH.MAIN} element={<Navigate to={PATH.LOGIN} />} />
       <Route path={PATH.LOGIN} element={<Login />} />
       <Route path={PATH.REGISTER} element={<Register />} />
       <Route path={PATH.PROFILE} element={<Profile />} />

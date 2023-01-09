@@ -5,4 +5,25 @@
   font-size: 26px;
   color: $textColor;
   text-align: center;
+  font-weight: bold;
+}
+
+.ForgotPassword {
+  display: flex;
+  justify-content: flex-end;
+  margin: 29px 38px 69px;
+  font-size: 14px;
+}
+
+.text {
+  opacity: 0.5;
+  font-size: 14px;
+  text-align: center;
+  margin: 31px 11px;
+}
+
+.SignUp {
+  text-align: center;
+  font-size: 16px;
+  color:$primaryColor
 }

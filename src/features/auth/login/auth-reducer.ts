@@ -1,9 +1,8 @@
 import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
-import { setAppErrorAC, SetAppErrorActionType } from '../../../common/error/error-reducer'
-
-import { loginAPI, LoginType } from './login-api'
+import { loginAPI, LoginType } from '../../../api/login-api'
+import {setErrorAC} from "../register/register-reducer";
 
 const LOGIN_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
 
@@ -24,17 +23,17 @@ export const setIsLoggedInAC = (newValue: boolean) =>
   ({ type: LOGIN_SET_IS_LOGGED_IN, newValue } as const)
 
 export const LoginTC =
-  (data: LoginType) => async (dispatch: Dispatch<ActionType | SetAppErrorActionType>) => {
+  (data: LoginType) => async (dispatch: Dispatch) => {
     try {
-      const res = await loginAPI.login(data)
-
+      await loginAPI.login(data)
       dispatch(setIsLoggedInAC(true))
     } catch (e) {
-      // @ts-ignore
-      if (axios.isAxiosError<AxiosError<{ message: string }>>(e)) {
-        const error = e.response ? e.response.data.message : e.message
-
-        dispatch(setAppErrorAC(error))
+      const err = e as Error | AxiosError<{ error: string }>
+      if (axios.isAxiosError(err)) {
+        const error = err.response?.data ? err.response.data.error : err.message
+        dispatch(setErrorAC(error))
+      } else {
+        dispatch(setErrorAC(`Native error ${err.message}`))
       }
     }
   }
