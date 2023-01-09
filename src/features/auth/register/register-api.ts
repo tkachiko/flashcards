@@ -1,4 +1,4 @@
-import { instance } from '../../../api/cardsApi'
+import { instance } from '../../../api/recoveryApi'
 
 export const registerAPI = {
   createUser(email: string, password: string) {
