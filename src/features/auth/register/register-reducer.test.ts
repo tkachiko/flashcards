@@ -1,7 +1,8 @@
-import { InitialStateType, registerReducer, setErrorAC } from './register-reducer'
+import { InitialStateType, registerReducer, setErrorAC, setSubmittingAC } from './register-reducer'
 
 const startState: InitialStateType = {
   error: null,
+  status: 'idle',
 }
 
 describe('register reducer', () => {
@@ -11,5 +12,12 @@ describe('register reducer', () => {
     const endState = registerReducer(startState, action)
 
     expect(endState.error).toBe('An error has occurred')
+  })
+  test('button should be disable when submitting form', () => {
+    const action = setSubmittingAC('loading')
+
+    const endState = registerReducer(startState, action)
+
+    expect(endState.status).toBe('loading')
   })
 })
