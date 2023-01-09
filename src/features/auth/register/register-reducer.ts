@@ -1,9 +1,8 @@
 import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
 import { registerApi } from '../../../api/registerApi'
-import { RootStateType } from '../../../app/store'
+import { ThunkAppDispatchType } from '../../../app/store'
 
 const SET_ERROR = 'flashcards/register/SET_ERROR'
 const SET_SUBMITTING = 'flashcards/register/SET_SUBMITTING'
@@ -55,11 +54,4 @@ export const createUserTC =
 export type ActionsType = ReturnType<typeof setErrorAC> | ReturnType<typeof setSubmittingAC>
 export type InitialStateType = typeof initialState
 
-export type ThunkAppDispatchType<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootStateType,
-  unknown,
-  ActionsType
->
-export type AppThunk = ThunkDispatch<RootStateType, unknown, ActionsType>
 export type StatusType = 'idle' | 'loading' | 'success' | 'failed'
