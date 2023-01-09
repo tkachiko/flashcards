@@ -1,44 +1,99 @@
 import React from 'react'
 
-import { NavLink } from 'react-router-dom'
+import { Checkbox, FormControlLabel, FormGroup, FormLabel, TextField } from '@mui/material'
+import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import Grid from '@mui/material/Grid/Grid'
+import { useFormik } from 'formik'
 
-import { PATH } from '../../../app/routes/routes'
-import { SuperButton } from '../../../common/components/SuperButton/SuperButton'
-import { SuperCheckbox } from '../../../common/components/SuperCheckbox/SuperCheckbox'
-import { SuperInputText } from '../../../common/components/SuperInputText/SuperInputText'
-import styleContainer from '../../../common/styles/Container.module.scss'
+import { useAppDispatch, useAppSelector } from '../../../app/store'
 
-import style from './Login.module.css'
+import { LoginTC } from './auth-reducer'
+import s from './Login.module.scss'
+import {Navigate} from "react-router-dom";
+type FormikErrorType = {
+  email?: string
+  password?: string
+}
 
 export const Login = () => {
+  const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+  const formik = useFormik({
+    validate: values => {
+      const errors: FormikErrorType = {}
+
+      if (!values.email) {
+        errors.email = 'Required'
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address'
+      }
+      if (!values.password) {
+        errors.password = 'Password is required'
+      } else if (values.password.length < 7) {
+        errors.password = 'Minimum number of characters 7'
+      }
+
+      return errors
+    },
+    initialValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
+    onSubmit: values => {
+      dispatch(LoginTC(values))
+    },
+
+  })
+  if(isLoggedIn){
+    return <Navigate to={"/"} />
+  }
   return (
-    <div className={`${style.formWrapper} ${styleContainer.container}`}>
-      <div className={style.formContainer}>
-        <h1 className={style.heading}>Sign In</h1>
-        <form className={style.form}>
-          <div className={style.email}>
-            <label htmlFor={'email'} className={style.label}>
-              Email
-            </label>
-            <SuperInputText id={'email'} name={'email'} type={'text'} />
-          </div>
-          <div className={style.password}>
-            <label htmlFor={'password'} className={style.label}>
-              Password
-            </label>
-            <SuperInputText id={'password'} name={'password'} type={'password'} />
-            <div className={style.showHidePassword}></div>
-          </div>
-          <div className={style.rememberMe}>
-            <label htmlFor={'rememberMe'} className={style.label}></label>
-            <SuperCheckbox name={'rememberMe'}>Remember me</SuperCheckbox>
-          </div>
-          <NavLink to={PATH.PASSWORD_RECOVERY}>Forgot Password?</NavLink>
-          <SuperButton className={style.button}>Sign In</SuperButton>
-        </form>
-        <div className={style.account}>Don&rsquo;t have an account?</div>
-        <NavLink to={PATH.REGISTER}>Sign Up</NavLink>
-      </div>
-    </div>
+    <Grid container justifyContent={'center'}>
+      <Grid item justifyContent={'center'}>
+        <FormControl>
+          <FormLabel>
+            <p className={s.SingIn}>Sign in</p>
+          </FormLabel>
+          <form onSubmit={formik.handleSubmit}>
+            <FormGroup>
+              <TextField
+                label="Email"
+                margin="normal"
+                variant="standard"
+                {...formik.getFieldProps('email')}
+              />
+              {formik.touched.email && formik.errors.email && (
+                <div style={{ color: 'red' }}>{formik.errors.email}</div>
+              )}
+              <TextField
+                style={{ width: '347px' }}
+                type="password"
+                label="Password"
+                margin="normal"
+                variant="standard"
+                {...formik.getFieldProps('password')}
+              />
+              {formik.touched.password && formik.errors.password && (
+                <div style={{ color: 'red' }}>{formik.errors.password}</div>
+              )}
+              <FormControlLabel
+                label={'Remember me'}
+                control={
+                  <Checkbox
+                    {...formik.getFieldProps('rememberMe')}
+                    checked={formik.values.rememberMe}
+                  />
+                }
+              />
+              <Button type={'submit'} variant={'contained'} color={'primary'}>
+                Login
+              </Button>
+            </FormGroup>
+          </form>
+        </FormControl>
+      </Grid>
+    </Grid>
   )
 }
