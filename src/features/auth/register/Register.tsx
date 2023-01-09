@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { LinearProgress } from '@mui/material'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import Input from '@mui/material/Input'
@@ -17,7 +18,7 @@ import { AppThunk, RootStateType } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../common/styles/Container.module.scss'
 
-import { createUserTC, StatusType } from './register-reducer'
+import { createUserTC, setSubmittingAC, StatusType } from './register-reducer'
 import style from './Register.module.scss'
 
 export const Register = () => {
@@ -59,14 +60,16 @@ export const Register = () => {
   })
 
   useEffect(() => {
-    if (status === 'success') {
+    if (!error && status === 'success') {
       navigate('/login')
+      dispatch(setSubmittingAC('idle'))
     }
-  }, [status])
+  }, [status, error])
 
   return (
     <div className={`${style.formWrapper} ${styleContainer.container}`}>
       <Paper>
+        {status === 'loading' && <LinearProgress color={'primary'} />}
         <form className={style.form} onSubmit={formik.handleSubmit}>
           <h1 className={style.heading}>Sign Up</h1>
           <FormControl fullWidth margin={'normal'}>
