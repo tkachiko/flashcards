@@ -5,12 +5,12 @@ import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import Grid from '@mui/material/Grid/Grid'
 import { useFormik } from 'formik'
+import { Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 
 import { LoginTC } from './auth-reducer'
 import s from './Login.module.scss'
-import {Navigate} from "react-router-dom";
 type FormikErrorType = {
   email?: string
   password?: string
@@ -44,11 +44,12 @@ export const Login = () => {
     onSubmit: values => {
       dispatch(LoginTC(values))
     },
-
   })
-  if(isLoggedIn){
-    return <Navigate to={"/"} />
+
+  if (isLoggedIn) {
+    return <Navigate to={'/'} />
   }
+
   return (
     <Grid container justifyContent={'center'}>
       <Grid item justifyContent={'center'}>
