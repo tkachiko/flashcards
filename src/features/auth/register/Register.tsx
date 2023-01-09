@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import Button from '@mui/material/Button'
@@ -8,17 +8,26 @@ import InputAdornment from '@mui/material/InputAdornment'
 import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import { useFormik } from 'formik'
-import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { PATH } from '../../../app/routes/routes'
+import { RootStateType } from '../../../app/store'
+import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../common/styles/Container.module.scss'
 
+import { AppThunk, createUserTC, StatusType } from './register-reducer'
 import style from './Register.module.scss'
 
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  const error = useSelector<RootStateType, string | null>(state => state.register.error)
+  const status = useSelector<RootStateType, StatusType>(state => state.register.status)
+  const dispatch = useDispatch<AppThunk>()
+  const navigate = useNavigate()
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword)
@@ -45,9 +54,15 @@ export const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: values => {
-      console.log(JSON.stringify(values, null, 2))
+      dispatch(createUserTC(values.email, values.password))
     },
   })
+
+  useEffect(() => {
+    if (status === 'success') {
+      navigate('/login')
+    }
+  }, [status])
 
   return (
     <div className={`${style.formWrapper} ${styleContainer.container}`}>
@@ -71,13 +86,12 @@ export const Register = () => {
             <Input
               id={'password'}
               name={'password'}
-              autoComplete={'password'}
               value={formik.values.password}
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
-              type={showPassword ? 'password' : 'input'}
+              type={!showPassword ? 'password' : 'input'}
               endAdornment={
-                showPassword ? (
+                !showPassword ? (
                   <InputAdornment position="end">
                     <VisibilityOff
                       fontSize="medium"
@@ -105,13 +119,12 @@ export const Register = () => {
             <Input
               id={'confirm-password'}
               name={'confirmPassword'}
-              autoComplete={'password'}
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-              type={showConfirmPassword ? 'password' : 'input'}
+              type={!showConfirmPassword ? 'password' : 'input'}
               endAdornment={
-                showConfirmPassword ? (
+                !showConfirmPassword ? (
                   <InputAdornment position="end">
                     <VisibilityOff
                       fontSize="medium"
@@ -139,6 +152,7 @@ export const Register = () => {
             type={'submit'}
             fullWidth
             disableRipple
+            disabled={status === 'loading'}
             className={style.button}
           >
             Sign Up
@@ -148,6 +162,7 @@ export const Register = () => {
           <span>Already have an account?</span>
           <NavLink to={PATH.LOGIN}>Sign In</NavLink>
         </div>
+        {error && <ErrorSnackbar />}
       </Paper>
     </div>
   )
