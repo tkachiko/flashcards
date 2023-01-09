@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {ResponseType} from "./types";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
@@ -17,10 +18,4 @@ export type LoginType = {
   password: string
   rememberMe: boolean
   captcha?: string
-}
-
-export type ResponseType<D = {}> = {
-  resultCode: number
-  messages: Array<string>
-  data: D
 }
