@@ -1,7 +1,7 @@
 export type LoginType = {
   email: string
   password: string
-  rememberMe: false
+  rememberMe: boolean
 }
 
 export type ResponseType = {
