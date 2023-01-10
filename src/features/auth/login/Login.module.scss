@@ -1,29 +1,40 @@
 @import 'src/common/styles/sass/variables';
 
-.SingIn {
-  font-family: $primaryFontFamily;
-  font-size: 26px;
-  color: $textColor;
-  text-align: center;
-  font-weight: bold;
-}
-
-.ForgotPassword {
+.container {
   display: flex;
-  justify-content: flex-end;
-  margin: 29px 38px 69px;
-  font-size: 14px;
-}
+  align-items: center;
+  justify-content: center;
 
-.text {
-  opacity: 0.5;
-  font-size: 14px;
-  text-align: center;
-  margin: 31px 11px;
-}
+  height: 90vh;
+  .SingIn {
+    font-family: $primaryFontFamily;
+    font-size: 26px;
+    font-weight: bold;
+    color: $textColor;
+    text-align: center;
+  }
 
-.SignUp {
-  text-align: center;
-  font-size: 16px;
-  color:$primaryColor
+  .ForgotPassword {
+    display: flex;
+    justify-content: flex-end;
+
+    margin: 29px 38px 69px;
+
+    font-size: 14px;
+  }
+
+  .text {
+    margin: 31px 11px;
+
+    font-size: 14px;
+    text-align: center;
+
+    opacity: 0.5;
+  }
+
+  .SignUp {
+    font-size: 16px;
+    color: $primaryColor;
+    text-align: center;
+  }
 }

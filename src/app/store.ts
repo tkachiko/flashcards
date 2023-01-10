@@ -1,7 +1,11 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import {AnyAction, applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux'
+import {
+  AnyAction,
+  applyMiddleware,
+  combineReducers,
+  legacy_createStore as createStore,
+} from 'redux'
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
-
 
 import { authReducer } from '../features/auth/login/auth-reducer'
 import { ActionsType, registerReducer } from '../features/auth/register/register-reducer'
@@ -12,7 +16,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   register: registerReducer,
   password: passwordReducer,
-  profile: profileReducer})
+  profile: profileReducer,
+})
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export type RootStateType = ReturnType<typeof rootReducer>
