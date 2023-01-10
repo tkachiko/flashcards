@@ -1,3 +1,5 @@
+import { ActionsType } from '../../common/types/types'
+
 const SET_DATA_TO_PROFILE = 'profile/SET_DATA_TO_PROFILE'
 
 export type ProfileDataType = {
@@ -16,7 +18,6 @@ export type ProfileDataType = {
 }
 
 export const setDataAC = (data: ProfileDataType) => ({ type: SET_DATA_TO_PROFILE, data } as const)
-export type ActionsType = ReturnType<typeof setDataAC>
 
 const initialState = {
   profile: null as ProfileDataType | null,
