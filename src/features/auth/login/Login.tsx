@@ -7,7 +7,7 @@ import {
   FormGroup,
   FormLabel,
   IconButton,
-  TextField,
+  LinearProgress,
 } from '@mui/material'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -20,6 +20,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { PATH } from '../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
+import { StatusType } from '../register/register-reducer'
 
 import { LoginTC } from './auth-reducer'
 import s from './Login.module.scss'
@@ -32,6 +33,7 @@ type FormikErrorType = {
 export const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const status = useAppSelector<StatusType>(state => state.register.status)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const [showPassword, setShowPassword] = useState(false)
 
@@ -82,24 +84,26 @@ export const Login = () => {
     <div className={s.container}>
       <ErrorSnackbar />
       <FormControl>
+        {status === 'loading' && <LinearProgress color={'primary'} />}
         <FormLabel>
           <p className={s.SingIn}>Sign in</p>
         </FormLabel>
         <form onSubmit={formik.handleSubmit}>
           <FormGroup>
-            <TextField
-              label="Email"
-              margin="normal"
-              variant="standard"
-              {...formik.getFieldProps('email')}
-            />
-            {formik.touched.email && formik.errors.email && (
-              <div style={{ color: 'red' }}>{formik.errors.email}</div>
-            )}
+            <FormControl sx={{ m: 0 }} variant="standard">
+              <InputLabel>Email</InputLabel>
+              <Input
+                style={{ width: '347px', paddingBottom: '5px' }}
+                {...formik.getFieldProps('email')}
+              />
+              {formik.touched.email && formik.errors.email && (
+                <div style={{ color: 'red', paddingBottom: '5px' }}>{formik.errors.email}</div>
+              )}
+            </FormControl>
             <FormControl sx={{ m: 0 }} variant="standard">
               <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
               <Input
-                style={{ width: '347px' }}
+                style={{ width: '347px', paddingBottom: '5px' }}
                 id="standard-adornment-password"
                 type={showPassword ? 'text' : 'password'}
                 {...formik.getFieldProps('password')}
@@ -116,7 +120,7 @@ export const Login = () => {
                 }
               />
               {formik.touched.password && formik.errors.password && (
-                <div style={{ color: 'red' }}>{formik.errors.password}</div>
+                <div style={{ color: 'red', paddingBottom: '5px' }}>{formik.errors.password}</div>
               )}
             </FormControl>
 
