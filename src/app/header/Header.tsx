@@ -1,15 +1,18 @@
 import * as React from 'react'
 
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import itIncubator from '../../assets/images/It-incubator.svg'
 import avatar from '../../assets/images/person.png'
+import { PATH } from '../routes/routes'
 import { RootStateType, useAppSelector } from '../store'
 
 import s from './Header.module.scss'
 export const Header = () => {
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const nickname = useSelector<RootStateType, string>(state => state.profile.profile.name)
+  const navigate = useNavigate()
 
   return (
     <div className={s.container}>
@@ -22,7 +25,14 @@ export const Header = () => {
           </div>
         </div>
       ) : (
-        <button className={s.button}>Sign in</button>
+        <button
+          className={s.button}
+          onClick={() => {
+            navigate(PATH.LOGIN)
+          }}
+        >
+          Sign in
+        </button>
       )}
     </div>
   )
