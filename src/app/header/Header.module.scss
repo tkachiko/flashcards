@@ -1,11 +1,38 @@
 @import 'src/common/styles/sass/variables';
+
+@import '/src/common/styles/sass/mixins';
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 
   height: 60px;
+  padding: 0 136px;
+
+  background: #fcfcfc;
+  box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  .login_info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    .nickname {
+
+      @include text(16px, 500, 24px);
+
+      font-style: normal;
+
+      border-bottom: 1px dashed #000000;
+      .avatar {
+        .avatar_logo {
+          width: 36px;
+          height: 36px;
+        }
+      }
+    }
+  }
   .button {
+    cursor: pointer;
+
     padding: 8px 28px;
 
     font-size: 16px;

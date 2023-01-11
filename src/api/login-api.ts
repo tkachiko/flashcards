@@ -1,5 +1,6 @@
+import { LoginType, ResponseType } from '../common/types/types'
+
 import { instance } from './instanceAxios'
-import { LoginType, ResponseType } from './types'
 
 export const loginAPI = {
   login(data: LoginType) {
