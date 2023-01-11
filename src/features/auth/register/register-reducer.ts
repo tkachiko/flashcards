@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios'
+import { Dispatch } from 'redux'
 
 import { registerApi } from '../../../api/registerApi'
-import { ActionsType, AppThunk, ThunkAppDispatchType } from '../../../common/types/types'
+import { ActionsType, ThunkAppDispatchType } from '../../../common/types/types'
 
 const SET_ERROR = 'flashcards/register/SET_ERROR'
 const SET_SUBMITTING = 'flashcards/register/SET_SUBMITTING'
@@ -29,7 +30,7 @@ export const setSubmittingAC = (status: StatusType) => ({ type: SET_SUBMITTING, 
 // thunks
 export const createUserTC =
   (email: string, password: string): ThunkAppDispatchType =>
-  async (dispatch: AppThunk) => {
+  async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setSubmittingAC('loading'))
     try {
       await registerApi.createUser(email, password)
