@@ -1,7 +1,21 @@
-import { profileReducer, setDataAC } from './profile-reducer'
+import { profileReducer, setDataAC, setNewNameAC } from './profile-reducer'
 
 const startState = {
-  profile: null,
+  profile: {
+    _id: '',
+    email: '',
+    rememberMe: false,
+    isAdmin: false,
+    name: '',
+    verified: false,
+    publicCardPacksCount: 0,
+    created: '',
+    updated: '',
+    __v: 0,
+    token: '',
+    tokenDeathTime: 0,
+    avatar: null,
+  },
 }
 
 describe('profile reducer', () => {
@@ -25,6 +39,14 @@ describe('profile reducer', () => {
 
     const endState = profileReducer(startState, action)
 
-    expect(endState.profile?._id).toBeDefined()
+    expect(endState.profile.name).toBe('name')
+  })
+  test('name should be changed', () => {
+    const name = 'new name'
+    const action = setNewNameAC(name)
+
+    const endState = profileReducer(startState, action)
+
+    expect(endState.profile.name).toBe(name)
   })
 })

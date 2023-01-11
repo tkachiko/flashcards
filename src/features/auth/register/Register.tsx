@@ -14,9 +14,10 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { PATH } from '../../../app/routes/routes'
-import { AppThunk, RootStateType } from '../../../app/store'
+import { RootStateType } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../common/styles/Container.module.scss'
+import { AppThunk } from '../../../common/types/types'
 
 import { createUserTC, setSubmittingAC, StatusType } from './register-reducer'
 import style from './Register.module.scss'

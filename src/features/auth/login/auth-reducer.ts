@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { loginAPI } from '../../../api/login-api'
 import { ActionsType, AppThunk, LoginType, ThunkAppDispatchType } from '../../../common/types/types'
+import { setDataAC } from '../../profile/profile-reducer'
 import { setErrorAC } from '../register/register-reducer'
 
 const LOGIN_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
@@ -26,7 +27,9 @@ export const LoginTC =
   (data: LoginType): ThunkAppDispatchType =>
   async (dispatch: AppThunk) => {
     try {
-      await loginAPI.login(data)
+      const res = await loginAPI.login(data)
+
+      dispatch(setDataAC(res.data))
       dispatch(setIsLoggedInAC(true))
     } catch (e) {
       const err = e as Error | AxiosError<{ error: string }>

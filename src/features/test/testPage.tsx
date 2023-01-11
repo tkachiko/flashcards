@@ -39,7 +39,7 @@ export const TestPage = () => {
           }}
           value={inputValue}
           onChangeText={setInputValue}
-          disabled={false}
+          isDisabled={false}
         />
         <SuperInputText
           type={'text'}

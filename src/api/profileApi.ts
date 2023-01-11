@@ -1,5 +1,10 @@
-import axios from 'axios'
+import { instance } from './instanceAxios'
 
-import { instance } from '../api/instanceAxios'
-
-export const profileApi = {}
+export const profileApi = {
+  authMe() {
+    return instance.post('/auth/me')
+  },
+  changeName(name: string) {
+    return instance.put('/auth/me', { name })
+  },
+}

@@ -23,7 +23,7 @@ type SuperEditableSpanType = Omit<DefaultInputPropsType, 'type'> & {
   type: string
   labelValue?: string
   onClick?: () => void
-  disabled: boolean
+  isDisabled: boolean
 
   spanProps?: DefaultSpanPropsType & { defaultText?: string } // пропсы для спана
 }
@@ -36,7 +36,7 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
   type,
   labelValue,
   onClick,
-  disabled,
+  isDisabled,
 
   ...restProps // все остальные пропсы попадут в объект restProps
 }) => {
@@ -44,11 +44,11 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
   const { children, onDoubleClick, className, defaultText, ...restSpanProps } = spanProps || {}
 
   const onEnterCallback = () => {
-    setEditMode(false)
+    !isDisabled && setEditMode(false)
     onEnter?.()
   }
   const onBlurCallback = (e: React.FocusEvent<HTMLInputElement>) => {
-    setEditMode(false)
+    !isDisabled && setEditMode(false)
     onBlur?.(e)
   }
   const onDoubleClickCallBack = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -58,7 +58,7 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
 
   const spanClassName = style.span + (className ? ' ' + className : '')
   const disabledButton = style.disabledButton
-  const btnClassName = style.saveButton + (disabled ? ' ' + disabledButton : '')
+  const btnClassName = style.saveButton + (isDisabled ? ' ' + disabledButton : '')
 
   return (
     <>
@@ -74,7 +74,7 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
               disabled={false}
               {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
-            <button disabled={disabled} onClick={onClick} className={btnClassName}>
+            <button disabled={isDisabled} onClick={onClick} className={btnClassName}>
               SAVE
             </button>
           </div>
@@ -85,7 +85,7 @@ export const SuperEditableSpan: React.FC<SuperEditableSpanType> = ({
             {/*если нет захардкодженного текста для спана, то значение инпута*/}
             {children || restProps.value || defaultText}
           </span>
-          <img src={editIcon} className={style.pen} alt={'edit'} />
+          <img onClick={onDoubleClickCallBack} src={editIcon} className={style.pen} alt={'edit'} />
         </div>
       )}
     </>
