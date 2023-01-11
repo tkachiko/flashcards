@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
 import { loginAPI } from '../../../api/login-api'
-import { LoginType } from '../../../api/types'
+import { LoginType } from '../../../common/types/types'
 import { setErrorAC, setSubmittingAC } from '../register/register-reducer'
 
 const LOGIN_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
