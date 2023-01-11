@@ -9,15 +9,14 @@ import InputAdornment from '@mui/material/InputAdornment'
 import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import { useFormik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { PATH } from '../../../app/routes/routes'
-import { RootStateType } from '../../../app/store'
+import { RootStateType, useAppDispatch } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../common/styles/Container.module.scss'
-import { AppThunk } from '../../../common/types/types'
 
 import { createUserTC, setSubmittingAC, StatusType } from './register-reducer'
 import style from './Register.module.scss'
@@ -28,7 +27,7 @@ export const Register = () => {
 
   const error = useSelector<RootStateType, string | null>(state => state.register.error)
   const status = useSelector<RootStateType, StatusType>(state => state.register.status)
-  const dispatch = useDispatch<AppThunk>()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const toggleShowPassword = () => {
