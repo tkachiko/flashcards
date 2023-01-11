@@ -2,16 +2,15 @@ import React, { useEffect } from 'react'
 
 import { FormGroup } from '@mui/material'
 import { useFormik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
 import { PATH } from '../../app/routes/routes'
-import { RootStateType, useAppSelector } from '../../app/store'
+import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
 import styleContainer from '../../common/styles/Container.module.scss'
-import { AppThunk } from '../../common/types/types'
 
 import { authMeTC, changeNameTC } from './profile-reducer'
 import style from './Profile.module.scss'
@@ -24,7 +23,7 @@ export const Profile = () => {
   const nickname = useSelector<RootStateType, string>(state => state.profile.profile.name)
   const email = useSelector<RootStateType, string>(state => state.profile.profile.email)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
-  const dispatch = useDispatch<AppThunk>()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(authMeTC())
