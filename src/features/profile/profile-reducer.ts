@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
 import { profileApi } from '../../api/profileApi'
-import { ThunkAppDispatchType } from '../../common/types/types'
+import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
 import { setErrorAC } from '../auth/register/register-reducer'
 
 const SET_DATA_TO_PROFILE = 'profile/SET_DATA_TO_PROFILE'
@@ -54,9 +54,9 @@ export const profileReducer = (state = initialState, action: ActionsType) => {
 
 export const setDataAC = (data: ProfileDataType) => ({ type: SET_DATA_TO_PROFILE, data } as const)
 export const setNewNameAC = (name: string) => ({ type: SET_NEW_NAME, name } as const)
-export type ActionsType = ReturnType<typeof setDataAC> | ReturnType<typeof setNewNameAC>
+// export type ActionsType = ReturnType<typeof setDataAC> | ReturnType<typeof setNewNameAC>
 
-export const authMeTC = (): ThunkAppDispatchType => async (dispatch: Dispatch) => {
+export const authMeTC = (): ThunkAppDispatchType => async (dispatch: Dispatch<ActionsType>) => {
   try {
     const res = await profileApi.authMe()
 
@@ -76,7 +76,7 @@ export const authMeTC = (): ThunkAppDispatchType => async (dispatch: Dispatch) =
 
 export const changeNameTC =
   (name: string): ThunkAppDispatchType =>
-  async (dispatch: Dispatch) => {
+  async (dispatch: Dispatch<ActionsType>) => {
     try {
       const res = await profileApi.changeName(name)
 
