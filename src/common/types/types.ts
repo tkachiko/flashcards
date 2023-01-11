@@ -4,7 +4,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { RootStateType } from '../../app/store'
 import { setIsLoggedInAC } from '../../features/auth/login/auth-reducer'
 import { setErrorAC, setSubmittingAC } from '../../features/auth/register/register-reducer'
-import { setDataAC } from '../../features/profile/profile-reducer'
+import { setDataAC, setNewNameAC } from '../../features/profile/profile-reducer'
 
 export type LoginType = {
   email: string
@@ -42,3 +42,5 @@ export type ActionsType =
   | ReturnType<typeof setSubmittingAC>
   | ReturnType<typeof setIsLoggedInAC>
   | ReturnType<typeof setDataAC>
+  | ReturnType<typeof setDataAC>
+  | ReturnType<typeof setNewNameAC>
