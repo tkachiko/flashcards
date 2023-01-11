@@ -74,7 +74,8 @@ export const Login = () => {
   const ForgotPassword = () => {
     navigate(PATH.PASSWORD_RECOVERY)
   }
-  const SignUp = () => {
+
+  const SignIn = () => {
     navigate(PATH.REGISTER)
   }
 
@@ -133,17 +134,17 @@ export const Login = () => {
               Forgot Password?
             </a>
             <Button
-              style={{ borderRadius: '30px' }}
+              style={{ borderRadius: '30px', textTransform: 'none' }}
               type={'submit'}
               variant={'contained'}
               color={'primary'}
             >
-              Login
+              Sign In
             </Button>
           </FormGroup>
         </form>
         <p className={s.text}>Already have an account?</p>
-        <a className={s.SignUp} onClick={SignUp}>
+        <a className={s.SignUp} onClick={SignIn}>
           Sign Up
         </a>
       </FormControl>
