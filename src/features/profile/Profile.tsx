@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { FormGroup } from '@mui/material'
 import { useFormik } from 'formik'
@@ -12,7 +12,7 @@ import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackb
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
 import styleContainer from '../../common/styles/Container.module.scss'
 
-import { authMeTC, changeNameTC } from './profile-reducer'
+import { changeNameTC } from './profile-reducer'
 import style from './Profile.module.scss'
 
 type FormikErrorType = {
@@ -24,10 +24,6 @@ export const Profile = () => {
   const email = useSelector<RootStateType, string>(state => state.profile.profile.email)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(authMeTC())
-  }, [])
 
   if (!isLoggedIn) return <Navigate to={PATH.LOGIN} />
   const formik = useFormik({

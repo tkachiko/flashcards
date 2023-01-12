@@ -3,6 +3,7 @@ import { Dispatch } from 'redux'
 
 import { profileApi } from '../../api/profileApi'
 import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
+import { setIsLoggedInAC } from '../auth/login/auth-reducer'
 import { setErrorAC } from '../auth/register/register-reducer'
 
 const SET_DATA_TO_PROFILE = 'profile/SET_DATA_TO_PROFILE'
@@ -61,6 +62,7 @@ export const authMeTC = (): ThunkAppDispatchType => async (dispatch: Dispatch<Ac
     const res = await profileApi.authMe()
 
     dispatch(setDataAC(res.data))
+    dispatch(setIsLoggedInAC(true))
   } catch (e) {
     if (axios.isAxiosError(e)) {
       const error = e as AxiosError<{ error: string }>
