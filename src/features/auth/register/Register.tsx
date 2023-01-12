@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { LinearProgress } from '@mui/material'
+import { IconButton, LinearProgress } from '@mui/material'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import Input from '@mui/material/Input'
@@ -32,11 +32,11 @@ export const Register = () => {
   const navigate = useNavigate()
 
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword)
+    setShowPassword(show => !show)
   }
 
   const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword)
+    setShowConfirmPassword(show => !show)
   }
 
   const validationSchema = yup.object({
@@ -78,42 +78,24 @@ export const Register = () => {
             <Input
               style={{ width: '347px' }}
               id={'email'}
-              name={'email'}
               autoComplete={'email'}
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
+              {...formik.getFieldProps('email')}
             />
             <div className={style.fieldError}>{formik.touched.email && formik.errors.email}</div>
           </FormControl>
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'password'}>Password</InputLabel>
             <Input
-              style={{ width: '347px' }}
+              style={{ width: '347px', paddingBottom: '5px' }}
               id={'password'}
-              name={'password'}
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              type={!showPassword ? 'password' : 'input'}
+              {...formik.getFieldProps('password')}
+              type={showPassword ? 'input' : 'password'}
               endAdornment={
-                !showPassword ? (
-                  <InputAdornment position="end">
-                    <VisibilityOff
-                      fontSize="medium"
-                      className={style.passwordEye}
-                      onClick={toggleShowPassword}
-                    />
-                  </InputAdornment>
-                ) : (
-                  <InputAdornment position="end">
-                    <Visibility
-                      fontSize="medium"
-                      className={style.passwordEye}
-                      onClick={toggleShowPassword}
-                    />
-                  </InputAdornment>
-                )
+                <InputAdornment position="end">
+                  <IconButton aria-label="toggle password visibility" onClick={toggleShowPassword}>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
               }
             />
             <div className={style.fieldError}>
@@ -123,31 +105,19 @@ export const Register = () => {
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'confirmPassword'}>Confirm password</InputLabel>
             <Input
-              style={{ width: '347px' }}
+              style={{ width: '347px', paddingBottom: '5px' }}
               id={'confirm-password'}
-              name={'confirmPassword'}
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-              type={!showConfirmPassword ? 'password' : 'input'}
+              {...formik.getFieldProps('confirmPassword')}
+              type={showConfirmPassword ? 'input' : 'password'}
               endAdornment={
-                !showConfirmPassword ? (
-                  <InputAdornment position="end">
-                    <VisibilityOff
-                      fontSize="medium"
-                      className={style.passwordEye}
-                      onClick={toggleShowConfirmPassword}
-                    />
-                  </InputAdornment>
-                ) : (
-                  <InputAdornment position="end">
-                    <Visibility
-                      fontSize="medium"
-                      className={style.passwordEye}
-                      onClick={toggleShowConfirmPassword}
-                    />
-                  </InputAdornment>
-                )
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={toggleShowConfirmPassword}
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
               }
             />
             <div className={style.fieldError}>
