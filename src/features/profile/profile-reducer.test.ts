@@ -16,6 +16,7 @@ const startState = {
     tokenDeathTime: 0,
     avatar: null,
   },
+  isLoggedIn: false,
 }
 
 describe('profile reducer', () => {

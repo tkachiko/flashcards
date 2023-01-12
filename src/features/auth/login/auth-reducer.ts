@@ -2,7 +2,8 @@ import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
 import { loginAPI } from '../../../api/login-api'
-import { LoginType } from '../../../common/types/types'
+import { ActionsType, AppThunk, LoginType, ThunkAppDispatchType } from '../../../common/types/types'
+import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
 import { setErrorAC, setSubmittingAC } from '../register/register-reducer'
 
 const LOGIN_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
@@ -11,7 +12,7 @@ const initialState = {
   isLoggedIn: false,
 }
 
-export const authReducer = (state = initialState, action: ActionType) => {
+export const authReducer = (state = initialState, action: ActionsType) => {
   switch (action.type) {
     case LOGIN_SET_IS_LOGGED_IN:
       return { ...state, isLoggedIn: action.newValue }
@@ -26,7 +27,10 @@ export const setIsLoggedInAC = (newValue: boolean) =>
 export const LoginTC = (data: LoginType) => async (dispatch: Dispatch) => {
   dispatch(setSubmittingAC('loading'))
   try {
-    await loginAPI.login(data)
+    const res = await loginAPI.login(data)
+
+    console.log(res)
+    dispatch(setDataAC(res.data))
     dispatch(setSubmittingAC('success'))
     dispatch(setIsLoggedInAC(true))
   } catch (e) {
@@ -44,4 +48,22 @@ export const LoginTC = (data: LoginType) => async (dispatch: Dispatch) => {
   }
 }
 
-type ActionType = ReturnType<typeof setIsLoggedInAC>
+export const logoutTC = (): ThunkAppDispatchType => async (dispatch: AppThunk) => {
+  try {
+    const res = await loginAPI.logout()
+
+    console.log(res.data.info)
+    dispatch(deleteUserDataAC())
+    dispatch(setIsLoggedInAC(false))
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      const error = e as AxiosError<{ error: string }>
+
+      const finalError = error.response ? error.response.data.error : e.message
+
+      dispatch(setErrorAC(finalError))
+    } else {
+      dispatch(setErrorAC('An unexpected error occurred'))
+    }
+  }
+}

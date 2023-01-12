@@ -3,15 +3,15 @@ import React, { useEffect } from 'react'
 import { FormGroup } from '@mui/material'
 import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import { PATH } from '../../app/routes/routes'
 import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
-import styleContainer from '../../common/styles/Container.module.scss'
+import { logoutTC } from '../auth/login/auth-reducer'
 
+import styleContainer from './../../common/styles/Container.module.scss'
 import { authMeTC, changeNameTC } from './profile-reducer'
 import style from './Profile.module.scss'
 
@@ -24,12 +24,21 @@ export const Profile = () => {
   const email = useSelector<RootStateType, string>(state => state.profile.profile.email)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(authMeTC())
   }, [])
 
-  if (!isLoggedIn) return <Navigate to={PATH.LOGIN} />
+  const onLogout = () => {
+    dispatch(logoutTC())
+  }
+
+  if (!isLoggedIn) {
+    navigate('/login')
+  }
+
+  console.log(nickname)
   const formik = useFormik({
     initialValues: {
       nickname,
@@ -80,13 +89,13 @@ export const Profile = () => {
                 <div style={{ color: 'red' }}>{formik.errors.nickname}</div>
               )}
               <div className={style.email}>{email}</div>
-              <button className={style.button}>
-                Log out
-                <div className={style.logOutIcon}></div>
-              </button>
             </div>
           </FormGroup>
         </form>
+        <button className={style.button} onClick={onLogout}>
+          Log out
+          <div className={style.logOutIcon}></div>
+        </button>
       </div>
     </div>
   )
