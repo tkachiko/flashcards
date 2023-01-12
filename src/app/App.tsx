@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import './App.scss'
 
-import { CircularProgress, LinearProgress } from '@mui/material'
+import { LinearProgress } from '@mui/material'
 import { useDispatch } from 'react-redux'
 
 import { AppThunk } from '../common/types/types'
@@ -14,19 +14,11 @@ import { useAppSelector } from './store'
 
 function App() {
   const status = useAppSelector<StatusType>(state => state.app.status)
-  const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
   const dispatch = useDispatch<AppThunk>()
 
   useEffect(() => {
     dispatch(authMeTC())
   }, [])
-  if (!isInitialized) {
-    return (
-      <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
-        <CircularProgress size={'80px'} />
-      </div>
-    )
-  }
 
   return (
     <div className="App">

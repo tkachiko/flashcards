@@ -83,9 +83,7 @@ export const Profile = () => {
                 onClick={() => formik.handleSubmit()}
                 isDisabled={!formik.isValid}
               />
-              {formik.errors.nickname && (
-                <div style={{ color: 'red' }}>{formik.errors.nickname}</div>
-              )}
+              <div className={style.fieldError}>{formik.errors.nickname}</div>
               <div className={style.email}>{email}</div>
               <button className={style.button} type={'button'} onClick={onLogout}>
                 Log out

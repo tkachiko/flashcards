@@ -39,6 +39,8 @@
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
 
   .container {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,6 +90,19 @@
       text-align: center;
 
       opacity: 0.5;
+    }
+
+    .fieldError {
+
+      @include text(14px, 600, 22px);
+
+      position: absolute;
+      top: 232px;
+
+      width: 347px;
+
+      color: $errorColor;
+      text-align: center;
     }
 
     .button {
