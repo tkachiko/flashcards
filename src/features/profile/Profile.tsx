@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
 import { StatusType } from '../../app/app-reducer'
+import { PATH } from '../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
@@ -28,7 +29,7 @@ export const Profile = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!isLoggedIn) navigate('/login')
+    if (!isLoggedIn) navigate(PATH.LOGIN)
   })
 
   const formik = useFormik({
