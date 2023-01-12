@@ -2,8 +2,9 @@ import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
 import { loginAPI } from '../../../api/login-api'
+import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
 import { LoginType } from '../../../common/types/types'
-import { setErrorAC, setSubmittingAC } from '../register/register-reducer'
+import { setDataAC } from '../../profile/profile-reducer'
 
 const LOGIN_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
 
@@ -11,7 +12,7 @@ const initialState = {
   isLoggedIn: false,
 }
 
-export const authReducer = (state = initialState, action: ActionType) => {
+export const authReducer = (state = initialState, action: AuthActionType) => {
   switch (action.type) {
     case LOGIN_SET_IS_LOGGED_IN:
       return { ...state, isLoggedIn: action.newValue }
@@ -26,7 +27,9 @@ export const setIsLoggedInAC = (newValue: boolean) =>
 export const LoginTC = (data: LoginType) => async (dispatch: Dispatch) => {
   dispatch(setSubmittingAC('loading'))
   try {
-    await loginAPI.login(data)
+    const res = await loginAPI.login(data)
+
+    dispatch(setDataAC(res.data))
     dispatch(setSubmittingAC('success'))
     dispatch(setIsLoggedInAC(true))
   } catch (e) {
@@ -44,4 +47,4 @@ export const LoginTC = (data: LoginType) => async (dispatch: Dispatch) => {
   }
 }
 
-type ActionType = ReturnType<typeof setIsLoggedInAC>
+export type AuthActionType = ReturnType<typeof setIsLoggedInAC>

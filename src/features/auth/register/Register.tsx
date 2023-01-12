@@ -13,20 +13,21 @@ import { useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
+import { setSubmittingAC, StatusType } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
 import { RootStateType, useAppDispatch } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../common/styles/Container.module.scss'
 
-import { createUserTC, setSubmittingAC, StatusType } from './register-reducer'
+import { createUserTC } from './register-reducer'
 import style from './Register.module.scss'
 
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const error = useSelector<RootStateType, string | null>(state => state.register.error)
-  const status = useSelector<RootStateType, StatusType>(state => state.register.status)
+  const error = useSelector<RootStateType, string | null>(state => state.app.error)
+  const status = useSelector<RootStateType, StatusType>(state => state.app.status)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 

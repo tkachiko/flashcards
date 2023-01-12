@@ -2,30 +2,31 @@ import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
 import { registerApi } from '../../../api/registerApi'
+import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
 import { ActionsType, ThunkAppDispatchType } from '../../../common/types/types'
 
-const SET_ERROR = 'flashcards/register/SET_ERROR'
-const SET_SUBMITTING = 'flashcards/register/SET_SUBMITTING'
+// const SET_ERROR = 'flashcards/register/SET_ERROR'
+// const SET_SUBMITTING = 'flashcards/register/SET_SUBMITTING'
 
-const initialState = {
-  error: null as string | null,
-  status: 'idle' as StatusType,
-}
+// const initialState = {
+//   error: null as string | null,
+//   status: 'idle' as StatusType,
+// }
 
-export const registerReducer = (state: InitialStateType = initialState, action: ActionsType) => {
-  switch (action.type) {
-    case SET_ERROR:
-      return { ...state, error: action.error }
-    case SET_SUBMITTING:
-      return { ...state, status: action.status }
-    default:
-      return state
-  }
-}
-
-// actions
-export const setErrorAC = (error: null | string) => ({ type: SET_ERROR, error } as const)
-export const setSubmittingAC = (status: StatusType) => ({ type: SET_SUBMITTING, status } as const)
+// export const registerReducer = (state: InitialStateType = initialState, action: ActionsType) => {
+//   switch (action.type) {
+//     case SET_ERROR:
+//       return { ...state, error: action.error }
+//     case SET_SUBMITTING:
+//       return { ...state, status: action.status }
+//     default:
+//       return state
+//   }
+// }
+//
+// // actions
+// export const setErrorAC = (error: null | string) => ({ type: SET_ERROR, error } as const)
+// export const setSubmittingAC = (status: StatusType) => ({ type: SET_SUBMITTING, status } as const)
 
 // thunks
 export const createUserTC =
@@ -51,6 +52,6 @@ export const createUserTC =
   }
 
 // types
-export type InitialStateType = typeof initialState
-
-export type StatusType = 'idle' | 'loading' | 'success' | 'failed'
+// export type InitialStateType = typeof initialState
+//
+// export type StatusType = 'idle' | 'loading' | 'success' | 'failed'

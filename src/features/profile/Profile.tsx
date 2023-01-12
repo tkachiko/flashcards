@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { FormGroup } from '@mui/material'
+import { FormGroup, LinearProgress } from '@mui/material'
 import { useFormik } from 'formik'
-import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
+import { StatusType } from '../../app/app-reducer'
 import { PATH } from '../../app/routes/routes'
-import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
+import { useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
@@ -20,8 +20,9 @@ type FormikErrorType = {
 }
 
 export const Profile = () => {
-  const nickname = useSelector<RootStateType, string>(state => state.profile.profile.name)
-  const email = useSelector<RootStateType, string>(state => state.profile.profile.email)
+  const nickname = useAppSelector<string>(state => state.profile.profile.name)
+  const email = useAppSelector<string>(state => state.profile.profile.email)
+  const status = useAppSelector<StatusType>(state => state.app.status)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
 
@@ -50,6 +51,7 @@ export const Profile = () => {
 
   return (
     <div>
+      {status === 'loading' && <LinearProgress color={'primary'} />}
       <div className={style.back}>
         <img className={style.image} src={arrowBack} alt={'arrow back'} />
         <span className={style.backText}>Back to Packs List</span>

@@ -4,15 +4,15 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { setErrorAC } from '../../../app/app-reducer'
 import { RootStateType } from '../../../app/store'
-import { setErrorAC } from '../../../features/auth/register/register-reducer'
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
 export const ErrorSnackbar = () => {
-  const error = useSelector((state: RootStateType) => state.register.error)
+  const error = useSelector((state: RootStateType) => state.app.error)
   const dispatch = useDispatch()
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

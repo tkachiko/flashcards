@@ -17,10 +17,10 @@ import InputLabel from '@mui/material/InputLabel'
 import { useFormik } from 'formik'
 import { Navigate, useNavigate } from 'react-router-dom'
 
+import { StatusType } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
-import { StatusType } from '../register/register-reducer'
 
 import { LoginTC } from './auth-reducer'
 import s from './Login.module.scss'
@@ -33,7 +33,7 @@ type FormikErrorType = {
 export const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const status = useAppSelector<StatusType>(state => state.register.status)
+  const status = useAppSelector<StatusType>(state => state.app.status)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const [showPassword, setShowPassword] = useState(false)
 

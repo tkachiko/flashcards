@@ -4,13 +4,14 @@ import thunkMiddleware from 'redux-thunk'
 
 import { AppThunk } from '../common/types/types'
 import { authReducer } from '../features/auth/login/auth-reducer'
-import { registerReducer } from '../features/auth/register/register-reducer'
 import { passwordReducer } from '../features/password/password-reducer'
 import { profileReducer } from '../features/profile/profile-reducer'
 
+import { appReducer } from './app-reducer'
+
 const rootReducer = combineReducers({
+  app: appReducer,
   auth: authReducer,
-  register: registerReducer,
   password: passwordReducer,
   profile: profileReducer,
 })

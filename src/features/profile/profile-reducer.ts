@@ -2,9 +2,8 @@ import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
 import { profileApi } from '../../api/profileApi'
+import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
 import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
-import { setIsLoggedInAC } from '../auth/login/auth-reducer'
-import { setErrorAC } from '../auth/register/register-reducer'
 
 const SET_DATA_TO_PROFILE = 'profile/SET_DATA_TO_PROFILE'
 const SET_NEW_NAME = 'profile/SET_NEW_NAME'
@@ -57,31 +56,14 @@ export const setDataAC = (data: ProfileDataType) => ({ type: SET_DATA_TO_PROFILE
 export const setNewNameAC = (name: string) => ({ type: SET_NEW_NAME, name } as const)
 // export type ActionsType = ReturnType<typeof setDataAC> | ReturnType<typeof setNewNameAC>
 
-export const authMeTC = (): ThunkAppDispatchType => async (dispatch: Dispatch<ActionsType>) => {
-  try {
-    const res = await profileApi.authMe()
-
-    dispatch(setDataAC(res.data))
-    dispatch(setIsLoggedInAC(true))
-  } catch (e) {
-    if (axios.isAxiosError(e)) {
-      const error = e as AxiosError<{ error: string }>
-
-      const finalError = error.response ? error.response.data.error : e.message
-
-      dispatch(setErrorAC(finalError))
-    } else {
-      dispatch(setErrorAC('An unexpected error occurred'))
-    }
-  }
-}
-
 export const changeNameTC =
   (name: string): ThunkAppDispatchType =>
   async (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setSubmittingAC('loading'))
     try {
       const res = await profileApi.changeName(name)
 
+      dispatch(setSubmittingAC('success'))
       dispatch(setNewNameAC(res.data.updatedUser.name))
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -89,9 +71,12 @@ export const changeNameTC =
 
         const finalError = error.response ? error.response.data.error : e.message
 
+        dispatch(setSubmittingAC('failed'))
         dispatch(setErrorAC(finalError))
       } else {
         dispatch(setErrorAC('An unexpected error occurred'))
       }
     }
   }
+
+export type ProfileActionsType = ReturnType<typeof setDataAC> | ReturnType<typeof setNewNameAC>
