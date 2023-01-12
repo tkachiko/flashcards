@@ -84,7 +84,7 @@ export const Login = () => {
   return (
     <div className={s.container}>
       <ErrorSnackbar />
-      <FormControl>
+      <FormControl className={s.formControl}>
         {status === 'loading' && <LinearProgress color={'primary'} />}
         <FormLabel>
           <p className={s.SingIn}>Sign in</p>

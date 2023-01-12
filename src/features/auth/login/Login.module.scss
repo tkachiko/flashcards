@@ -6,37 +6,50 @@
   justify-content: center;
 
   height: 90vh;
-  .SingIn {
-    font-family: $primaryFontFamily;
-    font-size: 26px;
-    font-weight: bold;
-    color: $textColor;
-    text-align: center;
-  }
 
-  .ForgotPassword {
-    display: flex;
-    justify-content: flex-end;
+  .formControl {
+    color: rgba(0, 0, 0, 0.87);
 
-    margin: 29px 38px 69px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%),
+      0px 1px 3px 0px rgb(0 0 0 / 12%);
 
-    font-size: 14px;
-  }
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
-  .text {
-    margin: 31px 11px;
+    .SingIn {
+      font-family: $primaryFontFamily;
+      font-size: 26px;
+      font-weight: bold;
+      color: $textColor;
+      text-align: center;
+    }
 
-    font-size: 14px;
-    text-align: center;
+    .ForgotPassword {
+      display: flex;
+      justify-content: flex-end;
 
-    opacity: 0.5;
-  }
+      margin: 29px 38px 69px;
 
-  .SignUp {
-    cursor: pointer;
+      font-size: 14px;
+    }
 
-    font-size: 16px;
-    color: $primaryColor;
-    text-align: center;
+    .text {
+      margin: 31px 11px;
+
+      font-size: 14px;
+      text-align: center;
+
+      opacity: 0.5;
+    }
+
+    .SignUp {
+      cursor: pointer;
+
+      font-size: 16px;
+      color: $primaryColor;
+      text-align: center;
+    }
   }
 }
