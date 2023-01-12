@@ -8,25 +8,26 @@ import avatar from '../../assets/images/person.png'
 import { PATH } from '../routes/routes'
 import { RootStateType, useAppSelector } from '../store'
 
-import s from './Header.module.scss'
+import style from './Header.module.scss'
+
 export const Header = () => {
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const nickname = useSelector<RootStateType, string>(state => state.profile.profile.name)
   const navigate = useNavigate()
 
   return (
-    <div className={s.container}>
+    <div className={style.container}>
       <img src={itIncubator} alt={'incubator logo'} />
       {isLoggedIn ? (
-        <div className={s.login_info}>
-          <span className={s.nickname}>{nickname}</span>
-          <div className={s.avatar}>
-            <img style={{ width: '36px', height: '36px' }} src={avatar} alt={'avatar'} />
+        <div className={style.login_info}>
+          <span className={style.nickname}>{nickname}</span>
+          <div className={style.avatar}>
+            <img src={avatar} alt={'avatar'} />
           </div>
         </div>
       ) : (
         <button
-          className={s.button}
+          className={style.button}
           onClick={() => {
             navigate(PATH.LOGIN)
           }}
