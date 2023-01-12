@@ -26,17 +26,21 @@ export const Profile = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    dispatch(authMeTC())
-  }, [])
-
   const onLogout = () => {
     dispatch(logoutTC())
   }
 
-  if (!isLoggedIn) {
-    navigate('/login')
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(authMeTC())
+    }
+  }, [isLoggedIn])
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/login')
+    }
+  }, [isLoggedIn])
 
   console.log(nickname)
   const formik = useFormik({
