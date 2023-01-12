@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 import { loginAPI } from '../../../api/login-api'
 import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
 import { LoginType } from '../../../common/types/types'
-import { setDataAC } from '../../profile/profile-reducer'
+import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
 
 const LOGIN_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
 
@@ -48,3 +48,22 @@ export const LoginTC = (data: LoginType) => async (dispatch: Dispatch) => {
 }
 
 export type AuthActionType = ReturnType<typeof setIsLoggedInAC>
+export const logoutTC = (): ThunkAppDispatchType => async (dispatch: AppThunk) => {
+  try {
+    const res = await loginAPI.logout()
+
+    console.log(res.data.info)
+    dispatch(deleteUserDataAC())
+    dispatch(setIsLoggedInAC(false))
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      const error = e as AxiosError<{ error: string }>
+
+      const finalError = error.response ? error.response.data.error : e.message
+
+      dispatch(setErrorAC(finalError))
+    } else {
+      dispatch(setErrorAC('An unexpected error occurred'))
+    }
+  }
+}

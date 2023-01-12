@@ -1,15 +1,22 @@
-import { AnyAction } from 'redux'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
 import { AppActionsType } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
+import { setIsLoggedInAC } from '../../features/auth/login/auth-reducer'
+import { setErrorAC, setSubmittingAC } from '../../features/auth/register/register-reducer'
+import { deleteUserDataAC, setDataAC, setNewNameAC } from '../../features/profile/profile-reducer'
 
 export type LoginType = {
   email: string
   password: string
   rememberMe: boolean
+}
+
+export type LogOutResponseType = {
+  info: string
+  error: string
 }
 
 export type ResponseType = {
@@ -35,6 +42,6 @@ export type ThunkAppDispatchType<ReturnType = void> = ThunkAction<
   unknown,
   ActionsType
 >
-export type AppThunk = ThunkDispatch<RootStateType, unknown, AnyAction>
+export type AppThunk = ThunkDispatch<RootStateType, unknown, ActionsType>
 
 export type ActionsType = AppActionsType | ProfileActionsType | AuthActionType

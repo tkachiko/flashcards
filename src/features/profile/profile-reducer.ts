@@ -7,6 +7,7 @@ import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
 
 const SET_DATA_TO_PROFILE = 'profile/SET_DATA_TO_PROFILE'
 const SET_NEW_NAME = 'profile/SET_NEW_NAME'
+const DELETE_USER_DATA = 'profile/DELETE_USER_DATA'
 
 export type ProfileDataType = {
   _id: string
@@ -47,12 +48,15 @@ export const profileReducer = (state = initialState, action: ActionsType) => {
       return { ...state, profile: action.data }
     case SET_NEW_NAME:
       return { ...state, profile: { ...state.profile, name: action.name } }
+    case DELETE_USER_DATA:
+      return initialState
     default:
       return state
   }
 }
 
 export const setDataAC = (data: ProfileDataType) => ({ type: SET_DATA_TO_PROFILE, data } as const)
+export const deleteUserDataAC = () => ({ type: DELETE_USER_DATA } as const)
 export const setNewNameAC = (name: string) => ({ type: SET_NEW_NAME, name } as const)
 // export type ActionsType = ReturnType<typeof setDataAC> | ReturnType<typeof setNewNameAC>
 

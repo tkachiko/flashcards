@@ -3,14 +3,17 @@ import React from 'react'
 import { FormGroup, LinearProgress } from '@mui/material'
 import { useFormik } from 'formik'
 import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { StatusType } from '../../app/app-reducer'
 import { PATH } from '../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../app/store'
+import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
-import styleContainer from '../../common/styles/Container.module.scss'
+import { logoutTC } from '../auth/login/auth-reducer'
 
 import { changeNameTC } from './profile-reducer'
 import style from './Profile.module.scss'
@@ -25,6 +28,11 @@ export const Profile = () => {
   const status = useAppSelector<StatusType>(state => state.app.status)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const onLogout = () => {
+    dispatch(logoutTC())
+  }
 
   if (!isLoggedIn) return <Navigate to={PATH.LOGIN} />
   const formik = useFormik({
@@ -78,13 +86,13 @@ export const Profile = () => {
                 <div style={{ color: 'red' }}>{formik.errors.nickname}</div>
               )}
               <div className={style.email}>{email}</div>
-              <button className={style.button}>
-                Log out
-                <div className={style.logOutIcon}></div>
-              </button>
             </div>
           </FormGroup>
         </form>
+        <button className={style.button} onClick={onLogout}>
+          Log out
+          <div className={style.logOutIcon}></div>
+        </button>
       </div>
     </div>
   )
