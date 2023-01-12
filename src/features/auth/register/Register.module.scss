@@ -33,14 +33,12 @@
       text-align: center;
     }
 
-    .passwordEye {
-      cursor: pointer;
-    }
-
     .button {
       width: 347px;
       height: 36px;
       margin-top: 60px;
+
+      text-transform: none;
 
       background-color: $primaryColor;
       border-radius: 30px;

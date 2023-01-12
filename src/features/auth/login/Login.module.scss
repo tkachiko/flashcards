@@ -3,24 +3,40 @@
 @import 'src/common/styles/sass/mixins';
 
 .container {
-  display: flex;
-  align-items: center;
   justify-content: center;
 
-  height: 90vh;
+  margin: 60px auto;
 
   .formControl {
+
     @include flex(column, center, center, nowrap, center);
 
     margin: 40px 34px;
 
-    .SingIn {
+    .fieldError {
+
+      @include text(14px, 600, 22px);
+
+      position: absolute;
+      top: 52px;
+
+      width: 347px;
+
+      color: $errorColor;
+      text-align: center;
+    }
+
+    .singIn {
+
       @include text(26px, 600, 32px);
+
+      margin-bottom: 40px;
 
       text-align: center;
     }
 
-    .ForgotPassword {
+    .forgotPassword {
+
       @include text(14px, 500, 17px);
 
       cursor: pointer;
@@ -31,7 +47,24 @@
       margin: 29px 0 69px;
     }
 
+    .button {
+      width: 347px;
+      height: 36px;
+
+      text-transform: none;
+
+      background-color: $primaryColor;
+      border-radius: 30px;
+
+      //margin-top: 60px;
+
+      &:hover {
+        background-color: $secondColor;
+      }
+    }
+
     .text {
+
       @include text(14px, 600, 24px);
 
       margin: 31px 0 7px 0;
@@ -41,7 +74,8 @@
       opacity: 0.5;
     }
 
-    .SignUp {
+    .signUp {
+
       @include text(16px, 600, 24px);
 
       cursor: pointer;

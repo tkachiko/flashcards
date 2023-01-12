@@ -1,14 +1,7 @@
 import React, { useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  IconButton,
-  LinearProgress,
-} from '@mui/material'
+import { Checkbox, FormControlLabel, FormGroup, IconButton, LinearProgress } from '@mui/material'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import Input from '@mui/material/Input'
@@ -25,7 +18,7 @@ import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSna
 
 import styleContainer from './../../../common/styles/Container.module.scss'
 import { LoginTC } from './auth-reducer'
-import s from './Login.module.scss'
+import style from './Login.module.scss'
 
 type FormikErrorType = {
   email?: string
@@ -84,14 +77,12 @@ export const Login = () => {
   }
 
   return (
-    <div className={`${s.container} ${styleContainer.container}`}>
+    <div className={`${style.container} ${styleContainer.container}`}>
       <Paper>
         <ErrorSnackbar />
-        <FormControl className={s.formControl}>
+        <FormControl className={style.formControl}>
           {status === 'loading' && <LinearProgress color={'primary'} />}
-          <FormLabel>
-            <p className={s.SingIn}>Sign in</p>
-          </FormLabel>
+          <h1 className={style.singIn}>Sign in</h1>
           <form onSubmit={formik.handleSubmit}>
             <FormGroup>
               <FormControl sx={{ m: 1 }} variant="standard">
@@ -101,7 +92,7 @@ export const Login = () => {
                   {...formik.getFieldProps('email')}
                 />
                 {formik.touched.email && formik.errors.email && (
-                  <div style={{ color: 'red', paddingBottom: '5px' }}>{formik.errors.email}</div>
+                  <div className={style.fieldError}>{formik.errors.email}</div>
                 )}
               </FormControl>
               <FormControl sx={{ m: 1 }} variant="standard">
@@ -124,7 +115,7 @@ export const Login = () => {
                   }
                 />
                 {formik.touched.password && formik.errors.password && (
-                  <div style={{ color: 'red', paddingBottom: '5px' }}>{formik.errors.password}</div>
+                  <div className={style.fieldError}>{formik.errors.password}</div>
                 )}
               </FormControl>
               <FormControl sx={{ m: 1 }} variant="standard">
@@ -138,21 +129,16 @@ export const Login = () => {
                   }
                 />
               </FormControl>
-              <a className={s.ForgotPassword} onClick={ForgotPassword}>
+              <a className={style.forgotPassword} onClick={ForgotPassword}>
                 Forgot Password?
               </a>
-              <Button
-                style={{ borderRadius: '30px', textTransform: 'none' }}
-                type={'submit'}
-                variant={'contained'}
-                color={'primary'}
-              >
+              <Button type={'submit'} variant={'contained'} className={style.button}>
                 Sign In
               </Button>
             </FormGroup>
           </form>
-          <p className={s.text}>Don&apos;t have an account?</p>
-          <a className={s.SignUp} onClick={SignIn}>
+          <p className={style.text}>Don&apos;t have an account?</p>
+          <a className={style.signUp} onClick={SignIn}>
             Sign Up
           </a>
         </FormControl>
