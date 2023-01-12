@@ -4,9 +4,6 @@ import { AppActionsType } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
-import { setIsLoggedInAC } from '../../features/auth/login/auth-reducer'
-import { setErrorAC, setSubmittingAC } from '../../features/auth/register/register-reducer'
-import { deleteUserDataAC, setDataAC, setNewNameAC } from '../../features/profile/profile-reducer'
 
 export type LoginType = {
   email: string

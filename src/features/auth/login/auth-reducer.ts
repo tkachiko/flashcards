@@ -3,7 +3,7 @@ import { Dispatch } from 'redux'
 
 import { loginAPI } from '../../../api/login-api'
 import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
-import { LoginType } from '../../../common/types/types'
+import { AppThunk, LoginType, ThunkAppDispatchType } from '../../../common/types/types'
 import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
 
 const LOGIN_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'

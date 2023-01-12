@@ -1,20 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { FormGroup, LinearProgress } from '@mui/material'
 import { useFormik } from 'formik'
-import { Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { StatusType } from '../../app/app-reducer'
-import { PATH } from '../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../app/store'
-import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
 import { logoutTC } from '../auth/login/auth-reducer'
 
+import styleContainer from './../../common/styles/Container.module.scss'
 import { changeNameTC } from './profile-reducer'
 import style from './Profile.module.scss'
 
@@ -30,11 +27,10 @@ export const Profile = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const onLogout = () => {
-    dispatch(logoutTC())
-  }
+  useEffect(() => {
+    if (!isLoggedIn) navigate('/login')
+  })
 
-  if (!isLoggedIn) return <Navigate to={PATH.LOGIN} />
   const formik = useFormik({
     initialValues: {
       nickname,
@@ -56,6 +52,10 @@ export const Profile = () => {
       dispatch(changeNameTC(values.nickname))
     },
   })
+
+  const onLogout = () => {
+    dispatch(logoutTC())
+  }
 
   return (
     <div>
@@ -86,13 +86,13 @@ export const Profile = () => {
                 <div style={{ color: 'red' }}>{formik.errors.nickname}</div>
               )}
               <div className={style.email}>{email}</div>
+              <button className={style.button} type={'button'} onClick={onLogout}>
+                Log out
+                <div className={style.logOutIcon}></div>
+              </button>
             </div>
           </FormGroup>
         </form>
-        <button className={style.button} onClick={onLogout}>
-          Log out
-          <div className={style.logOutIcon}></div>
-        </button>
       </div>
     </div>
   )
