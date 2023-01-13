@@ -6,6 +6,8 @@ import { ActionsType, ThunkAppDispatchType } from '../common/types/types'
 import { setIsLoggedInAC } from '../features/auth/login/auth-reducer'
 import { setDataAC } from '../features/profile/profile-reducer'
 
+import { RootStateType } from './store'
+
 export type StatusType = 'idle' | 'loading' | 'success' | 'failed'
 export type InitialStateType = typeof initialState
 const SET_ERROR = 'flashcards/app/SET_ERROR'
@@ -60,6 +62,9 @@ export const authMeTC = (): ThunkAppDispatchType => async (dispatch: Dispatch<Ac
     dispatch(setAppInitializedAC(true))
   }
 }
+
+export const errorSelector = (state: RootStateType) => state.app.error
+export const statusSelector = (state: RootStateType) => state.app.status
 
 export type AppActionsType =
   | ReturnType<typeof setErrorAC>

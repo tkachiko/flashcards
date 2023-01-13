@@ -9,13 +9,17 @@ import InputAdornment from '@mui/material/InputAdornment'
 import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import { useFormik } from 'formik'
-import { useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { setSubmittingAC, StatusType } from '../../../app/app-reducer'
+import {
+  errorSelector,
+  setSubmittingAC,
+  statusSelector,
+  StatusType,
+} from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
-import { RootStateType, useAppDispatch } from '../../../app/store'
+import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../common/styles/Container.module.scss'
 
@@ -26,8 +30,8 @@ export const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const error = useSelector<RootStateType, string | null>(state => state.app.error)
-  const status = useSelector<RootStateType, StatusType>(state => state.app.status)
+  const error = useAppSelector<string | null>(errorSelector)
+  const status = useAppSelector<StatusType>(statusSelector)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -76,7 +80,7 @@ export const Register = () => {
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'email'}>Email</InputLabel>
             <Input
-              style={{ width: '347px' }}
+              className={style.input}
               id={'email'}
               autoComplete={'email'}
               {...formik.getFieldProps('email')}
@@ -86,7 +90,7 @@ export const Register = () => {
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'password'}>Password</InputLabel>
             <Input
-              style={{ width: '347px', paddingBottom: '5px' }}
+              className={style.input}
               id={'password'}
               {...formik.getFieldProps('password')}
               type={showPassword ? 'input' : 'password'}
@@ -105,7 +109,7 @@ export const Register = () => {
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'confirmPassword'}>Confirm password</InputLabel>
             <Input
-              style={{ width: '347px', paddingBottom: '5px' }}
+              className={style.input}
               id={'confirm-password'}
               {...formik.getFieldProps('confirmPassword')}
               type={showConfirmPassword ? 'input' : 'password'}
