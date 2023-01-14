@@ -4,7 +4,6 @@ import './App.scss'
 
 import CircularProgress from '@mui/material/CircularProgress'
 import LinearProgress from '@mui/material/LinearProgress'
-import { BrowserRouter as Router } from 'react-router-dom'
 
 import { authMeTC, StatusType } from './app-reducer'
 import { Header } from './header/Header'
@@ -30,11 +29,9 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
-        <Header />
-        {status === 'loading' && <LinearProgress color={'primary'} />}
-        <RoutesComponent />
-      </Router>
+      <Header />
+      {status === 'loading' && <LinearProgress color={'primary'} />}
+      <RoutesComponent />
     </div>
   )
 }
