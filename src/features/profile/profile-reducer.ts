@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios'
-import { Dispatch } from 'redux'
 
 import { profileApi } from '../../api/profileApi'
 import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
@@ -61,7 +60,7 @@ export const setNewNameAC = (name: string) => ({ type: SET_NEW_NAME, name } as c
 
 export const changeNameTC =
   (name: string): ThunkAppDispatchType =>
-  async (dispatch: Dispatch<ActionsType>) => {
+  async dispatch => {
     dispatch(setSubmittingAC('loading'))
     try {
       const res = await profileApi.changeName(name)

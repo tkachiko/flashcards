@@ -1,15 +1,13 @@
 import axios, { AxiosError } from 'axios'
-import { Dispatch } from 'redux'
 
 import { registerApi } from '../../../api/registerApi'
 import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
-import { ThunkAppDispatchType } from '../../../app/store'
-import { ActionsType } from '../../../common/types/types'
+import { ThunkAppDispatchType } from '../../../common/types/types'
 
 // thunks
 export const createUserTC =
   (email: string, password: string): ThunkAppDispatchType =>
-  async (dispatch: Dispatch<ActionsType>) => {
+  async dispatch => {
     dispatch(setSubmittingAC('loading'))
     try {
       await registerApi.createUser(email, password)

@@ -1,7 +1,8 @@
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
 import { loginAPI } from '../../../api/login-api'
-import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
+import { setSubmittingAC } from '../../../app/app-reducer'
+import { RootStateType } from '../../../app/store'
 import { LoginType, ThunkAppDispatchType } from '../../../common/types/types'
 import { ErrorMessage } from '../../../utils/error-utils'
 import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
@@ -36,17 +37,9 @@ export const LoginTC =
       dispatch(setSubmittingAC('success'))
       dispatch(setIsLoggedInAC(true))
     } catch (e) {
-      const err = e as Error | AxiosError<{ error: string }>
+      const error = e as Error | AxiosError
 
-      if (axios.isAxiosError(err)) {
-        const error = err.response?.data ? err.response.data.error : err.message
-
-        dispatch(setSubmittingAC('failed'))
-        dispatch(setErrorAC(error))
-      } else {
-        dispatch(setSubmittingAC('failed'))
-        dispatch(setErrorAC(`Native error ${err.message}`))
-      }
+      ErrorMessage(dispatch, error)
     }
   }
 export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
@@ -57,10 +50,11 @@ export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
   } catch (e) {
     const error = e as Error | AxiosError
 
-    ErrorMessage(dispatch, { error: error.message })
+    ErrorMessage(dispatch, error)
   }
 }
 
 //types
 type InitialStateType = typeof initialState
 export type AuthActionType = ReturnType<typeof setIsLoggedInAC>
+export const isLoggedInSelector = (state: RootStateType) => state.auth.isLoggedIn
