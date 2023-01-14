@@ -18,7 +18,6 @@ function App() {
   }, [])
 
   return (
-
     <div className="App">
       <Header />
       {status === 'loading' && <LinearProgress color={'primary'} />}

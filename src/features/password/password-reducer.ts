@@ -2,8 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { ForgotPasswordType, recoveryApi, SetNewPasswordType } from '../../api/recoveryApi'
 import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
-import { ThunkAppDispatchType } from '../../app/store'
-import { ActionsType } from '../../common/types/types'
+import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
 import { ErrorMessage } from '../../utils/error-utils'
 
 const initialState = {
