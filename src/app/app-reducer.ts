@@ -43,6 +43,7 @@ export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
     const res = await profileApi.authMe()
 
     dispatch(setSubmittingAC('success'))
+
     dispatch(setDataAC(res.data))
     dispatch(setIsLoggedInAC(true))
   } catch (e) {
@@ -59,6 +60,7 @@ export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
 
 export const appErrorSelector = (state: RootStateType) => state.app.error
 export const appStatusSelector = (state: RootStateType) => state.app.status
+export const appIsInititializedSelector = (state: RootStateType) => state.app.isInitialized
 
 export type AppActionsType =
   | ReturnType<typeof setErrorAC>
