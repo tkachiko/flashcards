@@ -30,7 +30,7 @@ export const Profile = () => {
 
   useEffect(() => {
     if (!isLoggedIn) navigate(PATH.LOGIN)
-  })
+  }, [])
 
   const formik = useFormik({
     initialValues: {
