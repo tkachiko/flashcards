@@ -12,7 +12,7 @@ import { useFormik } from 'formik'
 import { NavLink } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { appStatusSelector, errorSelector, setSubmittingAC } from '../../../app/app-reducer'
+import { appErrorSelector, appStatusSelector, setSubmittingAC } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
@@ -26,7 +26,7 @@ export const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const error = useAppSelector(errorSelector)
+  const error = useAppSelector(appErrorSelector)
   const status = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
 

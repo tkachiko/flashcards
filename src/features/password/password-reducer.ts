@@ -3,7 +3,6 @@ import axios, { AxiosError } from 'axios'
 import { ForgotPasswordType, recoveryApi, SetNewPasswordType } from '../../api/recoveryApi'
 import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
 import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
-import { ErrorMessage } from '../../utils/error-utils'
 
 const initialState = {
   forgotPasswordSuccess: false,
@@ -52,7 +51,6 @@ export const forgotPasswordTC =
       dispatch(setDataForgetPasswordAC(data.email))
       dispatch(forgotPasswordSuccess(true))
     } catch (e) {
-      // ErrorMessage(dispatch, { error: error.message })
       const err = e as Error | AxiosError
 
       if (axios.isAxiosError(err)) {

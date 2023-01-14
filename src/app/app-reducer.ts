@@ -57,8 +57,8 @@ export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
   }
 }
 
-export const errorSelector = (state: RootStateType) => state.app.error
-export const statusSelector = (state: RootStateType) => state.app.status
+export const appErrorSelector = (state: RootStateType) => state.app.error
+export const appStatusSelector = (state: RootStateType) => state.app.status
 
 export type AppActionsType =
   | ReturnType<typeof setErrorAC>

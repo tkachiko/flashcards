@@ -4,7 +4,7 @@ import { loginAPI } from '../../../api/login-api'
 import { setSubmittingAC } from '../../../app/app-reducer'
 import { RootStateType } from '../../../app/store'
 import { LoginType, ThunkAppDispatchType } from '../../../common/types/types'
-import { ErrorMessage } from '../../../utils/error-utils'
+import { errorMessage } from '../../../utils/error-utils'
 import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
 
 const initialState = {
@@ -39,7 +39,7 @@ export const LoginTC =
     } catch (e) {
       const error = e as Error | AxiosError
 
-      ErrorMessage(dispatch, error)
+      errorMessage(dispatch, error)
     }
   }
 export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
@@ -50,7 +50,7 @@ export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
   } catch (e) {
     const error = e as Error | AxiosError
 
-    ErrorMessage(dispatch, error)
+    errorMessage(dispatch, error)
   }
 }
 
