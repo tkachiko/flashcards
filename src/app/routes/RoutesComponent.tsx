@@ -17,9 +17,9 @@ import { PATH } from './routes'
 
 const PrivateRoutes = () => {
   const isLoggedIn = useAppSelector<boolean>(isLoggedInSelector)
-  const auth = { token: isLoggedIn }
+  let auth = { token: isLoggedIn }
 
-  return auth.token ? <Outlet /> : <Navigate to="/login" />
+  return auth.token ? <Outlet /> : <Navigate to={PATH.LOGIN} />
 }
 
 export const RoutesComponent = () => {
@@ -27,7 +27,6 @@ export const RoutesComponent = () => {
     <Routes>
       <Route element={<PrivateRoutes />}>
         <Route path={PATH.MAIN} element={<Navigate to={PATH.PROFILE} />} />
-        <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />
         <Route path={PATH.PROFILE} element={<Profile />} />
         <Route path={PATH.NOT_FOUND} element={<Error404 />} />
@@ -36,6 +35,7 @@ export const RoutesComponent = () => {
         <Route path={PATH.TEST_PAGE} element={<TestPage />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
       </Route>
+      <Route path={PATH.LOGIN} element={<Login />} />
     </Routes>
   )
 }

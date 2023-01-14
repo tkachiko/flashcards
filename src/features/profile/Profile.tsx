@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { FormGroup, LinearProgress } from '@mui/material'
 import { useFormik } from 'formik'
@@ -28,9 +28,7 @@ export const Profile = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!isLoggedIn) navigate(PATH.LOGIN)
-  }, [])
+  if (!isLoggedIn) navigate(PATH.LOGIN)
 
   const formik = useFormik({
     initialValues: {
