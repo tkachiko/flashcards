@@ -88,3 +88,4 @@ export type ProfileActionsType =
   | ReturnType<typeof deleteUserDataAC>
 
 export const nameSelector = (state: RootStateType) => state.profile.profile.name
+export const emailSelector = (state: RootStateType) => state.profile.profile.email
