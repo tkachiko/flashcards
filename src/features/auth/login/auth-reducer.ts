@@ -1,11 +1,11 @@
 import { AxiosError } from 'axios'
 
 import { loginAPI } from '../../../api/login-api'
-import {  setSubmittingAC } from '../../../app/app-reducer'
-
+import { setSubmittingAC } from '../../../app/app-reducer'
+import { RootStateType } from '../../../app/store'
 import { LoginType, ThunkAppDispatchType } from '../../../common/types/types'
+import { ErrorMessage } from '../../../utils/error-utils'
 import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
-import {ErrorMessage} from "../../../utils/error-utils";
 
 const initialState = {
   isLoggedIn: false,
@@ -57,3 +57,4 @@ export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
 //types
 type InitialStateType = typeof initialState
 export type AuthActionType = ReturnType<typeof setIsLoggedInAC>
+export const isLoggedInSelector = (state: RootStateType) => state.auth.isLoggedIn
