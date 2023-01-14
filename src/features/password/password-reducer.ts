@@ -1,9 +1,14 @@
 import axios, { AxiosError } from 'axios'
 
-import { ForgotPasswordType, recoveryApi, SetNewPasswordType } from '../../api/recoveryApi'
+import { recoveryApi } from '../../api/recoveryApi'
 import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
-import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
+import {
+  ActionsType,
+  ForgotPasswordType,
+  SetNewPasswordType,
+  ThunkAppDispatchType,
+} from '../../common/types/types'
 
 const initialState = {
   forgotPasswordSuccess: false,
