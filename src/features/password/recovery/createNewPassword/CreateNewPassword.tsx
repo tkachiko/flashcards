@@ -8,7 +8,7 @@ import Input from '@mui/material/Input'
 import InputAdornment from '@mui/material/InputAdornment'
 import InputLabel from '@mui/material/InputLabel'
 import { useFormik } from 'formik'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { PATH } from '../../../../app/routes/routes'
@@ -16,11 +16,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import styleContainer from '../../../../common/styles/Container.module.scss'
 import { createNewPasswordTC } from '../../password-reducer'
 
-import style from './CreateNewPassword.module.css'
-
-type FormikErrorsType = {
-  password?: string
-}
+import style from './CreateNewPassword.module.scss'
 
 export const CreateNewPassword = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -57,7 +53,7 @@ export const CreateNewPassword = () => {
   })
 
   if (newPasswordSuccess) {
-    navigate(PATH.LOGIN)
+    return <Navigate to={PATH.LOGIN} />
   }
 
   return (
@@ -84,11 +80,9 @@ export const CreateNewPassword = () => {
                   </InputAdornment>
                 }
               />
-              <div className={style.fieldError}>
-                {formik.touched.password && formik.errors.password && (
-                  <div style={{ color: 'red' }}>{formik.errors.password}</div>
-                )}
-              </div>
+              {formik.touched.password && formik.errors.password && (
+                <div className={style.fieldError}>{formik.errors.password}</div>
+              )}
             </FormControl>
           </div>
           <div className={style.instructions}>

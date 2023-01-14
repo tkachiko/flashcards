@@ -8,19 +8,16 @@ import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
 
 import { PATH } from '../../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import styleContainer from '../../../../common/styles/Container.module.scss'
 import { forgotPasswordTC } from '../../password-reducer'
 
-import style from './ForgotPassword.module.css'
+import style from './ForgotPassword.module.scss'
 
 export const ForgotPassword = () => {
-  type FormikErrorsType = {
-    email?: string
-  }
-
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const forgotPasswordSuccess = useAppSelector(state => state.password.forgotPasswordSuccess)
@@ -31,17 +28,12 @@ export const ForgotPassword = () => {
       message:
         "<div>У тебя 5 минут что бы изменить пароль, иначе я протухну ©Токен, <br>Пароль восстановил, альцгеймер получил ©Народная мудрость <br><a href='http://localhost:3000/#/new-password/$token$'>Ну нажми же ты на меня</a></div>",
     },
-    validate: values => {
-      const errors: FormikErrorsType = {}
-
-      if (!values.email) {
-        errors.email = 'email required'
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      }
-
-      return errors
-    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .matches(/^(?!.*@[^,]*,)/)
+        .email('Invalid email address')
+        .required('Required'),
+    }),
     onSubmit: values => {
       dispatch(forgotPasswordTC(values))
       formik.resetForm()
@@ -66,20 +58,17 @@ export const ForgotPassword = () => {
                   style={{ width: '347px', paddingBottom: '5px' }}
                   {...formik.getFieldProps('email')}
                 />
+                {formik.touched.email && formik.errors.email && (
+                  <div className={style.fieldError}>{formik.errors.email}</div>
+                )}
               </FormControl>
 
               <div className={style.instructions}>
                 Enter your email address and we will send you further instructions
               </div>
 
-              <Button
-                variant={'contained'}
-                type={'submit'}
-                fullWidth
-                disableRipple
-                className={style.button}
-              >
-                Send instructions
+              <Button type={'submit'} variant={'contained'} className={style.button}>
+                Send Instructions
               </Button>
             </FormGroup>
           </form>
