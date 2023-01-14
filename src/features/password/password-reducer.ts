@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { ForgotPasswordType, recoveryApi, SetNewPasswordType } from '../../api/recoveryApi'
 import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
+import { RootStateType } from '../../app/store'
 import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
 
 const initialState = {
@@ -26,7 +27,7 @@ export const passwordReducer = (state = initialState, action: ActionsType) => {
 export const setDataForgetPasswordAC = (email: string) =>
   ({ type: 'login/SET-DATA-EMAIL', email } as const)
 
-export const forgotPasswordSuccess = (forgotPasswordSuccess: boolean) =>
+export const forgotPasswordSuccessAC = (forgotPasswordSuccess: boolean) =>
   ({
     type: 'login/SEND-FORGOT-PASSWORD',
     forgotPasswordSuccess,
@@ -38,7 +39,7 @@ export const newPasswordSuccess = (newPassword: boolean) =>
     newPassword,
   } as const)
 
-export type ForgotPasswordActionType = ReturnType<typeof forgotPasswordSuccess>
+export type ForgotPasswordActionType = ReturnType<typeof forgotPasswordSuccessAC>
 export type SetDataForgetPasswordActionType = ReturnType<typeof setDataForgetPasswordAC>
 export type NewPasswordSuccessActionType = ReturnType<typeof newPasswordSuccess>
 
@@ -48,8 +49,9 @@ export const forgotPasswordTC =
     dispatch(setSubmittingAC('loading'))
     try {
       await recoveryApi.forgotPassword(data)
+
       dispatch(setDataForgetPasswordAC(data.email))
-      dispatch(forgotPasswordSuccess(true))
+      dispatch(forgotPasswordSuccessAC(true))
     } catch (e) {
       const err = e as Error | AxiosError
 
@@ -88,3 +90,6 @@ export const createNewPasswordTC =
       dispatch(setSubmittingAC('idle'))
     }
   }
+
+export const forgotPasswordSuccessSelector = (state: RootStateType) =>
+  state.password.forgotPasswordSuccess

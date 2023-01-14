@@ -10,17 +10,24 @@ import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
+import { appErrorSelector } from '../../../../app/app-reducer'
 import { PATH } from '../../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
+import { ErrorSnackbar } from '../../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../../common/styles/Container.module.scss'
-import { forgotPasswordTC } from '../../password-reducer'
+import {
+  forgotPasswordSuccessAC,
+  forgotPasswordSuccessSelector,
+  forgotPasswordTC,
+} from '../../password-reducer'
 
 import style from './ForgotPassword.module.scss'
 
 export const ForgotPassword = () => {
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const forgotPasswordSuccess = useAppSelector(state => state.password.forgotPasswordSuccess)
+  const forgotPasswordSuccess = useAppSelector(forgotPasswordSuccessSelector)
+  const error = useAppSelector(appErrorSelector)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -42,6 +49,8 @@ export const ForgotPassword = () => {
 
   if (forgotPasswordSuccess) {
     navigate(PATH.CHECK_EMAIL)
+    dispatch(forgotPasswordSuccessAC(false))
+    // return <Navigate to={PATH.CHECK_EMAIL} />
   }
 
   return (
@@ -78,6 +87,7 @@ export const ForgotPassword = () => {
           </NavLink>
         </div>
       </Paper>
+      {error && <ErrorSnackbar />}
     </div>
   )
 }

@@ -27,8 +27,8 @@ export const RoutesComponent = () => {
         <Route path={PATH.NOT_FOUND} element={<Error404 />} />
         <Route path={PATH.PASSWORD_RECOVERY} element={<ForgotPassword />} />
         <Route path={PATH.NEW_PASSWORD} element={<CreateNewPassword />} />
-        <Route path={PATH.TEST_PAGE} element={<TestPage />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
+        <Route path={PATH.TEST_PAGE} element={<TestPage />} />
         <Route path={'*'} element={<Error404 />} />
       </Routes>
     </>
