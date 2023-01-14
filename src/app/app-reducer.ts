@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 import { profileApi } from '../api/profileApi'
 import { ActionsType, ThunkAppDispatchType } from '../common/types/types'
@@ -47,11 +47,6 @@ export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
     dispatch(setIsLoggedInAC(true))
   } catch (e) {
     if (axios.isAxiosError(e)) {
-      const error = e as AxiosError<{ error: string }>
-
-      const finalError = error.response ? error.response.data.error : e.message
-
-      dispatch(setErrorAC(finalError))
       dispatch(setSubmittingAC('failed'))
     } else {
       dispatch(setErrorAC('An unexpected error occurred'))
