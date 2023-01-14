@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import { useFormik } from 'formik'
 import { Navigate, useNavigate } from 'react-router-dom'
+import * as yup from 'yup'
 
 import { StatusType } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
@@ -19,11 +20,6 @@ import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSna
 import styleContainer from './../../../common/styles/Container.module.scss'
 import { LoginTC } from './auth-reducer'
 import style from './Login.module.scss'
-
-type FormikErrorType = {
-  email?: string
-  password?: string
-}
 
 export const Login = () => {
   const navigate = useNavigate()
@@ -38,28 +34,21 @@ export const Login = () => {
     event.preventDefault()
   }
 
+  const validationSchema = yup.object({
+    email: yup.string().email('Invalid email address').required('Email is required'),
+    password: yup
+      .string()
+      .min(8, 'Minimum number of characters 8')
+      .required('Password is required'),
+  })
+
   const formik = useFormik({
-    validate: values => {
-      const errors: FormikErrorType = {}
-
-      if (!values.email) {
-        errors.email = 'Email is required'
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      }
-      if (!values.password) {
-        errors.password = 'Password is required'
-      } else if (values.password.length < 7) {
-        errors.password = 'Minimum number of characters 7'
-      }
-
-      return errors
-    },
     initialValues: {
       email: '',
       password: '',
       rememberMe: false,
     },
+    validationSchema: validationSchema,
     onSubmit: values => {
       dispatch(LoginTC(values))
     },
@@ -68,11 +57,11 @@ export const Login = () => {
   if (isLoggedIn) {
     return <Navigate to={PATH.PROFILE} />
   }
-  const ForgotPassword = () => {
+  const handlerForgotPassword = () => {
     navigate(PATH.PASSWORD_RECOVERY)
   }
 
-  const SignIn = () => {
+  const handlerSignIn = () => {
     navigate(PATH.REGISTER)
   }
 
@@ -87,10 +76,7 @@ export const Login = () => {
             <FormGroup>
               <FormControl sx={{ m: 1 }} variant="standard">
                 <InputLabel>Email</InputLabel>
-                <Input
-                  style={{ width: '347px', paddingBottom: '5px' }}
-                  {...formik.getFieldProps('email')}
-                />
+                <Input className={style.input} {...formik.getFieldProps('email')} />
                 {formik.touched.email && formik.errors.email && (
                   <div className={style.fieldError}>{formik.errors.email}</div>
                 )}
@@ -98,7 +84,7 @@ export const Login = () => {
               <FormControl sx={{ m: 1 }} variant="standard">
                 <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                 <Input
-                  style={{ width: '347px', paddingBottom: '5px' }}
+                  className={style.input}
                   id="standard-adornment-password"
                   type={showPassword ? 'text' : 'password'}
                   {...formik.getFieldProps('password')}
@@ -129,7 +115,7 @@ export const Login = () => {
                   }
                 />
               </FormControl>
-              <a className={style.forgotPassword} onClick={ForgotPassword}>
+              <a className={style.forgotPassword} onClick={handlerForgotPassword}>
                 Forgot Password?
               </a>
               <Button type={'submit'} variant={'contained'} className={style.button}>
@@ -138,7 +124,7 @@ export const Login = () => {
             </FormGroup>
           </form>
           <p className={style.text}>Don&apos;t have an account?</p>
-          <a className={style.signUp} onClick={SignIn}>
+          <a className={style.signUp} onClick={handlerSignIn}>
             Sign Up
           </a>
         </FormControl>

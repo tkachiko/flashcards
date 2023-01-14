@@ -13,6 +13,11 @@
 
     margin: 40px 34px;
 
+    .input {
+      width: 347px;
+      padding-bottom: 5px;
+    }
+
     .fieldError {
 
       @include text(14px, 600, 22px);
@@ -48,15 +53,12 @@
     }
 
     .button {
-      width: 347px;
       height: 36px;
 
       text-transform: none;
 
       background-color: $primaryColor;
       border-radius: 30px;
-
-      //margin-top: 60px;
 
       &:hover {
         background-color: $secondColor;

@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios'
-import { Dispatch } from 'redux'
 
 import { profileApi } from '../api/profileApi'
 import { ActionsType, ThunkAppDispatchType } from '../common/types/types'
@@ -38,7 +37,7 @@ export const setSubmittingAC = (status: StatusType) => ({ type: SET_SUBMITTING, 
 export const setAppInitializedAC = (isInitialized: boolean) =>
   ({ type: SET_IS_INITIALIZED, isInitialized } as const)
 
-export const authMeTC = (): ThunkAppDispatchType => async (dispatch: Dispatch<ActionsType>) => {
+export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
   dispatch(setSubmittingAC('loading'))
   try {
     const res = await profileApi.authMe()
