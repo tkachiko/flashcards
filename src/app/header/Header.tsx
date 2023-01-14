@@ -1,10 +1,11 @@
 import * as React from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import itIncubator from '../../assets/images/It-incubator.svg'
 import avatar from '../../assets/images/person.png'
 import { isLoggedInSelector } from '../../features/auth/login/auth-reducer'
 import { nameSelector } from '../../features/profile/profile-reducer'
-import { redirectHandler } from '../../utils/redirectHandler'
 import { PATH } from '../routes/routes'
 import { useAppSelector } from '../store'
 
@@ -13,6 +14,11 @@ import style from './Header.module.scss'
 export const Header = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const nickname = useAppSelector(nameSelector)
+  const navigate = useNavigate()
+
+  const handlerSignIn = () => {
+    navigate(PATH.LOGIN)
+  }
 
   return (
     <div className={style.container}>
@@ -25,7 +31,7 @@ export const Header = () => {
           </div>
         </div>
       ) : (
-        <button className={style.button} onClick={() => redirectHandler(PATH.LOGIN)}>
+        <button className={style.button} onClick={handlerSignIn}>
           Sign in
         </button>
       )}

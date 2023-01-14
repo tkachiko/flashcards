@@ -9,7 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import { useFormik } from 'formik'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { appErrorSelector, appStatusSelector, setSubmittingAC } from '../../../app/app-reducer'
@@ -17,7 +17,6 @@ import { PATH } from '../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../common/styles/Container.module.scss'
-import { redirectHandler } from '../../../utils/redirectHandler'
 
 import { createUserTC } from './register-reducer'
 import style from './Register.module.scss'
@@ -29,6 +28,7 @@ export const Register = () => {
   const error = useAppSelector(appErrorSelector)
   const status = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const toggleShowPassword = () => {
     setShowPassword(show => !show)
@@ -61,7 +61,7 @@ export const Register = () => {
 
   useEffect(() => {
     if (!error && status === 'success') {
-      redirectHandler(PATH.LOGIN)
+      navigate(PATH.LOGIN)
       dispatch(setSubmittingAC('idle'))
     }
   }, [status, error])
