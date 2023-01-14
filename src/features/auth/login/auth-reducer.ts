@@ -2,8 +2,8 @@ import axios, { AxiosError } from 'axios'
 
 import { loginAPI } from '../../../api/login-api'
 import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
-import { ErrorMessage } from '../../../common/error/error404/error-utils'
 import { LoginType, ThunkAppDispatchType } from '../../../common/types/types'
+import { ErrorMessage } from '../../../utils/error-utils'
 import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
 
 const initialState = {
