@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { profileApi } from '../../api/profileApi'
 import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
+import { RootStateType } from '../../app/store'
 import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
 
 const SET_DATA_TO_PROFILE = 'profile/SET_DATA_TO_PROFILE'
@@ -85,3 +86,5 @@ export type ProfileActionsType =
   | ReturnType<typeof setDataAC>
   | ReturnType<typeof setNewNameAC>
   | ReturnType<typeof deleteUserDataAC>
+
+export const nameSelector = (state: RootStateType) => state.profile.profile.name
