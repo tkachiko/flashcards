@@ -50,6 +50,9 @@
       justify-content: flex-end;
 
       margin: 29px 0 69px;
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .button {

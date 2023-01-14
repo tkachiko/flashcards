@@ -3,7 +3,8 @@ import { Dispatch } from 'redux'
 
 import { registerApi } from '../../../api/registerApi'
 import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
-import { ActionsType, ThunkAppDispatchType } from '../../../common/types/types'
+import { ThunkAppDispatchType } from '../../../app/store'
+import { ActionsType } from '../../../common/types/types'
 
 // thunks
 export const createUserTC =

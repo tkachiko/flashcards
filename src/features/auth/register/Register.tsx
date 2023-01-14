@@ -77,6 +77,7 @@ export const Register = () => {
         {status === 'loading' && <LinearProgress color={'primary'} />}
         <form className={style.form} onSubmit={formik.handleSubmit}>
           <h1 className={style.heading}>Sign Up</h1>
+
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'email'}>Email</InputLabel>
             <Input
@@ -87,6 +88,7 @@ export const Register = () => {
             />
             <div className={style.fieldError}>{formik.touched.email && formik.errors.email}</div>
           </FormControl>
+
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'password'}>Password</InputLabel>
             <Input
@@ -106,6 +108,7 @@ export const Register = () => {
               {formik.touched.password && formik.errors.password}
             </div>
           </FormControl>
+
           <FormControl sx={{ m: 1 }} variant="standard">
             <InputLabel htmlFor={'confirmPassword'}>Confirm password</InputLabel>
             <Input
@@ -128,6 +131,7 @@ export const Register = () => {
               {formik.touched.confirmPassword && formik.errors.confirmPassword}
             </div>
           </FormControl>
+
           <Button
             variant={'contained'}
             type={'submit'}
