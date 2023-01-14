@@ -2,9 +2,10 @@ import { AxiosError } from 'axios'
 
 import { loginAPI } from '../../../api/login-api'
 import {  setSubmittingAC } from '../../../app/app-reducer'
-import { ErrorMessage } from '../../../common/error/error404/error-utils'
+
 import { LoginType, ThunkAppDispatchType } from '../../../common/types/types'
 import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
+import {ErrorMessage} from "../../../utils/error-utils";
 
 const initialState = {
   isLoggedIn: false,

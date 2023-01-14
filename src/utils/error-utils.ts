@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios'
 import { Dispatch } from 'redux'
+import {setErrorAC, setSubmittingAC} from '../app/app-reducer'
 
-import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
+
 
 export const ErrorMessage = (dispatch: Dispatch, err: AxiosError | Error) => {
   if (axios.isAxiosError(err)) {
