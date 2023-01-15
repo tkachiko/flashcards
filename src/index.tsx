@@ -12,11 +12,11 @@ import reportWebVitals from './reportWebVitals'
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-  <HashRouter>
-    <Provider store={store}>
+  <Provider store={store}>
+    <HashRouter>
       <App />
-    </Provider>
-  </HashRouter>
+    </HashRouter>
+  </Provider>
 )
 
 console.log('process.env.NODE_ENV: ', process.env.NODE_ENV)

@@ -3,7 +3,7 @@ import React from 'react'
 import { FormGroup, LinearProgress } from '@mui/material'
 import { useFormik } from 'formik'
 
-import { StatusType } from '../../app/app-reducer'
+import { appStatusSelector } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
@@ -11,7 +11,7 @@ import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/Sup
 import { logoutTC } from '../auth/login/auth-reducer'
 
 import styleContainer from './../../common/styles/Container.module.scss'
-import { changeNameTC } from './profile-reducer'
+import { changeNameTC, emailSelector, nameSelector } from './profile-reducer'
 import style from './Profile.module.scss'
 
 type FormikErrorType = {
@@ -19,9 +19,9 @@ type FormikErrorType = {
 }
 
 export const Profile = () => {
-  const nickname = useAppSelector<string>(state => state.profile.profile.name)
-  const email = useAppSelector<string>(state => state.profile.profile.email)
-  const status = useAppSelector<StatusType>(state => state.app.status)
+  const nickname = useAppSelector(nameSelector)
+  const email = useAppSelector(emailSelector)
+  const status = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({

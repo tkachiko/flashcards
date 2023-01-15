@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 import { profileApi } from '../api/profileApi'
 import { ActionsType, ThunkAppDispatchType } from '../common/types/types'
@@ -43,15 +43,11 @@ export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
     const res = await profileApi.authMe()
 
     dispatch(setSubmittingAC('success'))
+
     dispatch(setDataAC(res.data))
     dispatch(setIsLoggedInAC(true))
   } catch (e) {
     if (axios.isAxiosError(e)) {
-      const error = e as AxiosError<{ error: string }>
-
-      const finalError = error.response ? error.response.data.error : e.message
-
-      dispatch(setErrorAC(finalError))
       dispatch(setSubmittingAC('failed'))
     } else {
       dispatch(setErrorAC('An unexpected error occurred'))
@@ -62,8 +58,9 @@ export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
   }
 }
 
-export const errorSelector = (state: RootStateType) => state.app.error
-export const statusSelector = (state: RootStateType) => state.app.status
+export const appErrorSelector = (state: RootStateType) => state.app.error
+export const appStatusSelector = (state: RootStateType) => state.app.status
+export const appIsInititializedSelector = (state: RootStateType) => state.app.isInitialized
 
 export type AppActionsType =
   | ReturnType<typeof setErrorAC>

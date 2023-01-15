@@ -1,19 +1,24 @@
 import * as React from 'react'
 
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import itIncubator from '../../assets/images/It-incubator.svg'
 import avatar from '../../assets/images/person.png'
+import { isLoggedInSelector } from '../../features/auth/login/auth-reducer'
+import { nameSelector } from '../../features/profile/profile-reducer'
 import { PATH } from '../routes/routes'
-import { RootStateType, useAppSelector } from '../store'
+import { useAppSelector } from '../store'
 
 import style from './Header.module.scss'
 
 export const Header = () => {
-  const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
-  const nickname = useSelector<RootStateType, string>(state => state.profile.profile.name)
+  const isLoggedIn = useAppSelector(isLoggedInSelector)
+  const nickname = useAppSelector(nameSelector)
   const navigate = useNavigate()
+
+  const handlerSignIn = () => {
+    navigate(PATH.LOGIN)
+  }
 
   return (
     <div className={style.container}>
@@ -26,12 +31,7 @@ export const Header = () => {
           </div>
         </div>
       ) : (
-        <button
-          className={style.button}
-          onClick={() => {
-            navigate(PATH.LOGIN)
-          }}
-        >
+        <button className={style.button} onClick={handlerSignIn}>
           Sign in
         </button>
       )}

@@ -12,20 +12,20 @@ import { useFormik } from 'formik'
 import { Navigate, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { StatusType } from '../../../app/app-reducer'
+import { appStatusSelector } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
 
 import styleContainer from './../../../common/styles/Container.module.scss'
-import { LoginTC } from './auth-reducer'
+import { isLoggedInSelector, LoginTC } from './auth-reducer'
 import style from './Login.module.scss'
 
 export const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const status = useAppSelector<StatusType>(state => state.app.status)
-  const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+  const status = useAppSelector(appStatusSelector)
+  const isLoggedIn = useAppSelector(isLoggedInSelector)
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword(show => !show)

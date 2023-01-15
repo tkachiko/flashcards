@@ -74,3 +74,6 @@ export const createNewPasswordTC =
       dispatch(setSubmittingAC('idle'))
     }
   }
+
+export const forgotPasswordSuccessSelector = (state: RootStateType) =>
+  state.password.forgotPasswordSuccess
