@@ -3,6 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AppActionsType } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
+import { CardsPackActionType } from '../../features/decks/cardsPack-reducer'
 import { PasswordRecoveryType } from '../../features/password/password-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
 
@@ -88,3 +89,4 @@ export type ActionsType =
   | ProfileActionsType
   | AuthActionType
   | PasswordRecoveryType
+  | CardsPackActionType

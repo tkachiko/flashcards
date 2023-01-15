@@ -5,7 +5,8 @@ import { Route, Routes } from 'react-router-dom'
 import { Error404 } from '../../common/error/error404/Error404'
 import { Login } from '../../features/auth/login/Login'
 import { Register } from '../../features/auth/register/Register'
-import { CheckEmail } from '../../features/password/recovery/checkMail/CheckEmail'
+import { CardsPack } from '../../features/decks/CardsPack'
+import { CheckEmail } from '../../features/password/recovery/checkEmail/CheckEmail'
 import { CreateNewPassword } from '../../features/password/recovery/createNewPassword/CreateNewPassword'
 import { ForgotPassword } from '../../features/password/recovery/forgotPassword/ForgotPassword'
 import { Profile } from '../../features/profile/Profile'
@@ -29,6 +30,7 @@ export const RoutesComponent = () => {
         <Route path={PATH.NEW_PASSWORD} element={<CreateNewPassword />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={PATH.TEST_PAGE} element={<TestPage />} />
+        <Route path={PATH.CARDS_PACK} element={<CardsPack />} />
         <Route path={'*'} element={<Error404 />} />
       </Routes>
     </>
