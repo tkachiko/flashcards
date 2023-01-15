@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { FormGroup, LinearProgress } from '@mui/material'
 import { useFormik } from 'formik'
-import { useNavigate } from 'react-router-dom'
 
 import { StatusType } from '../../app/app-reducer'
-import { PATH } from '../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import arrowBack from '../../assets/images/arrowBack.jpg'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
@@ -24,13 +22,7 @@ export const Profile = () => {
   const nickname = useAppSelector<string>(state => state.profile.profile.name)
   const email = useAppSelector<string>(state => state.profile.profile.email)
   const status = useAppSelector<StatusType>(state => state.app.status)
-  const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!isLoggedIn) navigate(PATH.LOGIN)
-  }, [])
 
   const formik = useFormik({
     initialValues: {

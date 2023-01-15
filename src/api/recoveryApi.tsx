@@ -12,7 +12,7 @@ export type SetNewPasswordType = {
 
 export type ForgotPasswordType = {
   email: string
-  message: string
+  message?: string
 }
 
 type ResponseForgotType = {
@@ -24,15 +24,9 @@ type ResponseForgotType = {
 
 export const recoveryApi = {
   forgotPassword(data: ForgotPasswordType) {
-    return instanceHeroku.post<ForgotPasswordType, AxiosResponse<ResponseForgotType>>(
-      'auth/forgot',
-      data
-    )
+    return instanceHeroku.post<AxiosResponse<ResponseForgotType>>('auth/forgot', data)
   },
   setNewPassword(data: SetNewPasswordType) {
-    return instanceHeroku.post<SetNewPasswordType, AxiosResponse<ResponseForgotType>>(
-      'auth/set-new-password',
-      data
-    )
+    return instanceHeroku.post<AxiosResponse<ResponseForgotType>>('auth/set-new-password', data)
   },
 }

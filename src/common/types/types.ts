@@ -3,11 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AppActionsType } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
-import {
-  ForgotPasswordActionType,
-  NewPasswordSuccessActionType,
-  SetDataForgetPasswordActionType,
-} from '../../features/password/password-reducer'
+import { SendPasswordType } from '../../features/password/password-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
 
 export type LoginType = {
@@ -46,10 +42,4 @@ export type ThunkAppDispatchType<ReturnType = void> = ThunkAction<
 >
 export type AppThunk = ThunkDispatch<RootStateType, unknown, ActionsType>
 
-export type ActionsType =
-  | AppActionsType
-  | ProfileActionsType
-  | AuthActionType
-  | ForgotPasswordActionType
-  | SetDataForgetPasswordActionType
-  | NewPasswordSuccessActionType
+export type ActionsType = AppActionsType | ProfileActionsType | AuthActionType | SendPasswordType

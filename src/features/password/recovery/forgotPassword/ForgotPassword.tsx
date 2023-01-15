@@ -7,18 +7,17 @@ import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'
 import Paper from '@mui/material/Paper'
 import { useFormik } from 'formik'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { PATH } from '../../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import styleContainer from '../../../../common/styles/Container.module.scss'
-import { forgotPasswordTC } from '../../password-reducer'
+import { forgotPasswordTCSlice } from '../../password-reducer'
 
 import style from './ForgotPassword.module.scss'
 
 export const ForgotPassword = () => {
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const forgotPasswordSuccess = useAppSelector(state => state.password.forgotPasswordSuccess)
 
@@ -35,13 +34,13 @@ export const ForgotPassword = () => {
         .required('Required'),
     }),
     onSubmit: values => {
-      dispatch(forgotPasswordTC(values))
+      dispatch(forgotPasswordTCSlice(true, values.email))
       formik.resetForm()
     },
   })
 
   if (forgotPasswordSuccess) {
-    navigate(PATH.CHECK_EMAIL)
+    return <Navigate to={PATH.CHECK_EMAIL} />
   }
 
   return (
