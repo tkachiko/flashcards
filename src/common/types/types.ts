@@ -3,12 +3,25 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AppActionsType } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
-import {
-  ForgotPasswordActionType,
-  NewPasswordSuccessActionType,
-  SetDataForgetPasswordActionType,
-} from '../../features/password/password-reducer'
+import { PasswordRecoveryType } from '../../features/password/password-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
+
+export type StatusType = 'idle' | 'loading' | 'success' | 'failed'
+
+export type ProfileDataType = {
+  _id: string
+  email: string
+  rememberMe: boolean
+  isAdmin: boolean
+  name: string
+  verified: boolean
+  publicCardPacksCount: number
+  created: string | Date
+  updated: string | Date
+  __v?: number
+  token?: string
+  tokenDeathTime?: number
+}
 
 //Request types
 
@@ -16,11 +29,6 @@ export type LoginType = {
   email: string
   password: string
   rememberMe: boolean
-}
-
-export type ForgotPasswordType = {
-  email: string
-  message: string
 }
 
 export type SetNewPasswordType = {
@@ -55,9 +63,7 @@ export type UpdatedUserResponseType = {
 
 export type ResponseForgotType = {
   info: string
-  success: boolean
-  answer: boolean
-  html: boolean
+  error: string
 }
 
 export type SignUpResponseType = {
@@ -81,6 +87,4 @@ export type ActionsType =
   | AppActionsType
   | ProfileActionsType
   | AuthActionType
-  | ForgotPasswordActionType
-  | SetDataForgetPasswordActionType
-  | NewPasswordSuccessActionType
+  | PasswordRecoveryType

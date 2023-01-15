@@ -1,3 +1,4 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
 import { loginAPI } from '../../../api/login-api'
@@ -11,31 +12,30 @@ const initialState = {
   isLoggedIn: false,
 }
 
-export const authReducer = (
-  state: InitialStateType = initialState,
-  action: AuthActionType
-): InitialStateType => {
-  switch (action.type) {
-    case 'login/SET-IS-LOGGED-IN':
-      return { ...state, isLoggedIn: action.newValue }
-    default:
-      return state
-  }
-}
-//action
-export const setIsLoggedInAC = (newValue: boolean) =>
-  ({ type: 'login/SET-IS-LOGGED-IN', newValue } as const)
+const slice = createSlice({
+  name: 'authReducer',
+  initialState,
+  reducers: {
+    setIsLoggedInAC(state, action: PayloadAction<{ newValue: boolean }>) {
+      state.isLoggedIn = action.payload.newValue
+    },
+  },
+})
+
+export const authReducer = slice.reducer
+export const setIsLoggedInAC = slice.actions.setIsLoggedInAC
+
 //thunks
 export const LoginTC =
   (data: LoginType): ThunkAppDispatchType =>
   async dispatch => {
-    dispatch(setSubmittingAC('loading'))
+    dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       const res = await loginAPI.login(data)
 
-      dispatch(setDataAC(res.data))
-      dispatch(setSubmittingAC('success'))
-      dispatch(setIsLoggedInAC(true))
+      dispatch(setDataAC({ data: res.data }))
+      dispatch(setSubmittingAC({ status: 'success' }))
+      dispatch(setIsLoggedInAC({ newValue: true }))
     } catch (e) {
       const error = e as Error | AxiosError
 
@@ -46,7 +46,7 @@ export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
   try {
     await loginAPI.logout()
     dispatch(deleteUserDataAC())
-    dispatch(setIsLoggedInAC(false))
+    dispatch(setIsLoggedInAC({ newValue: false }))
   } catch (e) {
     const error = e as Error | AxiosError
 
@@ -55,6 +55,5 @@ export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
 }
 
 //types
-type InitialStateType = typeof initialState
 export type AuthActionType = ReturnType<typeof setIsLoggedInAC>
 export const isLoggedInSelector = (state: RootStateType) => state.auth.isLoggedIn

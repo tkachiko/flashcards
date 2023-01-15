@@ -36,7 +36,7 @@ describe('profile reducer', () => {
       tokenDeathTime: 1673301242288,
       avatar: null,
     }
-    const action = setDataAC(data)
+    const action = setDataAC({ data })
 
     const endState = profileReducer(startState, action)
 
@@ -44,7 +44,7 @@ describe('profile reducer', () => {
   })
   test('name should be changed', () => {
     const name = 'new name'
-    const action = setNewNameAC(name)
+    const action = setNewNameAC({ name })
 
     const endState = profileReducer(startState, action)
 

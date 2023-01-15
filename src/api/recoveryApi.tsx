@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
-import { ForgotPasswordType, ResponseForgotType, SetNewPasswordType } from '../common/types/types'
+import { ResponseForgotType, SetNewPasswordType } from '../common/types/types'
 
 export const instanceHeroku = axios.create({
   baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -8,8 +8,8 @@ export const instanceHeroku = axios.create({
 })
 
 export const recoveryApi = {
-  forgotPassword(data: ForgotPasswordType) {
-    return instanceHeroku.post<AxiosResponse<ResponseForgotType>>('auth/forgot', data)
+  forgotPassword(email: string) {
+    return instanceHeroku.post<AxiosResponse<ResponseForgotType>>('auth/forgot', { email })
   },
   setNewPassword(data: SetNewPasswordType) {
     return instanceHeroku.post<AxiosResponse<ResponseForgotType>>('auth/set-new-password', data)

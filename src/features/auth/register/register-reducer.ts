@@ -1,28 +1,21 @@
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
 import { registerApi } from '../../../api/registerApi'
-import { setErrorAC, setSubmittingAC } from '../../../app/app-reducer'
+import { setSubmittingAC } from '../../../app/app-reducer'
 import { ThunkAppDispatchType } from '../../../common/types/types'
+import { errorMessage } from '../../../utils/error-utils'
 
 // thunks
 export const createUserTC =
   (email: string, password: string): ThunkAppDispatchType =>
   async dispatch => {
-    dispatch(setSubmittingAC('loading'))
+    dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       await registerApi.createUser(email, password)
-      dispatch(setSubmittingAC('success'))
+      dispatch(setSubmittingAC({ status: 'success' }))
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        const error = e as AxiosError<{ error: string }>
+      const error = e as AxiosError<{ error: string }>
 
-        const finalError = error.response ? error.response.data.error : e.message
-
-        dispatch(setErrorAC(finalError))
-        dispatch(setSubmittingAC('failed'))
-      } else {
-        dispatch(setSubmittingAC('failed'))
-        dispatch(setErrorAC('An unexpected error occurred'))
-      }
+      errorMessage(dispatch, error)
     }
   }

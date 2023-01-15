@@ -15,8 +15,7 @@ import { PATH } from '../../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { ErrorSnackbar } from '../../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../../common/styles/Container.module.scss'
-
-import { forgotPasswordTCSlice } from '../../password-reducer'
+import { forgotPasswordSuccessSelector, forgotPasswordTCSlice } from '../../password-reducer'
 
 import style from './ForgotPassword.module.scss'
 
@@ -24,7 +23,6 @@ export const ForgotPassword = () => {
   const dispatch = useAppDispatch()
   const forgotPasswordSuccess = useAppSelector(forgotPasswordSuccessSelector)
   const error = useAppSelector(appErrorSelector)
-  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -45,10 +43,11 @@ export const ForgotPassword = () => {
   })
 
   if (forgotPasswordSuccess) {
-    return <Navigate to={PATH.CHECK_EMAIL}
-                     dispatch(forgotPasswordSuccessAC(false))
-    />
+    return <Navigate to={PATH.CHECK_EMAIL} />
   }
+  // useEffect(() => {
+  // dispatch(forgotPasswordTCSlice(false))
+  // }, [])
 
   return (
     <div className={`${style.formWrapper} ${styleContainer.container}`}>

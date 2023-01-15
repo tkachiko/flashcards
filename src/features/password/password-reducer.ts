@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
-import { recoveryApi, SetNewPasswordType } from '../../api/recoveryApi'
-import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
-import { ThunkAppDispatchType } from '../../common/types/types'
+import { recoveryApi } from '../../api/recoveryApi'
+import { setSubmittingAC } from '../../app/app-reducer'
+import { RootStateType } from '../../app/store'
+import { SetNewPasswordType, ThunkAppDispatchType } from '../../common/types/types'
+import { errorMessage } from '../../utils/error-utils'
 
 const initialState = {
   forgotPasswordSuccess: false,
@@ -15,65 +17,54 @@ const passwordSlice = createSlice({
   name: 'forgotPassword',
   initialState,
   reducers: {
-    sendPasswordAC(state, action: PayloadAction<{ data: boolean; email: string }>) {
-      state.forgotPasswordSuccess = action.payload.data
+    sendPasswordAC(state, action: PayloadAction<{ forgotPass: boolean; email: string }>) {
+      state.forgotPasswordSuccess = action.payload.forgotPass
       state.forgetEmail = action.payload.email
     },
-    newPasswordSuccessAC() {},
+    newPasswordSuccessAC(state, action: PayloadAction<{ newPasswordSuccess: boolean }>) {
+      state.newPasswordSuccess = action.payload.newPasswordSuccess
+    },
   },
 })
-
-export type SendPasswordType = ReturnType<typeof sendPasswordAC>
 
 export const { sendPasswordAC, newPasswordSuccessAC } = passwordSlice.actions
 export const passwordReducer = passwordSlice.reducer
 
 export const forgotPasswordTCSlice =
-  (forgotPass: boolean, email: string): ThunkAppDispatchType =>
+  (forgotPass: boolean, email: string = ''): ThunkAppDispatchType =>
   async dispatch => {
-    dispatch(setSubmittingAC('loading'))
+    dispatch(setSubmittingAC({ status: 'loading' }))
     try {
-      await recoveryApi.forgotPassword({ email })
-      dispatch(sendPasswordAC({ data: forgotPass, email }))
+      await recoveryApi.forgotPassword(email)
+      dispatch(sendPasswordAC({ forgotPass, email }))
     } catch (e) {
-      // ErrorMessage(dispatch, { error: error.message })
-      const err = e as Error | AxiosError
+      const error = e as AxiosError<{ error: string }>
 
-      // if (axios.isAxiosError(err)) {
-      //   const error = err.response?.data
-      //     ? (err.response.data as { error: string }).error
-      //     : err.message
-      //
-      //   dispatch(setErrorAC(error))
-      // } else {
-      //   dispatch(setErrorAC(`Native error ${err.message}`))
-      // }
+      errorMessage(dispatch, error)
     } finally {
-      dispatch(setSubmittingAC('idle'))
+      dispatch(setSubmittingAC({ status: 'idle' }))
     }
   }
 
 export const createNewPasswordTC =
   (data: SetNewPasswordType): ThunkAppDispatchType =>
   async dispatch => {
-    dispatch(setSubmittingAC('loading'))
+    dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       await recoveryApi.setNewPassword(data)
-      // dispatch(newPasswordSuccess(true))
+      dispatch(newPasswordSuccessAC({ newPasswordSuccess: true }))
     } catch (e) {
-      const err = e as Error | AxiosError
+      const error = e as AxiosError<{ error: string }>
 
-      if (axios.isAxiosError(err)) {
-        const error = err.response?.data
-          ? (err.response.data as { error: string }).error
-          : err.message
-
-        dispatch(setErrorAC(error))
-      }
+      errorMessage(dispatch, error)
     } finally {
-      dispatch(setSubmittingAC('idle'))
+      dispatch(setSubmittingAC({ status: 'idle' }))
     }
   }
 
 export const forgotPasswordSuccessSelector = (state: RootStateType) =>
   state.password.forgotPasswordSuccess
+
+export type PasswordRecoveryType =
+  | ReturnType<typeof sendPasswordAC>
+  | ReturnType<typeof newPasswordSuccessAC>

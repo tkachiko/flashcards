@@ -9,11 +9,11 @@ export const errorMessage = (dispatch: Dispatch, err: AxiosError | Error) => {
 
     const finalError = error.response ? error.response.data.error : err.message
 
-    dispatch(setSubmittingAC('failed'))
-    dispatch(setErrorAC(finalError))
+    dispatch(setSubmittingAC({ status: 'failed' }))
+    dispatch(setErrorAC({ error: finalError }))
   } else {
     console.log(err)
-    dispatch(setSubmittingAC('failed'))
-    dispatch(setErrorAC(err.message))
+    dispatch(setSubmittingAC({ status: 'failed' }))
+    dispatch(setErrorAC({ error: err.message }))
   }
 }

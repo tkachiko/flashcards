@@ -14,21 +14,21 @@ const startState: InitialStateType = {
 
 describe('app reducer', () => {
   test('should set error if something failed', () => {
-    const action = setErrorAC('An error has occurred')
+    const action = setErrorAC({ error: 'An error has occurred' })
 
     const endState = appReducer(startState, action)
 
     expect(endState.error).toBe('An error has occurred')
   })
   test('should be submitted loading for a while', () => {
-    const action = setSubmittingAC('loading')
+    const action = setSubmittingAC({ status: 'loading' })
 
     const endState = appReducer(startState, action)
 
     expect(endState.status).toBe('loading')
   })
   test('initializing app', () => {
-    const action = setAppInitializedAC(true)
+    const action = setAppInitializedAC({ isInitialized: true })
 
     const endState = appReducer(startState, action)
 

@@ -62,7 +62,7 @@ export const Register = () => {
   useEffect(() => {
     if (!error && status === 'success') {
       navigate(PATH.LOGIN)
-      dispatch(setSubmittingAC('idle'))
+      dispatch(setSubmittingAC({ status: 'idle' }))
     }
   }, [status, error])
 

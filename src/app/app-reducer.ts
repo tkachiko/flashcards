@@ -1,17 +1,13 @@
-import axios from 'axios'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { profileApi } from '../api/profileApi'
-import { ActionsType, ThunkAppDispatchType } from '../common/types/types'
+import { StatusType, ThunkAppDispatchType } from '../common/types/types'
 import { setIsLoggedInAC } from '../features/auth/login/auth-reducer'
 import { setDataAC } from '../features/profile/profile-reducer'
 
 import { RootStateType } from './store'
 
-export type StatusType = 'idle' | 'loading' | 'success' | 'failed'
 export type InitialStateType = typeof initialState
-const SET_ERROR = 'flashcards/app/SET_ERROR'
-const SET_SUBMITTING = 'flashcards/app/SET_SUBMITTING'
-const SET_IS_INITIALIZED = 'flashcards/app/SET_IS_INITIALIZED'
 
 const initialState = {
   error: null as string | null,
@@ -19,48 +15,45 @@ const initialState = {
   isInitialized: false as boolean,
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionsType) => {
-  switch (action.type) {
-    case SET_ERROR:
-      return { ...state, error: action.error }
-    case SET_SUBMITTING:
-      return { ...state, status: action.status }
-    case SET_IS_INITIALIZED:
-      return { ...state, isInitialized: action.isInitialized }
-    default:
-      return state
-  }
-}
+const slice = createSlice({
+  name: 'appReducer',
+  initialState,
+  reducers: {
+    setErrorAC(state, action: PayloadAction<{ error: string | null }>) {
+      state.error = action.payload.error
+    },
+    setSubmittingAC(state, action: PayloadAction<{ status: StatusType }>) {
+      state.status = action.payload.status
+    },
+    setAppInitializedAC(state, action: PayloadAction<{ isInitialized: boolean }>) {
+      state.isInitialized = action.payload.isInitialized
+    },
+  },
+})
 
-export const setErrorAC = (error: null | string) => ({ type: SET_ERROR, error } as const)
-export const setSubmittingAC = (status: StatusType) => ({ type: SET_SUBMITTING, status } as const)
-export const setAppInitializedAC = (isInitialized: boolean) =>
-  ({ type: SET_IS_INITIALIZED, isInitialized } as const)
+export const appReducer = slice.reducer
+export const { setErrorAC, setSubmittingAC, setAppInitializedAC } = slice.actions
 
 export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
-  dispatch(setSubmittingAC('loading'))
+  dispatch(setSubmittingAC({ status: 'loading' }))
   try {
     const res = await profileApi.authMe()
 
-    dispatch(setSubmittingAC('success'))
+    dispatch(setSubmittingAC({ status: 'success' }))
 
-    dispatch(setDataAC(res.data))
-    dispatch(setIsLoggedInAC(true))
+    dispatch(setDataAC({ data: res.data }))
+    dispatch(setIsLoggedInAC({ newValue: true }))
   } catch (e) {
-    if (axios.isAxiosError(e)) {
-      dispatch(setSubmittingAC('failed'))
-    } else {
-      dispatch(setErrorAC('An unexpected error occurred'))
-      dispatch(setSubmittingAC('failed'))
-    }
+    dispatch(setSubmittingAC({ status: 'failed' }))
+    console.warn(e)
   } finally {
-    dispatch(setAppInitializedAC(true))
+    dispatch(setAppInitializedAC({ isInitialized: true }))
   }
 }
 
 export const appErrorSelector = (state: RootStateType) => state.app.error
 export const appStatusSelector = (state: RootStateType) => state.app.status
-export const appIsInititializedSelector = (state: RootStateType) => state.app.isInitialized
+export const appIsInitializedSelector = (state: RootStateType) => state.app.isInitialized
 
 export type AppActionsType =
   | ReturnType<typeof setErrorAC>

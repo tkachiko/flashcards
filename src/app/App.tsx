@@ -5,14 +5,14 @@ import './App.scss'
 import CircularProgress from '@mui/material/CircularProgress'
 import LinearProgress from '@mui/material/LinearProgress'
 
-import { appIsInititializedSelector, appStatusSelector, authMeTC } from './app-reducer'
+import { appIsInitializedSelector, appStatusSelector, authMeTC } from './app-reducer'
 import { Header } from './header/Header'
 import { RoutesComponent } from './routes/RoutesComponent'
 import { useAppDispatch, useAppSelector } from './store'
 
 function App() {
   const status = useAppSelector(appStatusSelector)
-  const isInitialized = useAppSelector(appIsInititializedSelector)
+  const isInitialized = useAppSelector(appIsInitializedSelector)
   const dispatch = useAppDispatch()
 
   useEffect(() => {

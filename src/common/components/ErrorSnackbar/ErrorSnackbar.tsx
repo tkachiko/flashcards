@@ -19,7 +19,7 @@ export const ErrorSnackbar = () => {
     if (reason === 'clickaway') {
       return
     }
-    dispatch(setErrorAC(null))
+    dispatch(setErrorAC({ error: null }))
   }
 
   return (

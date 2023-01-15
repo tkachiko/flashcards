@@ -1,28 +1,11 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios, { AxiosError } from 'axios'
 
 import { profileApi } from '../../api/profileApi'
-import { setErrorAC, setSubmittingAC } from '../../app/app-reducer'
+import { setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
-import { ActionsType, ThunkAppDispatchType } from '../../common/types/types'
-
-const SET_DATA_TO_PROFILE = 'profile/SET_DATA_TO_PROFILE'
-const SET_NEW_NAME = 'profile/SET_NEW_NAME'
-const DELETE_USER_DATA = 'profile/DELETE_USER_DATA'
-
-export type ProfileDataType = {
-  _id: string
-  email: string
-  rememberMe: boolean
-  isAdmin: boolean
-  name: string
-  verified: boolean
-  publicCardPacksCount: number
-  created: string | Date
-  updated: string | Date
-  __v?: number
-  token?: string
-  tokenDeathTime?: number
-}
+import { ProfileDataType, ThunkAppDispatchType } from '../../common/types/types'
+import { errorMessage } from '../../utils/error-utils'
 
 const initialState = {
   profile: {
@@ -42,42 +25,39 @@ const initialState = {
   } as ProfileDataType,
 }
 
-export const profileReducer = (state = initialState, action: ActionsType) => {
-  switch (action.type) {
-    case SET_DATA_TO_PROFILE:
-      return { ...state, profile: action.data }
-    case SET_NEW_NAME:
-      return { ...state, profile: { ...state.profile, name: action.name } }
-    case DELETE_USER_DATA:
-      return initialState
-    default:
-      return state
-  }
-}
+const slice = createSlice({
+  name: 'profileReducer',
+  initialState,
+  reducers: {
+    setDataAC(state, action: PayloadAction<{ data: ProfileDataType }>) {
+      state.profile = action.payload.data
+    },
+    deleteUserDataAC(state) {
+      state = initialState
+    },
+    setNewNameAC(state, action: PayloadAction<{ name: string }>) {
+      state.profile.name = action.payload.name
+    },
+  },
+})
 
-export const setDataAC = (data: ProfileDataType) => ({ type: SET_DATA_TO_PROFILE, data } as const)
-export const deleteUserDataAC = () => ({ type: DELETE_USER_DATA } as const)
-export const setNewNameAC = (name: string) => ({ type: SET_NEW_NAME, name } as const)
+export const profileReducer = slice.reducer
+export const { setDataAC, deleteUserDataAC, setNewNameAC } = slice.actions
 
 export const changeNameTC =
   (name: string): ThunkAppDispatchType =>
   async dispatch => {
-    dispatch(setSubmittingAC('loading'))
+    dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       const res = await profileApi.changeName(name)
 
-      dispatch(setSubmittingAC('success'))
-      dispatch(setNewNameAC(res.data.updatedUser.name))
+      dispatch(setSubmittingAC({ status: 'success' }))
+      dispatch(setNewNameAC({ name: res.data.updatedUser.name }))
     } catch (e) {
       if (axios.isAxiosError(e)) {
         const error = e as AxiosError<{ error: string }>
 
-        const finalError = error.response ? error.response.data.error : e.message
-
-        dispatch(setSubmittingAC('failed'))
-        dispatch(setErrorAC(finalError))
-      } else {
-        dispatch(setErrorAC('An unexpected error occurred'))
+        errorMessage(dispatch, error)
       }
     }
   }
