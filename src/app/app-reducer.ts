@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AxiosError } from 'axios'
 
 import { profileApi } from '../api/profileApi'
 import { StatusType, ThunkAppDispatchType } from '../common/types/types'
@@ -44,8 +45,10 @@ export const authMeTC = (): ThunkAppDispatchType => async dispatch => {
     dispatch(setDataAC({ data: res.data }))
     dispatch(setIsLoggedInAC({ newValue: true }))
   } catch (e) {
+    const error = e as AxiosError<{ error: string }>
+
     dispatch(setSubmittingAC({ status: 'failed' }))
-    console.warn(e)
+    console.warn(error.response?.data.error)
   } finally {
     dispatch(setAppInitializedAC({ isInitialized: true }))
   }
