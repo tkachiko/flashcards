@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { loginAPI } from '../../../api/login-api'
+import { loginApi } from '../../../api/loginApi'
 import { setSubmittingAC } from '../../../app/app-reducer'
 import { RootStateType } from '../../../app/store'
 import { LoginType, ThunkAppDispatchType } from '../../../common/types/types'
@@ -31,7 +31,7 @@ export const LoginTC =
   async dispatch => {
     dispatch(setSubmittingAC({ status: 'loading' }))
     try {
-      const res = await loginAPI.login(data)
+      const res = await loginApi.login(data)
 
       dispatch(setDataAC({ data: res.data }))
       dispatch(setSubmittingAC({ status: 'success' }))
@@ -44,7 +44,7 @@ export const LoginTC =
   }
 export const logoutTC = (): ThunkAppDispatchType => async dispatch => {
   try {
-    await loginAPI.logout()
+    await loginApi.logout()
     dispatch(deleteUserDataAC())
     dispatch(setIsLoggedInAC({ newValue: false }))
   } catch (e) {

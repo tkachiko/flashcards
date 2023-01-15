@@ -3,6 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AppActionsType } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
+import { CardsReducerType } from '../../features/cardsPacks/cards/cards-reducer'
 import { PasswordRecoveryType } from '../../features/password/password-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
 
@@ -71,6 +72,77 @@ export type SignUpResponseType = {
   error?: string
 }
 
+export type GradeRequestType = {
+  card_id: string
+  grade: number
+}
+
+export type CreateCardRequestType = {
+  cardsPack_id: string
+  question?: string
+  answer?: string
+  grade?: number
+  shots?: number
+  rating?: number
+  answerImg?: string
+  questionImg?: string
+  questionVideo?: string
+  answerVideo?: string
+  type?: string
+}
+
+export type GetCardsRequestType = {
+  cardsPack_id: string
+  cardQuestion?: string
+  cardAnswer?: string
+  min?: number
+  max?: number
+  sortCards?: string
+  page?: number
+  pageCount?: number
+}
+
+export type GetCardsResponseType<D> = {
+  cards: D
+  cardsTotalCount: number
+  maxGrade: number
+  minGrade: number
+  packUserId: string
+  page: number
+  pageCount: number
+  token: string
+  tokenDeathTime: number
+}
+
+export type UpdateCardRequestType = {
+  _id: string
+  question?: string
+  answer?: string
+  comment?: string
+}
+
+export type UrlCardsParamsType = {
+  cardsPack_id?: string
+  page?: string
+  pageCount?: string
+  cardQuestion?: string
+}
+
+export type CardType = {
+  answer: string
+  question: string
+  cardsPack_id: string
+  grade: number
+  rating: number
+  shots: number
+  type: string
+  user_id: string
+  created: string
+  updated: string
+  __v: number
+  _id: string
+}
+
 //ThunkTypes
 
 export type ThunkAppDispatchType<ReturnType = void> = ThunkAction<
@@ -88,3 +160,4 @@ export type ActionsType =
   | ProfileActionsType
   | AuthActionType
   | PasswordRecoveryType
+  | CardsReducerType

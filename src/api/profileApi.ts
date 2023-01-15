@@ -1,6 +1,6 @@
 import { ResponseType, UpdatedUserResponseType } from '../common/types/types'
 
-import { instance } from './instanceAxios'
+import { instance } from './instance'
 
 export const profileApi = {
   authMe() {

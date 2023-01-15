@@ -1,6 +1,6 @@
 import { SignUpResponseType } from '../common/types/types'
 
-import { instance } from './instanceAxios'
+import { instance } from './instance'
 
 export const registerApi = {
   createUser(email: string, password: string) {

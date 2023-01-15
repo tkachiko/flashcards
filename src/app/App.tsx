@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 
 import './App.scss'
-
-import CircularProgress from '@mui/material/CircularProgress'
 import LinearProgress from '@mui/material/LinearProgress'
 
 import { appIsInitializedSelector, appStatusSelector, authMeTC } from './app-reducer'
@@ -19,13 +17,13 @@ function App() {
     dispatch(authMeTC())
   }, [])
 
-  if (!isInitialized) {
-    return (
-      <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
-        <CircularProgress />
-      </div>
-    )
-  }
+  // if (!isInitialized) {
+  //   return (
+  //     <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+  //       <CircularProgress />
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className="App">

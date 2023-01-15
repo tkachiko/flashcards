@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 
 import { AppThunk } from '../common/types/types'
 import { authReducer } from '../features/auth/login/auth-reducer'
+import { cardsReducer } from '../features/cardsPacks/cards/cards-reducer'
 import { passwordReducer } from '../features/password/password-reducer'
 import { profileReducer } from '../features/profile/profile-reducer'
 
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   password: passwordReducer,
   profile: profileReducer,
+  cards: cardsReducer,
 })
 
 export const store = configureStore({
