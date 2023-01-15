@@ -10,4 +10,5 @@ export const PATH = {
   NEW_PASSWORD: '/new-password/:token',
   TEST_PAGE: '/test',
   CHECK_EMAIL: '/check_email',
+  CARDS_PACK: '/cards_pack',
 }
