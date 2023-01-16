@@ -6,7 +6,7 @@ import { Error404 } from '../../common/error/error404/Error404'
 import { Login } from '../../features/auth/login/Login'
 import { Register } from '../../features/auth/register/Register'
 import { Cards } from '../../features/cardsPacks/cards/Cards'
-import { CardsPacks } from '../../features/cardsPacks/CardsPacks'
+import { CardsPack } from '../../features/decks/CardsPack'
 import { CheckEmail } from '../../features/password/recovery/checkEmail/CheckEmail'
 import { CreateNewPassword } from '../../features/password/recovery/createNewPassword/CreateNewPassword'
 import { ForgotPassword } from '../../features/password/recovery/forgotPassword/ForgotPassword'
@@ -25,7 +25,7 @@ export const RoutesComponent = () => {
           <Route path={PATH.PROFILE} element={<Profile />} />
         </Route>
         <Route path={PATH.CARDS} element={<Cards />} />
-        <Route path={PATH.CARDS_PACKS} element={<CardsPacks />} />
+        <Route path={PATH.CARDS_PACKS} element={<CardsPack />} />
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />
         <Route path={PATH.NOT_FOUND} element={<Error404 />} />

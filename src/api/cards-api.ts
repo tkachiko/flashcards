@@ -1,6 +1,6 @@
 import { PacksType } from '../features/decks/cardsPack-reducer'
 
-import { instance } from './instanceAxios'
+import { instance } from './instance'
 
 export const cardsApi = {
   getPack() {

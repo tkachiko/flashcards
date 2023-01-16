@@ -45,7 +45,9 @@ export const fetchPacks = createAsyncThunk(
       const { data } = await cardsApi.getPack()
 
       return data
-    } catch (e: any) {}
+    } catch (e: any) {
+      console.log(e)
+    }
   }
 )
 
