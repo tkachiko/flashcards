@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { cardsApi } from '../../../api/cardsApi'
 import { setSubmittingAC } from '../../../app/app-reducer'
-import { CardType, GetCardsRequestType } from '../../../common/types/types'
+import { CardType, CreateCardRequestType, GetCardsRequestType } from '../../../common/types/types'
 
 // thunk
 
@@ -11,6 +11,18 @@ export const getCardsTC = createAsyncThunk(
   async (data: GetCardsRequestType, { dispatch }) => {
     // dispatch(setSubmittingAC({ status: 'loading' }))
     const response = await cardsApi.getCards(data)
+
+    dispatch(setSubmittingAC({ status: 'success' }))
+
+    return { packId: data.cardsPack_id, data: response.data }
+  }
+)
+
+export const createCardTC = createAsyncThunk(
+  'cards/createCard',
+  async (data: CreateCardRequestType, { dispatch }) => {
+    // dispatch(setSubmittingAC({ status: 'loading' }))
+    const response = await cardsApi.createCard(data)
 
     dispatch(setSubmittingAC({ status: 'success' }))
 
@@ -34,8 +46,11 @@ const slice = createSlice({
     isLoaded: false,
   },
   reducers: {
-    getCardsAC(state, action: PayloadAction<string>) {
+    getCards(state, action: PayloadAction<string>) {
       state.packId = action.payload
+    },
+    createCard(state, action: PayloadAction<CreateCardRequestType>) {
+      state.packId = action.payload.cardsPack_id
     },
   },
   extraReducers: builder => {
@@ -55,7 +70,7 @@ const slice = createSlice({
 })
 
 export const cardsReducer = slice.reducer
-export const { getCardsAC } = slice.actions
+export const { getCards, createCard } = slice.actions
 
 // types
-export type CardsReducerType = ReturnType<typeof getCardsAC>
+export type CardsReducerType = ReturnType<typeof getCards> | ReturnType<typeof createCard>

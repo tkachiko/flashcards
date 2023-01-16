@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 
+import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -11,12 +12,17 @@ import TableRow from '@mui/material/TableRow'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import styleContainer from '../../../common/styles/Container.module.scss'
 
-import { getCardsTC } from './cards-reducer'
+import { createCardTC, getCardsTC } from './cards-reducer'
 import style from './Cards.module.scss'
 
 export const Cards = () => {
   const { cardsData } = useAppSelector(state => state.cards)
   const dispatch = useAppDispatch()
+
+  const addNewCard = () => {
+    dispatch(createCardTC({ cardsPack_id: '63c42cb2bbf2ab12e09c6f1f' }))
+    alert('Card created')
+  }
 
   useEffect(() => {
     dispatch(
@@ -50,12 +56,28 @@ export const Cards = () => {
                 <TableCell align="right">{row.answer}</TableCell>
                 <TableCell align="right">{row.updated.slice(0, -14)}</TableCell>
                 <TableCell align="right">{row.grade}</TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell
+                  onClick={() => {
+                    alert('EDITED')
+                  }}
+                  align="right"
+                >
+                  EDIT
+                </TableCell>
+                <TableCell
+                  onClick={() => {
+                    alert('DELETED')
+                  }}
+                  align="right"
+                >
+                  DELETE
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <Button onClick={addNewCard}>Add new card</Button>
     </div>
   )
 }
