@@ -2,29 +2,6 @@
 
 @import '/src/common/styles/sass/mixins';
 
-.back {
-  cursor: pointer;
-
-  display: flex;
-  gap: 12px;
-  align-items: center;
-
-  margin-top: 24px;
-  margin-left: 140px;
-
-  .image {
-    width: 14px;
-    height: 9px;
-  }
-
-  .backText {
-
-    @include text(14px, 400, 24px);
-
-    font-style: normal;
-  }
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -93,7 +70,6 @@
     }
 
     .fieldError {
-
       @include text(14px, 600, 22px);
 
       position: absolute;

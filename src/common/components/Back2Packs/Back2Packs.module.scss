@@ -1,0 +1,36 @@
+@import '/src/common/styles/sass/variables';
+
+@import '/src/common/styles/sass/mixins';
+
+.back {
+  cursor: pointer;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  margin-top: 24px;
+  margin-left: 140px;
+
+  &:hover {
+    .image {
+      filter: invert(52%) sepia(60%) saturate(7064%) hue-rotate(214deg) brightness(100%) contrast(102%);
+    }
+
+    .backText {
+      color: #366EFF;
+    }
+  }
+
+  .image {
+    padding-top: 5px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .backText {
+    @include text(14px, 400, 24px);
+
+    font-style: normal;
+  }
+}

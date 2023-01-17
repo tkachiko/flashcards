@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 import { useAppDispatch, useAppSelector } from '../../../app/store'
+import { Back2Packs } from '../../../common/components/Back2Packs/Back2Packs'
 import styleContainer from '../../../common/styles/Container.module.scss'
 
 import { getCardsTC } from './cards-reducer'
@@ -29,33 +30,36 @@ export const Cards = () => {
   }, [])
 
   return (
-    <div className={`${style.container} ${styleContainer.container}`}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead className={style.tHead}>
-            <TableRow>
-              <TableCell>Question</TableCell>
-              <TableCell align="right">Answer</TableCell>
-              <TableCell align="right">Last Updated</TableCell>
-              <TableCell align="right">Grade</TableCell>
-              <TableCell align="right"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cardsData.cards.map(row => (
-              <TableRow key={row._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell component="th" scope="row">
-                  {row.question}
-                </TableCell>
-                <TableCell align="right">{row.answer}</TableCell>
-                <TableCell align="right">{row.updated.slice(0, -14)}</TableCell>
-                <TableCell align="right">{row.grade}</TableCell>
+    <div>
+      <Back2Packs />
+      <div className={`${style.container} ${styleContainer.container}`}>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead className={style.tHead}>
+              <TableRow>
+                <TableCell>Question</TableCell>
+                <TableCell align="right">Answer</TableCell>
+                <TableCell align="right">Last Updated</TableCell>
+                <TableCell align="right">Grade</TableCell>
                 <TableCell align="right"></TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {cardsData.cards.map(row => (
+                <TableRow key={row._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {row.question}
+                  </TableCell>
+                  <TableCell align="right">{row.answer}</TableCell>
+                  <TableCell align="right">{row.updated.slice(0, -14)}</TableCell>
+                  <TableCell align="right">{row.grade}</TableCell>
+                  <TableCell align="right"></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   )
 }

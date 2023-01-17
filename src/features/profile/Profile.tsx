@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { FormGroup, LinearProgress } from '@mui/material'
+import FormGroup from '@mui/material/FormGroup'
+import LinearProgress from '@mui/material/LinearProgress'
 import { useFormik } from 'formik'
 
 import { appStatusSelector } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/store'
-import arrowBack from '../../assets/images/arrowBack.jpg'
+import { Back2Packs } from '../../common/components/Back2Packs/Back2Packs'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
 import { logoutTC } from '../auth/login/auth-reducer'
@@ -53,10 +54,7 @@ export const Profile = () => {
   return (
     <div>
       {status === 'loading' && <LinearProgress color={'primary'} />}
-      <div className={style.back}>
-        <img className={style.image} src={arrowBack} alt={'arrow back'} />
-        <span className={style.backText}>Back to Packs List</span>
-      </div>
+      <Back2Packs />
       <div className={`${style.wrapper} ${styleContainer.container}`}>
         <ErrorSnackbar />
         <form onSubmit={formik.handleSubmit}>
