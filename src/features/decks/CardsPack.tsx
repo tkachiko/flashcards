@@ -22,12 +22,14 @@ import {
 } from './cardsPack-reducer'
 import s from './CardsPack.module.scss'
 import { ChangePacks } from './ChangePacks/ChangePacks'
+import { FiltersField } from './FiltersField/FiltersField'
 
 export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const [page, setPage] = useState(useAppSelector(pageSelector))
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
+  const [userId, setUserId] = useState('')
   const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
     setPageCount(newCount)
@@ -35,16 +37,22 @@ export const CardsPack = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(fetchPacks({ filter: { page, pageCount } }))
+    dispatch(fetchPacks({ filter: { page, pageCount, userId } }))
   }, [page, pageCount])
 
   const onClick = () => {
-    dispatch(addPackTC('Nikita'))
+    dispatch(addPackTC('New filter'))
   }
 
   return (
     <div className={s.container}>
-      <button onClick={onClick}>add pack</button>
+      <div className={s.header}>
+        <h3>Packs List</h3>
+        <button className={s.button} onClick={onClick}>
+          Add new pack
+        </button>
+      </div>
+      <FiltersField />
       <TableContainer
         sx={{
           filter:

@@ -50,7 +50,7 @@ export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
       console.log(name)
       const response = await packsApi.createPack(name)
 
-      thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
+      thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, userId: '' } }))
       thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }
@@ -90,7 +90,7 @@ export const deletePack = createAsyncThunk<
   try {
     const response = await packsApi.deletePack(id)
 
-    thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
+    thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, userId: '' } }))
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { data: response.data }
@@ -110,7 +110,7 @@ export const updatePack = createAsyncThunk<
   try {
     const response = await packsApi.updatePack(_id)
 
-    thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
+    thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, userId: '' } }))
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { data: response.data }
@@ -130,6 +130,7 @@ export const pageCountSelector = (state: RootStateType): number => state.pack.pa
 export type PaginationFilterType = {
   page: number
   pageCount: number
+  userId: string
 }
 
 export type PaginationType = {

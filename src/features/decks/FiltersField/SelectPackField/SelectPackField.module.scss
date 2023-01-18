@@ -1,0 +1,41 @@
+@import './src/common/styles/sass/mixins';
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 25px;
+  .text {
+
+    @include text(14px, 500, 17px);
+
+    font-style: normal;
+  }
+  .buttons {
+
+    @include text(14px, 400, 17px);
+
+    box-sizing: border-box;
+    width: 200px;
+    height: 36px;
+
+    font-style: normal;
+    text-align: center;
+
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    .one_Button {
+      cursor: pointer;
+
+      width: 50%;
+      height: 100%;
+
+      border: none;
+      &:focus {
+        color: #ffffff;
+
+        background: #366eff;
+      }
+    }
+  }
+}

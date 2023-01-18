@@ -69,3 +69,4 @@ export type ProfileActionsType =
 
 export const nameSelector = (state: RootStateType) => state.profile.profile.name
 export const emailSelector = (state: RootStateType) => state.profile.profile.email
+export const userIdSelector = (state: RootStateType) => state.profile.profile._id
