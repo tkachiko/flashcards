@@ -4,11 +4,12 @@ import { Dispatch } from 'redux'
 import { cardsApi } from '../../../api/cardsApi'
 import { setSubmittingAC } from '../../../app/app-reducer'
 import { CardType, CreateCardRequestType, GetCardsRequestType } from '../../../common/types/types'
+import { errorMessage } from '../../../utils/error-utils'
 
 // thunk
 
-export const fetchCardsTC = createAsyncThunk(
-  'cards/getCards',
+export const fetchCardsTh = createAsyncThunk(
+  'cards/fetchCards',
   async (data: GetCardsRequestType, { dispatch }) => {
     dispatch(setSubmittingAC({ status: 'loading' }))
     const response = await cardsApi.getCards(data)
@@ -19,14 +20,14 @@ export const fetchCardsTC = createAsyncThunk(
   }
 )
 
-export const createCardTC = createAsyncThunk<
+export const createCardTh = createAsyncThunk<
   { data: CardType[] },
   { card: CreateCardRequestType },
   AsyncThunkConfig
 >('cards/createCard', async (data, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   const response = await cardsApi.createCard({
-    cardsPack_id: '63c42cb2bbf2ab12e09c6f1f',
+    cardsPack_id: '63c86c606918f3393221ed4d',
     question: 'Ya?',
     answer: 'Yo',
   })
@@ -34,10 +35,8 @@ export const createCardTC = createAsyncThunk<
   thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
   console.log(response)
   thunkAPI.dispatch(
-    fetchCardsTC({
-      cardsPack_id: '63c42cb2bbf2ab12e09c6f1f',
-      pageCount: 5,
-      cardAnswer: '',
+    fetchCardsTh({
+      cardsPack_id: '63c86c606918f3393221ed4d',
     })
   )
 
@@ -64,14 +63,14 @@ const slice = createSlice({
     createCard(state, action: PayloadAction<CreateCardRequestType>) {},
   },
   extraReducers: builder => {
-    builder.addCase(fetchCardsTC.fulfilled, (state, action) => {
+    builder.addCase(fetchCardsTh.fulfilled, (state, action) => {
       if (action.payload) {
         state.cardsData = { ...action.payload.data }
         state.isLoaded = true
         state.packId = action.payload.packId
       }
     })
-    builder.addCase(createCardTC.fulfilled, (state, action) => {
+    builder.addCase(createCardTh.fulfilled, (state, action) => {
       if (action.payload) {
         state.cardsData.cards = action.payload.data
         state.isLoaded = true
@@ -79,6 +78,23 @@ const slice = createSlice({
     })
   },
 })
+
+export const deleteCardTh = createAsyncThunk(
+  'cards/deleteCard',
+  async ({ data, cardId }: { data: GetCardsRequestType; cardId: string }, { dispatch }) => {
+    try {
+      dispatch(setSubmittingAC({ status: 'loading' }))
+      await cardsApi.deleteCard(cardId)
+      await dispatch(fetchCardsTh(data))
+      dispatch(setSubmittingAC({ status: 'success' }))
+
+      return cardId
+    } catch (e: any) {
+      dispatch(setSubmittingAC({ status: 'failed' }))
+      errorMessage(dispatch, e)
+    }
+  }
+)
 
 export const cardsReducer = slice.reducer
 export const { getCards, createCard } = slice.actions
