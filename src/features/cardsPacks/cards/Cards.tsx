@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
@@ -9,36 +9,47 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-import { useAppDispatch, useAppSelector } from '../../../app/store'
+import { RootStateType, useAppDispatch, useAppSelector } from '../../../app/store'
 import { Back2Packs } from '../../../common/components/Back2Packs/Back2Packs'
 import styleContainer from '../../../common/styles/Container.module.scss'
 
-import { createCardTC, fetchCardsTC } from './cards-reducer'
+import { createCardTh, deleteCardTh, fetchCardsTh } from './cards-reducer'
 import style from './Cards.module.scss'
 
 export const Cards = () => {
-  const { cardsData } = useAppSelector(state => state.cards)
+  const { cardsData, packId } = useAppSelector((state: RootStateType) => state.cards)
   const dispatch = useAppDispatch()
 
-  const addNewCard = useCallback(() => {
+  const onCreateCardHandler = () => {
     dispatch(
-      createCardTC({
+      createCardTh({
         card: {
-          cardsPack_id: '63c42cb2bbf2ab12e09c6f1f',
+          cardsPack_id: '63c86c606918f3393221ed4d',
         },
       })
     )
-  }, [dispatch])
+  }
 
   useEffect(() => {
     dispatch(
-      fetchCardsTC({
-        cardsPack_id: '63c42cb2bbf2ab12e09c6f1f',
+      fetchCardsTh({
+        cardsPack_id: '63c86c606918f3393221ed4d',
         pageCount: 5,
         cardAnswer: '',
       })
     )
   }, [])
+
+  const onDeleteCardHandler = (cardId: string) => {
+    dispatch(
+      deleteCardTh({
+        data: {
+          cardsPack_id: packId,
+        },
+        cardId,
+      })
+    )
+  }
 
   return (
     <div className={`${style.container} ${styleContainer.container}`}>
@@ -71,12 +82,7 @@ export const Cards = () => {
                   >
                     EDIT
                   </TableCell>
-                  <TableCell
-                    onClick={() => {
-                      alert('DELETED')
-                    }}
-                    align="right"
-                  >
+                  <TableCell onClick={() => onDeleteCardHandler(card._id)} align="right">
                     DELETE
                   </TableCell>
                 </TableRow>
@@ -84,7 +90,7 @@ export const Cards = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button onClick={addNewCard}>Add new card</Button>
+      <Button onClick={onCreateCardHandler}>Add new card</Button>
     </div>
   )
 }

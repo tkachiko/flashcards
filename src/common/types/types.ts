@@ -79,7 +79,7 @@ export type GradeRequestType = {
 }
 
 export type CreateCardRequestType = {
-  cardsPack_id: string
+  cardsPack_id: string | null
   question?: string
   answer?: string
   grade?: number
@@ -93,7 +93,7 @@ export type CreateCardRequestType = {
 }
 
 export type GetCardsRequestType = {
-  cardsPack_id: string
+  cardsPack_id: string | null
   cardQuestion?: string
   cardAnswer?: string
   min?: number
@@ -132,7 +132,7 @@ export type UrlCardsParamsType = {
 export type CardType = {
   answer: string
   question: string
-  cardsPack_id: string
+  cardsPack_id: string | null
   grade: number
   rating: number
   shots: number
