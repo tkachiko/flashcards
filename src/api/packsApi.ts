@@ -3,10 +3,11 @@ import { CardsPackType, PacksType } from '../common/types/types'
 import { instance } from './instance'
 
 export const packsApi = {
-  getPack(page: number) {
+  getPack(filter: { page: number; pageCount: number }) {
     return instance.get<PacksType<CardsPackType[]>>('cards/pack', {
       params: {
-        page: page,
+        page: filter.page,
+        pageCount: filter.pageCount,
       },
     })
   },

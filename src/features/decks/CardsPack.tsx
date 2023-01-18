@@ -12,31 +12,46 @@ import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
 
-import { addPackTC, fetchPacks, packSelector, pageSelector } from './cardsPack-reducer'
+import {
+  addPackTC,
+  cardPacksTotalCountSelector,
+  fetchPacks,
+  packSelector,
+  pageCountSelector,
+  pageSelector,
+} from './cardsPack-reducer'
 import s from './CardsPack.module.scss'
 import { ChangePacks } from './ChangePacks/ChangePacks'
 
 export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
+  const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const [page, setPage] = useState(useAppSelector(pageSelector))
-  const onChangePagination = (newPage: number) => {
+  const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
+  const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
+    setPageCount(newCount)
   }
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(fetchPacks(page))
-  }, [page])
+    dispatch(fetchPacks({ filter: { page, pageCount } }))
+  }, [page, pageCount])
 
   const onClick = () => {
     dispatch(addPackTC('Nikita'))
   }
 
   return (
-    <>
+    <div className={s.container}>
       <button onClick={onClick}>add pack</button>
-      <TableContainer className={s.container}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer
+        sx={{
+          filter:
+            'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.1))',
+        }}
+      >
+        <Table sx={{ minWidth: 650, border: '1px solid #D9D9D9' }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -67,7 +82,12 @@ export const CardsPack = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <SuperPagination page={page} onChange={onChangePagination} />
-    </>
+      <SuperPagination
+        page={page}
+        onChange={onChangePagination}
+        pageCount={pageCount}
+        cardPacksTotalCount={cardPacksTotalCount}
+      />
+    </div>
   )
 }
