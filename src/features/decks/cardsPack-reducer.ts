@@ -1,35 +1,34 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { Dispatch } from 'redux'
 
 import { cardsApi } from '../../api/cards-api'
 import { RootStateType } from '../../app/store'
 
-const initialState: InitalStateType = {
-  packs: {
-    cardPacks: [
-      {
-        _id: '',
-        user_id: '',
-        name: '',
-        cardsCount: 0,
-        created: '',
-        updated: '',
-      },
-    ],
-    cardPacksTotalCount: 0,
-    maxCardsCount: 0,
-    minCardsCount: 0,
-    page: 0,
-    pageCount: 0,
-  },
-}
-
 const slice = createSlice({
   name: 'cardsPack',
-  initialState: initialState,
+  initialState: {
+    cardPacks: [
+      {
+        _id: '' as string,
+        user_id: '' as string,
+        name: '' as string,
+        cardsCount: 0 as number,
+        created: '' as string,
+        updated: '' as string,
+      },
+    ],
+    cardPacksTotalCount: 0 as number,
+    maxCardsCount: 0 as number,
+    minCardsCount: 0 as number,
+    page: 1 as number,
+    pageCount: 10 as number,
+  },
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchPacks.fulfilled, (state, action) => {
-      state.packs = action.payload
+      if (action.payload) {
+        state.cardPacks = action.payload.data.cardPacks
+      }
     })
   },
 })
@@ -37,25 +36,46 @@ const slice = createSlice({
 export const cardsPackReducer = slice.reducer
 
 export const {} = slice.actions
+type AsyncThunkConfig = {
+  state?: unknown
+  dispatch?: Dispatch
+  extra?: unknown
+  rejectValue?: unknown
+  serializedErrorType?: unknown
+  pendingMeta?: unknown
+  fulfilledMeta?: unknown
+  rejectedMeta?: unknown
+}
 
+export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
+  'cardsPack/addPacks',
+  async (name: string, thunkAPI) => {
+    try {
+      const response = await cardsApi.createPack(name)
+
+      thunkAPI.dispatch(fetchPacks())
+
+      return { data: response.data }
+    } catch (e: any) {
+      return thunkAPI.rejectWithValue('')
+    }
+  }
+)
 export const fetchPacks = createAsyncThunk(
   'cardsPack/fetchPacks',
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await cardsApi.getPack()
+      const response = await cardsApi.getPack()
 
-      return data
+      return { data: response.data }
     } catch (e: any) {
       console.log(e)
     }
   }
 )
 
-export type InitalStateType = {
-  packs?: PacksType
-}
-export type PacksType = {
-  cardPacks: CardsPackType[]
+export type PacksType<D> = {
+  cardPacks: D
   cardPacksTotalCount: number
   maxCardsCount: number
   minCardsCount: number
@@ -63,7 +83,7 @@ export type PacksType = {
   pageCount: number
 }
 
-type CardsPackType = {
+export type CardsPackType = {
   _id: string
   user_id: string
   name: string
@@ -71,4 +91,5 @@ type CardsPackType = {
   created: string
   updated: string
 }
-export const packSelector = (state: RootStateType): PacksType | undefined => state.pack.packs
+export const packSelector = (state: RootStateType): PacksType<CardsPackType[]> | undefined =>
+  state.pack
