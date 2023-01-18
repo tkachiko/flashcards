@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import './App.scss'
-import CircularProgress from '@mui/material/CircularProgress'
+import { CircularProgress } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 
 import { appIsInitializedSelector, appStatusSelector, authMeTC } from './app-reducer'

@@ -55,7 +55,7 @@ export const Login = () => {
   })
 
   if (isLoggedIn) {
-    return <Navigate to={PATH.PROFILE} />
+    return <Navigate to={PATH.CARDS} />
   }
   const handlerForgotPassword = () => {
     navigate(PATH.PASSWORD_RECOVERY)
