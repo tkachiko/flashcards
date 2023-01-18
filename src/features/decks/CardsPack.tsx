@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow'
 
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
+import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
 
 import { addPackTC, fetchPacks, packSelector } from './cardsPack-reducer'
 import s from './CardsPack.module.scss'
@@ -62,6 +63,7 @@ export const CardsPack = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <SuperPagination />
     </>
   )
 }
