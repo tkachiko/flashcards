@@ -2,7 +2,7 @@ import { CardsPackType, PacksType } from '../common/types/types'
 
 import { instance } from './instance'
 
-export const packs = {
+export const packsApi = {
   getPack() {
     return instance.get<PacksType<CardsPackType[]>>('cards/pack')
   },

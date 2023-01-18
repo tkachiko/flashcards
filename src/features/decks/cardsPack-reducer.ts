@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { packs } from '../../api/packs'
+import { packsApi } from '../../api/packsApi'
 import { setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AsyncThunkConfig, CardsPackType, PacksType } from '../../common/types/types'
@@ -46,7 +46,7 @@ export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
     thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       console.log(name)
-      const response = await packs.createPack(name)
+      const response = await packsApi.createPack(name)
 
       thunkAPI.dispatch(fetchPacks())
       thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
@@ -66,7 +66,7 @@ export const fetchPacks = createAsyncThunk<
 >('cardsPack/fetchPacks', async (_, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const response = await packs.getPack()
+    const response = await packsApi.getPack()
 
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
@@ -85,7 +85,7 @@ export const deletePack = createAsyncThunk<
 >('cardsPack/deletePack', async (id: string, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const response = await packs.deletePack(id)
+    const response = await packsApi.deletePack(id)
 
     thunkAPI.dispatch(fetchPacks())
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
@@ -105,7 +105,7 @@ export const updatePack = createAsyncThunk<
 >('cardsPack/updatePack', async (_id: string, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const response = await packs.updatePack(_id)
+    const response = await packsApi.updatePack(_id)
 
     thunkAPI.dispatch(fetchPacks())
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
