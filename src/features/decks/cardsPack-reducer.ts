@@ -1,8 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Dispatch } from 'redux'
+import { AxiosError } from 'axios/index'
 
 import { cardsApi } from '../../api/cards-api'
+import { setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
+import { AsyncThunkConfig, CardsPackType, PacksType } from '../../common/types/types'
+import { errorMessage } from '../../utils/error-utils'
 
 const slice = createSlice({
   name: 'cardsPack',
@@ -36,60 +39,84 @@ const slice = createSlice({
 export const cardsPackReducer = slice.reducer
 
 export const {} = slice.actions
-type AsyncThunkConfig = {
-  state?: unknown
-  dispatch?: Dispatch
-  extra?: unknown
-  rejectValue?: unknown
-  serializedErrorType?: unknown
-  pendingMeta?: unknown
-  fulfilledMeta?: unknown
-  rejectedMeta?: unknown
-}
 
 export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
-  'cardsPack/addPacks',
+  'cardsPack/addPack',
   async (name: string, thunkAPI) => {
+    thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
     try {
+      console.log(name)
       const response = await cardsApi.createPack(name)
 
       thunkAPI.dispatch(fetchPacks())
+      thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }
     } catch (e: any) {
-      return thunkAPI.rejectWithValue('')
+      const error = e as Error | AxiosError
+
+      return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
     }
   }
 )
-export const fetchPacks = createAsyncThunk(
-  'cardsPack/fetchPacks',
-  async (_, { dispatch, rejectWithValue }) => {
-    try {
-      const response = await cardsApi.getPack()
+export const fetchPacks = createAsyncThunk<
+  { data: PacksType<CardsPackType[]> },
+  void,
+  AsyncThunkConfig
+>('cardsPack/fetchPacks', async (_, thunkAPI) => {
+  thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
+  try {
+    const response = await cardsApi.getPack()
 
-      return { data: response.data }
-    } catch (e: any) {
-      console.log(e)
-    }
+    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
+
+    return { data: response.data }
+  } catch (e: any) {
+    const error = e as Error | AxiosError
+
+    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
   }
-)
+})
 
-export type PacksType<D> = {
-  cardPacks: D
-  cardPacksTotalCount: number
-  maxCardsCount: number
-  minCardsCount: number
-  page: number
-  pageCount: number
-}
+export const deletePack = createAsyncThunk<
+  { data: PacksType<CardsPackType[]> },
+  string,
+  AsyncThunkConfig
+>('cardsPack/deletePack', async (id: string, thunkAPI) => {
+  thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
+  try {
+    const response = await cardsApi.deletePack(id)
 
-export type CardsPackType = {
-  _id: string
-  user_id: string
-  name: string
-  cardsCount: number
-  created: string
-  updated: string
-}
+    thunkAPI.dispatch(fetchPacks())
+    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
+
+    return { data: response.data }
+  } catch (e: any) {
+    const error = e as Error | AxiosError
+
+    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+  }
+})
+
+export const updatePack = createAsyncThunk<
+  { data: PacksType<CardsPackType[]> },
+  string,
+  AsyncThunkConfig
+>('cardsPack/updatePack', async (_id: string, thunkAPI) => {
+  thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
+  try {
+    const response = await cardsApi.updatePack(_id)
+
+    thunkAPI.dispatch(fetchPacks())
+    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
+
+    return { data: response.data }
+  } catch (e: any) {
+    const error = e as Error | AxiosError
+
+    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+  }
+})
+
 export const packSelector = (state: RootStateType): PacksType<CardsPackType[]> | undefined =>
   state.pack

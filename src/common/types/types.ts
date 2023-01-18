@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
 import { AppActionsType } from '../../app/app-reducer'
@@ -142,6 +143,25 @@ export type CardType = {
   __v: number
   _id: string
 }
+//PacksType
+
+export type PacksType<D> = {
+  cardPacks: D
+  cardPacksTotalCount: number
+  maxCardsCount: number
+  minCardsCount: number
+  page: number
+  pageCount: number
+}
+
+export type CardsPackType = {
+  _id: string
+  user_id: string
+  name: string
+  cardsCount: number
+  created: string
+  updated: string
+}
 
 //ThunkTypes
 
@@ -152,6 +172,17 @@ export type ThunkAppDispatchType<ReturnType = void> = ThunkAction<
   ActionsType
 >
 export type AppThunk = ThunkDispatch<RootStateType, unknown, ActionsType>
+
+export type AsyncThunkConfig = {
+  state?: unknown
+  dispatch?: Dispatch
+  extra?: unknown
+  rejectValue?: unknown
+  serializedErrorType?: unknown
+  pendingMeta?: unknown
+  fulfilledMeta?: unknown
+  rejectedMeta?: unknown
+}
 
 //Actions Types
 
