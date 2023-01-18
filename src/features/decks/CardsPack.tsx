@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -12,17 +12,21 @@ import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
 
-import { addPackTC, fetchPacks, packSelector } from './cardsPack-reducer'
+import { addPackTC, fetchPacks, packSelector, pageSelector } from './cardsPack-reducer'
 import s from './CardsPack.module.scss'
 import { ChangePacks } from './ChangePacks/ChangePacks'
 
 export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
+  const [page, setPage] = useState(useAppSelector(pageSelector))
+  const onChangePagination = (newPage: number) => {
+    setPage(newPage)
+  }
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(fetchPacks())
-  }, [])
+    dispatch(fetchPacks(page))
+  }, [page])
 
   const onClick = () => {
     dispatch(addPackTC('Nikita'))
@@ -63,7 +67,7 @@ export const CardsPack = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <SuperPagination />
+      <SuperPagination page={page} onChange={onChangePagination} />
     </>
   )
 }

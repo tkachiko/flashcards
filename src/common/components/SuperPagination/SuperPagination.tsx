@@ -5,7 +5,7 @@ import Pagination from '@mui/material/Pagination'
 // import Pagination from '@mui/material/Pagination'
 // import { AxiosError } from 'axios'
 //
-// import { packs } from '../../../api/packs'
+// import { packsApi } from '../../../api/packsApi'
 // import { loginAPI } from '../../../api/login-api'
 // import { setSubmittingAC } from '../../../app/app-reducer'
 // import { RootStateType, useAppDispatch, useAppSelector } from '../../../app/store'
@@ -15,24 +15,28 @@ import Pagination from '@mui/material/Pagination'
 // import { errorMessage } from '../../../utils/error-utils'
 // import { LoginType, ThunkAppDispatchType } from '../../types/types'
 
-export const SuperPagination = () => {
+type SuperPaginationType = {
+  page: number
+  onChange: (page: number) => void
+}
+
+export const SuperPagination = (props: SuperPaginationType) => {
   // const totalcount = useAppSelector(cardPacksTotalCountSelector)
   // const pagecount = useAppSelector(pageCountSelector)
   // const cardpacs = useAppSelector(cardPacksSelector)
   // let pageserver = useAppSelector(pageSelector)
   // const dispatch = useAppDispatch()
-  // let [page, setPage] = useState(2)
   // const [count, setCount] = useState(pagecount)
-  // const onChangePagination = (event: ChangeEvent<unknown>, newPage: number) => {
-  //   console.log(page)
-  //   setPage(newPage)
-  // }
+  const onChangePagination = (event: ChangeEvent<unknown>, newPage: number) => {
+    props.onChange(newPage)
+    console.log(newPage)
+  }
   // const getCardPacksTC =
   //   (page?: number): ThunkAppDispatchType =>
   //   async dispatch => {
   //     dispatch(setSubmittingAC('loading'))
   //     try {
-  //       const res = await packs.getCardsPack(page)
+  //       const res = await packsApi.getCardsPack(page)
   //
   //       console.log(res.data)
   //       dispatch(setCardPacksAC(res.data))
@@ -57,7 +61,13 @@ export const SuperPagination = () => {
 
   return (
     <div>
-      <Pagination count={10} page={1} variant="outlined" shape="rounded" />
+      <Pagination
+        count={10}
+        page={props.page}
+        variant="outlined"
+        shape="rounded"
+        onChange={onChangePagination}
+      />
     </div>
   )
 }

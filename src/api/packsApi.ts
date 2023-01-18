@@ -3,8 +3,12 @@ import { CardsPackType, PacksType } from '../common/types/types'
 import { instance } from './instance'
 
 export const packsApi = {
-  getPack() {
-    return instance.get<PacksType<CardsPackType[]>>('cards/pack')
+  getPack(page: number) {
+    return instance.get<PacksType<CardsPackType[]>>('cards/pack', {
+      params: {
+        page: page,
+      },
+    })
   },
   createPack(name: string) {
     return instance.post(`cards/pack`, { cardsPack: { name } })

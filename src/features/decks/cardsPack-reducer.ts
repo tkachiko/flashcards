@@ -48,7 +48,7 @@ export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
       console.log(name)
       const response = await packsApi.createPack(name)
 
-      thunkAPI.dispatch(fetchPacks())
+      thunkAPI.dispatch(fetchPacks(1))
       thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }
@@ -61,12 +61,12 @@ export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
 )
 export const fetchPacks = createAsyncThunk<
   { data: PacksType<CardsPackType[]> },
-  void,
+  number,
   AsyncThunkConfig
->('cardsPack/fetchPacks', async (_, thunkAPI) => {
+>('cardsPack/fetchPacks', async (page: number, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const response = await packsApi.getPack()
+    const response = await packsApi.getPack(page)
 
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
@@ -87,7 +87,7 @@ export const deletePack = createAsyncThunk<
   try {
     const response = await packsApi.deletePack(id)
 
-    thunkAPI.dispatch(fetchPacks())
+    thunkAPI.dispatch(fetchPacks(1))
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { data: response.data }
@@ -107,7 +107,7 @@ export const updatePack = createAsyncThunk<
   try {
     const response = await packsApi.updatePack(_id)
 
-    thunkAPI.dispatch(fetchPacks())
+    thunkAPI.dispatch(fetchPacks(1))
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { data: response.data }
@@ -120,3 +120,4 @@ export const updatePack = createAsyncThunk<
 
 export const packSelector = (state: RootStateType): PacksType<CardsPackType[]> | undefined =>
   state.pack
+export const pageSelector = (state: RootStateType): number => state.pack.page
