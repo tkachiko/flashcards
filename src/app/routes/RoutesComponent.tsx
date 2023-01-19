@@ -5,8 +5,8 @@ import { Route, Routes } from 'react-router-dom'
 import { Error404 } from '../../common/error/error404/Error404'
 import { Login } from '../../features/auth/login/Login'
 import { Register } from '../../features/auth/register/Register'
-import { Cards } from '../../features/cardsPacks/cards/Cards'
-import { CardsPack } from '../../features/decks/CardsPack'
+import { Cards } from '../../features/cards/Cards'
+import { CardsPack } from '../../features/packs/CardsPack'
 import { CheckEmail } from '../../features/password/recovery/checkEmail/CheckEmail'
 import { CreateNewPassword } from '../../features/password/recovery/createNewPassword/CreateNewPassword'
 import { ForgotPassword } from '../../features/password/recovery/forgotPassword/ForgotPassword'
@@ -21,7 +21,7 @@ export const RoutesComponent = () => {
     <>
       <Routes>
         <Route element={<PrivateRoutes />}>
-          <Route path={'/'} element={<Cards />} />
+          <Route path={'/'} element={<CardsPack />} />
           <Route path={PATH.CARDS} element={<Cards />} />
           <Route path={PATH.PROFILE} element={<Profile />} />
           <Route path={PATH.CARDS_PACKS} element={<CardsPack />} />

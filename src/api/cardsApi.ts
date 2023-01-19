@@ -10,6 +10,8 @@ import { instance } from './instance'
 
 export const cardsApi = {
   getCards(data: GetCardsRequestType) {
+    debugger
+
     return instance.get<GetCardsResponseType<CardType[]>>(`cards/card`, { params: data })
   },
   createCard(data: CreateCardRequestType) {
