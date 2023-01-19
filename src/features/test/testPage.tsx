@@ -5,7 +5,6 @@ import { SuperCheckbox } from '../../common/components/SuperCheckbox/SuperCheckb
 import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
 import { SuperInputText } from '../../common/components/SuperInputText/SuperInputText'
 import { SuperRadio } from '../../common/components/SuperRadio/SuperRadio'
-import { SuperRange } from '../../common/components/SuperRange/SuperRange'
 import { SuperSelect } from '../../common/components/SuperSelect/SuperSelect'
 import { SuperSort } from '../../common/components/SuperSort/SuperSort'
 import styleContainer from '../../common/styles/Container.module.scss'
@@ -55,7 +54,6 @@ export const TestPage = () => {
           value={value}
           onChangeOption={onChangeOption}
         />
-        <SuperRange onChange={change} value={rangeValue} />
         <SuperSelect
           options={[
             { id: 1, value: 'React' },

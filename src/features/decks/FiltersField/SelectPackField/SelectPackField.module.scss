@@ -1,15 +1,18 @@
 @import './src/common/styles/sass/mixins';
+
 .wrapper {
   display: flex;
   flex-direction: column;
 
   margin: 0 25px;
+
   .text {
 
     @include text(14px, 500, 17px);
 
     font-style: normal;
   }
+
   .buttons {
 
     @include text(14px, 400, 17px);
@@ -24,18 +27,28 @@
     background: #ffffff;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
-    .one_Button {
+
+    .standardButton {
       cursor: pointer;
 
       width: 50%;
       height: 100%;
 
       border: none;
-      &:focus {
-        color: #ffffff;
+&:focus{
+  color: #ffffff;
 
-        background: #366eff;
-      }
+  background: #366eff;
+}
     }
+
+    .selectedButton {
+      color: #ffffff;
+
+      background: #366eff;
+    }
+
+
   }
 }
+

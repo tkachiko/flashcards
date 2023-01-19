@@ -3,12 +3,20 @@ import { CardsPackType, PacksType } from '../common/types/types'
 import { instance } from './instance'
 
 export const packsApi = {
-  getPack(filter: { page: number; pageCount: number; userId: string }) {
+  getPack(filter: {
+    page: number
+    pageCount: number
+    userId?: string
+    min?: number
+    max?: number
+  }) {
     return instance.get<PacksType<CardsPackType[]>>('cards/pack', {
       params: {
         page: filter.page,
         pageCount: filter.pageCount,
         user_id: filter.userId,
+        min: filter.min,
+        max: filter.max,
       },
     })
   },

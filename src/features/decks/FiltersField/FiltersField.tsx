@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { SuperRange } from '../../../common/components/SuperRange/SuperRange'
 import style from '../FiltersField/FiltersField.module.scss'
 
 import { SearchField } from './SearchField/SearchField'
@@ -10,6 +11,7 @@ export const FiltersField = () => {
     <div className={style.wrapper}>
       <SearchField />
       <SelectPackField />
+      <SuperRange />
     </div>
   )
 }
