@@ -7,10 +7,13 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import { useNavigate } from 'react-router-dom'
 
+import { PATH } from '../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
+import { setPackId } from '../cards/cards-reducer'
 import { userIdSelector } from '../profile/profile-reducer'
 
 import {
@@ -24,8 +27,6 @@ import {
 import s from './CardsPack.module.scss'
 import { ChangePacks } from './ChangePacks/ChangePacks'
 import { FiltersField } from './FiltersField/FiltersField'
-import {PATH} from "../../app/routes/routes";
-import {useNavigate} from "react-router-dom";
 
 export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
@@ -40,6 +41,7 @@ export const CardsPack = () => {
   }
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
   useEffect(() => {
     dispatch(fetchPacks({ filter: { page, pageCount, userId } }))
   }, [page, pageCount])
@@ -47,9 +49,11 @@ export const CardsPack = () => {
   const onClick = () => {
     dispatch(addPackTC('New filter'))
   }
-  const handlerOpenCards = (id:string) => {
+  const handlerOpenCards = (id: string) => {
     if (id) {
-      navigate(PATH.CARDS)
+      console.log(id)
+      dispatch(setPackId(id))
+      navigate(PATH.CARDS + `/${id}`)
     }
   }
 
@@ -86,7 +90,7 @@ export const CardsPack = () => {
                 key={`${el._id}-${i}`}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row" onClick={()=>handlerOpenCards(el._id)}>
+                <TableCell component="th" scope="row" onClick={() => handlerOpenCards(el._id)}>
                   {el.name}
                 </TableCell>
                 <TableCell align="right">{el.cardsCount}</TableCell>

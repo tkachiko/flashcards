@@ -7,7 +7,7 @@ import {
   fetchPacks,
   maxCardsCountSelector,
   minCardsCountSelector,
-} from '../../../features/decks/cardsPack-reducer'
+} from '../../../features/packs/cardsPack-reducer'
 import style from '../SuperRange/SuperRange.module.scss'
 
 export const SuperRange: FC<SliderProps> = () => {
