@@ -1,0 +1,16 @@
+@import './src/common/styles/sass/variables';
+
+@import './src/common/styles/sass/mixins';
+
+.container {
+
+  @include flex(column, center, center, nowrap, center);
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 40px 0;
+  }
+}

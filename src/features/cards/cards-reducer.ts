@@ -1,16 +1,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 
-import { cardsApi } from '../../../api/cardsApi'
-import { setSubmittingAC } from '../../../app/app-reducer'
-import { CardType, CreateCardRequestType, GetCardsRequestType } from '../../../common/types/types'
-import { errorMessage } from '../../../utils/error-utils'
+import { cardsApi } from '../../api/cardsApi'
+import { setSubmittingAC } from '../../app/app-reducer'
+import { RootStateType } from '../../app/store'
+import { CardType, CreateCardRequestType, GetCardsRequestType } from '../../common/types/types'
+import { errorMessage } from '../../utils/error-utils'
 
 // thunk
 
 export const fetchCardsTh = createAsyncThunk(
   'cards/fetchCards',
   async (data: GetCardsRequestType, { dispatch }) => {
+    debugger
+    console.log(data)
     dispatch(setSubmittingAC({ status: 'loading' }))
     const response = await cardsApi.getCards(data)
 
@@ -27,7 +30,7 @@ export const createCardTh = createAsyncThunk<
 >('cards/createCard', async (data, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   const response = await cardsApi.createCard({
-    cardsPack_id: '63c86c606918f3393221ed4d',
+    cardsPack_id: data.card.cardsPack_id,
     question: 'Ya?',
     answer: 'Yo',
   })
@@ -36,7 +39,7 @@ export const createCardTh = createAsyncThunk<
   console.log(response)
   thunkAPI.dispatch(
     fetchCardsTh({
-      cardsPack_id: '63c86c606918f3393221ed4d',
+      cardsPack_id: data.card.cardsPack_id,
     })
   )
 
@@ -59,11 +62,13 @@ const slice = createSlice({
     isLoaded: false,
   },
   reducers: {
-    getCards(state, action: PayloadAction<string>) {},
-    createCard(state, action: PayloadAction<CreateCardRequestType>) {},
+    setPackId(state, action: PayloadAction<string>) {
+      state.packId = action.payload
+    },
   },
   extraReducers: builder => {
     builder.addCase(fetchCardsTh.fulfilled, (state, action) => {
+      console.log(action.payload.packId)
       if (action.payload) {
         state.cardsData = { ...action.payload.data }
         state.isLoaded = true
@@ -97,10 +102,12 @@ export const deleteCardTh = createAsyncThunk(
 )
 
 export const cardsReducer = slice.reducer
-export const { getCards, createCard } = slice.actions
+export const { setPackId } = slice.actions
+export const cardsTotalCountSelector = (state: RootStateType): number =>
+  state.cards.cardsData.cardsTotalCount
 
 // types
-export type CardsReducerType = ReturnType<typeof getCards> | ReturnType<typeof createCard>
+export type CardsReducerType = ReturnType<typeof setPackId>
 
 type AsyncThunkConfig = {
   /* return type for `thunkApi.getState` */
