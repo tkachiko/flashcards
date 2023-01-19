@@ -8,34 +8,34 @@ import { AsyncThunkConfig, CardsPackType, PacksType } from '../../common/types/t
 import { errorMessage } from '../../utils/error-utils'
 
 const slice = createSlice({
-  name: 'cardsPack',
-  initialState: {
-    packs: {
-      cardPacks: [
-        {
-          _id: '' as string,
-          user_id: '' as string,
-          name: '' as string,
-          cardsCount: 0 as number,
-          created: '' as string,
-          updated: '' as string,
-        },
-      ],
-      cardPacksTotalCount: 0 as number,
-      maxCardsCount: 0 as number,
-      minCardsCount: 0 as number,
-      page: 1 as number,
-      pageCount: 10 as number,
+    name: 'cardsPack',
+    initialState: {
+        packs: {
+            cardPacks: [
+                {
+                    _id: '' as string,
+                    user_id: '' as string,
+                    name: '' as string,
+                    cardsCount: 0 as number,
+                    created: '' as string,
+                    updated: '' as string,
+                },
+            ],
+            cardPacksTotalCount: 0 as number,
+            maxCardsCount: 0 as number,
+            minCardsCount: 0 as number,
+            page: 1 as number,
+            pageCount: 10 as number,
+        }
     },
-  },
-  reducers: {},
-  extraReducers: builder => {
-    builder.addCase(fetchPacks.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.packs = action.payload.data
-      }
-    })
-  },
+    reducers: {},
+    extraReducers: builder => {
+        builder.addCase(fetchPacks.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.packs = action.payload.data
+            }
+        })
+    },
 })
 
 export const cardsPackReducer = slice.reducer
@@ -53,13 +53,13 @@ export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
       thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, userId: '' } }))
       thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
-      return { data: response.data }
-    } catch (e: any) {
-      const error = e as Error | AxiosError
+            return {data: response.data}
+        } catch (e) {
+            const error = e as Error | AxiosError
 
-      return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+            return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+        }
     }
-  }
 )
 export const fetchPacks = createAsyncThunk<
   { data: PacksType<CardsPackType[]> },
@@ -70,21 +70,20 @@ export const fetchPacks = createAsyncThunk<
   try {
     const response = await packsApi.getPack(filter.filter)
 
-    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
-    console.log(response.data)
+        thunkAPI.dispatch(setSubmittingAC({status: 'success'}))
 
-    return { data: response.data }
-  } catch (e: any) {
-    const error = e as Error | AxiosError
+        return {data: response.data}
+    } catch (e) {
+        const error = e as Error | AxiosError
 
-    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
-  }
+        return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+    }
 })
 
 export const deletePack = createAsyncThunk<
-  { data: PacksType<CardsPackType[]> },
-  string,
-  AsyncThunkConfig
+    { data: PacksType<CardsPackType[]> },
+    string,
+    AsyncThunkConfig
 >('cardsPack/deletePack', async (id: string, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
@@ -93,18 +92,18 @@ export const deletePack = createAsyncThunk<
     thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, userId: '' } }))
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
-    return { data: response.data }
-  } catch (e: any) {
-    const error = e as Error | AxiosError
+        return {data: response.data}
+    } catch (e) {
+        const error = e as Error | AxiosError
 
-    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
-  }
+        return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+    }
 })
 
 export const updatePack = createAsyncThunk<
-  { data: PacksType<CardsPackType[]> },
-  string,
-  AsyncThunkConfig
+    { data: PacksType<CardsPackType[]> },
+    string,
+    AsyncThunkConfig
 >('cardsPack/updatePack', async (_id: string, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
@@ -113,12 +112,12 @@ export const updatePack = createAsyncThunk<
     thunkAPI.dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, userId: '' } }))
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
-    return { data: response.data }
-  } catch (e: any) {
-    const error = e as Error | AxiosError
+        return {data: response.data}
+    } catch (e) {
+        const error = e as Error | AxiosError
 
-    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
-  }
+        return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+    }
 })
 
 export const packSelector = (state: RootStateType): PacksType<CardsPackType[]> => state.pack.packs

@@ -23,6 +23,8 @@ import {
 import s from './CardsPack.module.scss'
 import { ChangePacks } from './ChangePacks/ChangePacks'
 import { FiltersField } from './FiltersField/FiltersField'
+import {PATH} from "../../app/routes/routes";
+import {useNavigate} from "react-router-dom";
 
 export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
@@ -35,7 +37,7 @@ export const CardsPack = () => {
     setPageCount(newCount)
   }
   const dispatch = useAppDispatch()
-
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(fetchPacks({ filter: { page, pageCount, userId } }))
   }, [page, pageCount])
@@ -43,9 +45,15 @@ export const CardsPack = () => {
   const onClick = () => {
     dispatch(addPackTC('New filter'))
   }
+  const handlerOpenCards = (id:string) => {
+    if (id) {
+      navigate(PATH.CARDS)
+    }
+  }
 
   return (
     <div className={s.container}>
+      <ErrorSnackbar />
       <div className={s.header}>
         <h3>Packs List</h3>
         <button className={s.button} onClick={onClick}>
@@ -69,14 +77,14 @@ export const CardsPack = () => {
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
-          <ErrorSnackbar />
+
           <TableBody>
             {pack?.cardPacks?.map((el, i) => (
               <TableRow
                 key={`${el._id}-${i}`}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" onClick={()=>handlerOpenCards(el._id)}>
                   {el.name}
                 </TableCell>
                 <TableCell align="right">{el.cardsCount}</TableCell>
