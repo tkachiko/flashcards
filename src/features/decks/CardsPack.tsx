@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
+import { userIdSelector } from '../profile/profile-reducer'
 
 import {
   addPackTC,
@@ -31,7 +32,8 @@ export const CardsPack = () => {
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const [page, setPage] = useState(useAppSelector(pageSelector))
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
-  const [userId, setUserId] = useState('')
+  const userId = useAppSelector(userIdSelector)
+
   const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
     setPageCount(newCount)

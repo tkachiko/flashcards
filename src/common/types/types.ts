@@ -5,6 +5,7 @@ import { AppActionsType } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
 import { CardsReducerType } from '../../features/cardsPacks/cards/cards-reducer'
+import { CardsPacksActionType } from '../../features/decks/cardsPack-reducer'
 import { PasswordRecoveryType } from '../../features/password/password-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
 
@@ -192,3 +193,4 @@ export type ActionsType =
   | AuthActionType
   | PasswordRecoveryType
   | CardsReducerType
+  | CardsPacksActionType
