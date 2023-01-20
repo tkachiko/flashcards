@@ -14,7 +14,7 @@ import * as Yup from 'yup'
 import { PATH } from '../../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import styleContainer from '../../../../common/styles/Container.module.scss'
-import { createNewPasswordTC } from '../../password-reducer'
+import { newPasswordSuccessTH } from '../../password-reducer'
 
 import style from './CreateNewPassword.module.scss'
 
@@ -47,7 +47,12 @@ export const CreateNewPassword = () => {
           .required('Required'),
     }),
     onSubmit: values => {
-      dispatch(createNewPasswordTC(values))
+      dispatch(
+        newPasswordSuccessTH({
+          newPasswordSuccess: values.password,
+          token: token as string,
+        })
+      )
       formik.resetForm()
     },
   })

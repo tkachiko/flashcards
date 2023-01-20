@@ -15,7 +15,7 @@ import { PATH } from '../../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { ErrorSnackbar } from '../../../../common/components/ErrorSnackbar/ErrorSnackbar'
 import styleContainer from '../../../../common/styles/Container.module.scss'
-import { forgotPasswordSuccessSelector, forgotPasswordTCSlice } from '../../password-reducer'
+import { forgotPassTH, forgotPasswordSuccessSelector } from '../../password-reducer'
 
 import style from './ForgotPassword.module.scss'
 
@@ -37,7 +37,7 @@ export const ForgotPassword = () => {
         .required('Required'),
     }),
     onSubmit: values => {
-      dispatch(forgotPasswordTCSlice(true, values.email))
+      dispatch(forgotPassTH({ forgotPass: true, email: values.email }))
       formik.resetForm()
     },
   })

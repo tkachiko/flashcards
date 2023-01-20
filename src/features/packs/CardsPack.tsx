@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { PATH } from '../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../app/store'
@@ -49,11 +49,10 @@ export const CardsPack = () => {
   const onClick = () => {
     dispatch(addPackTC('New filter'))
   }
-  const handlerOpenCards = (id: string) => {
-    if (id) {
-      console.log(id)
-      dispatch(setPackId(id))
-      navigate(PATH.CARDS + `/${id}`)
+  const handlerOpenCards = (cardsPack_id: string) => {
+    if (cardsPack_id) {
+      dispatch(setPackId(cardsPack_id))
+      navigate(PATH.CARDS + `${cardsPack_id}`)
     }
   }
 

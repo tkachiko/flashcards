@@ -6,7 +6,6 @@ import { RootStateType } from '../../app/store'
 import { AuthActionType } from '../../features/auth/login/auth-reducer'
 import { CardsReducerType } from '../../features/cards/cards-reducer'
 import { CardsPacksActionType } from '../../features/packs/cardsPack-reducer'
-import { PasswordRecoveryType } from '../../features/password/password-reducer'
 import { ProfileActionsType } from '../../features/profile/profile-reducer'
 
 export type StatusType = 'idle' | 'loading' | 'success' | 'failed'
@@ -36,7 +35,7 @@ export type LoginType = {
 
 export type SetNewPasswordType = {
   password: string
-  resetPasswordToken: string | undefined
+  resetPasswordToken: string
 }
 
 //Response Types
@@ -191,6 +190,5 @@ export type ActionsType =
   | AppActionsType
   | ProfileActionsType
   | AuthActionType
-  | PasswordRecoveryType
   | CardsReducerType
   | CardsPacksActionType
