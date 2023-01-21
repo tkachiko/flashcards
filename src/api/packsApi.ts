@@ -20,7 +20,7 @@ export const packsApi = {
     max?: number
     packName?: string
   }) {
-    return instance.get<PacksType<CardsPackType[]>>('cards/pack', {
+    return instance.get<GetPacksResponseType>('cards/pack', {
       params: {
         page: filter.page,
         pageCount: filter.pageCount,
