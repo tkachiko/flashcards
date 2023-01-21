@@ -1,18 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { cardsApi } from '../../api/cardsApi'
 import { packsApi } from '../../api/packsApi'
 import { setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import {
   AsyncThunkConfig,
-  CardsPackType,
   CreatePackResponseType,
   CreatePacksPayloadType,
   DeletePackPayloadType,
   DeletePackResponseType,
-  GetCardsRequestType,
   GetPackSPayloadType,
   GetPacksResponseType,
   UpdatePackPayloadType,
@@ -88,10 +85,10 @@ export const fetchPacks = createAsyncThunk<
   { data: GetPacksResponseType },
   GetPackSPayloadType,
   AsyncThunkConfig
->('cardsPack/fetchPacks', async (filter, { dispatch, getState, rejectWithValue }) => {
-  dispatch(setSubmittingAC({ status: 'loading' }))
+>('cardsPack/fetchPacks', async (filter, thunkAPI) => {
+  thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const state = getState() as RootStateType
+    const state = thunkAPI.getState() as RootStateType
 
     if (state.pack.isMyPacks) {
       filter.user_id = state.profile.profile._id
@@ -100,13 +97,13 @@ export const fetchPacks = createAsyncThunk<
     }
     const response = await packsApi.getPack(filter)
 
-    dispatch(setSubmittingAC({ status: 'success' }))
+    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { data: response.data }
   } catch (e) {
     const error = e as Error | AxiosError
 
-    return rejectWithValue(errorMessage(dispatch, error))
+    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
   }
 })
 
@@ -167,5 +164,4 @@ export const maxCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.maxCardsCount
 export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
-
 export type CardsPacksActionType = ReturnType<typeof isMyPacksAC>
