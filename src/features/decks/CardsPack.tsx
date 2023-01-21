@@ -7,7 +7,10 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import dayjs from 'dayjs'
+import { useNavigate } from 'react-router-dom'
 
+import { PATH } from '../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
@@ -24,8 +27,7 @@ import {
 import s from './CardsPack.module.scss'
 import { ChangePacks } from './ChangePacks/ChangePacks'
 import { FiltersField } from './FiltersField/FiltersField'
-import {PATH} from "../../app/routes/routes";
-import {useNavigate} from "react-router-dom";
+import { HeaderPacks } from './headerPacks/HeaderPacks'
 
 export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
@@ -40,14 +42,12 @@ export const CardsPack = () => {
   }
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
   useEffect(() => {
     dispatch(fetchPacks({ filter: { page, pageCount, userId } }))
   }, [page, pageCount])
 
-  const onClick = () => {
-    dispatch(addPackTC('New filter'))
-  }
-  const handlerOpenCards = (id:string) => {
+  const handlerOpenCards = (id: string) => {
     if (id) {
       navigate(PATH.CARDS)
     }
@@ -56,12 +56,7 @@ export const CardsPack = () => {
   return (
     <div className={s.container}>
       <ErrorSnackbar />
-      <div className={s.header}>
-        <h3>Packs List</h3>
-        <button className={s.button} onClick={onClick}>
-          Add new pack
-        </button>
-      </div>
+      <HeaderPacks />
       <FiltersField />
       <TableContainer
         sx={{
@@ -86,12 +81,12 @@ export const CardsPack = () => {
                 key={`${el._id}-${i}`}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row" onClick={()=>handlerOpenCards(el._id)}>
+                <TableCell component="th" scope="row" onClick={() => handlerOpenCards(el._id)}>
                   {el.name}
                 </TableCell>
                 <TableCell align="right">{el.cardsCount}</TableCell>
-                <TableCell align="right">{el.updated}</TableCell>
-                <TableCell align="right">{el.created}</TableCell>
+                <TableCell align="right">{dayjs(el.updated).format('DD.MM.YYYY')}</TableCell>
+                <TableCell align="right">{dayjs(el.created).format('DD.MM.YYYY')}</TableCell>
                 <TableCell align="center">
                   <ChangePacks id={el._id} />
                 </TableCell>
