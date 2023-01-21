@@ -9,11 +9,11 @@ export const SelectPackField = () => {
   const dispatch = useAppDispatch()
   const onClickAllPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: false }))
-    dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, isMyPacks: false } }))
+    dispatch(fetchPacks({ page: 1, pageCount: 10, isMyPacks: false }))
   }
   const onClickMyPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: true }))
-    dispatch(fetchPacks({ filter: { page: 1, pageCount: 10, isMyPacks: true } }))
+    dispatch(fetchPacks({ page: 1, pageCount: 10, isMyPacks: true }))
   }
 
   const my_btn = style.standardButton + (isMyPack ? ' ' + style.selectedButton : '')

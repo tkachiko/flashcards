@@ -17,7 +17,7 @@ import styleContainer from '../../common/styles/Container.module.scss'
 import { isMyPackSelector } from '../packs/cardsPack-reducer'
 
 import { CardControls } from './cardControls/CardControls'
-import { createCardTh, fetchCardsTh } from './cards-reducer'
+import { createCard, fetchCards } from './cards-reducer'
 import style from './Cards.module.scss'
 
 export const Cards = () => {
@@ -26,26 +26,22 @@ export const Cards = () => {
   const isMyPack = useAppSelector(isMyPackSelector)
   const dispatch = useAppDispatch()
 
-  console.log('cardsData: ', cardsData)
-  console.log('cardsPack_id: ', cardsPack_id)
-  console.log('packId: ', packId)
-
   useEffect(() => {
     if (packId) {
       dispatch(
-        fetchCardsTh({
+        fetchCards({
           cardsPack_id: packId,
-          pageCount: 5,
-          cardAnswer: '',
+          pageCount: 10,
+          answer: '',
         })
       )
     } else {
       cardsPack_id &&
         dispatch(
-          fetchCardsTh({
+          fetchCards({
             cardsPack_id,
             pageCount: 5,
-            cardAnswer: '',
+            answer: '',
           })
         )
     }
@@ -53,7 +49,7 @@ export const Cards = () => {
 
   const onCreateCardHandler = () => {
     dispatch(
-      createCardTh({
+      createCard({
         card: {
           cardsPack_id: packId,
         },
@@ -102,7 +98,7 @@ export const Cards = () => {
                   <TableCell align="right">{card.grade}</TableCell>
                   {/*{isMyPack && (*/}
                   <TableCell align="center">
-                    <CardControls id={card._id} />
+                    <CardControls id={card._id} question={card.question} answer={card.answer} />
                   </TableCell>
                   {/*)}*/}
                 </TableRow>

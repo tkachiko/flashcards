@@ -1,18 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { cardsApi } from '../../api/cardsApi'
 import { packsApi } from '../../api/packsApi'
 import { setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
 import {
   AsyncThunkConfig,
-  CardsPackType,
   CreatePackResponseType,
   CreatePacksPayloadType,
   DeletePackPayloadType,
   DeletePackResponseType,
-  GetCardsRequestType,
   GetPackSPayloadType,
   GetPacksResponseType,
   UpdatePackPayloadType,

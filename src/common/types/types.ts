@@ -94,8 +94,8 @@ export type CreateCardRequestType = {
 
 export type GetCardsRequestType = {
   cardsPack_id: string | null
-  cardQuestion?: string
-  cardAnswer?: string
+  question?: string
+  answer?: string
   min?: number
   max?: number
   sortCards?: string
@@ -164,6 +164,7 @@ export type GetPackSPayloadType = {
   user_id?: string
 
   block?: boolean
+  isMyPacks?: boolean
 }
 export type GetPacksResponseType = {
   cardPacks: CardsPackType[]

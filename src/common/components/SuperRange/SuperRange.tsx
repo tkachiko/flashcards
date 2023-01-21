@@ -23,14 +23,8 @@ export const SuperRange: FC<SliderProps> = () => {
     const min = Array.isArray(value) ? value[0] : value
     const max = Array.isArray(value) ? value[1] : value
 
-    dispatch(
-      fetchPacks({
-        filter: { page: 1, pageCount: 10, min, max },
-      })
-    )
+    dispatch(fetchPacks({ page: 1, pageCount: 10, min, max }))
   }
-
-  console.log(value)
 
   return (
     <div className={style.wrapper}>

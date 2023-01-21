@@ -15,8 +15,8 @@ export const cardsApi = {
   createCard(data: CreateCardRequestType) {
     return instance.post(`cards/card`, { card: data })
   },
-  updateCard(data: UpdateCardRequestType) {
-    return instance.put(`cards/card`, { data })
+  updateCard(card: UpdateCardRequestType) {
+    return instance.put(`cards/card`, { card })
   },
   deleteCard(id: string) {
     return instance.delete(`cards/card?id=${id}`)
