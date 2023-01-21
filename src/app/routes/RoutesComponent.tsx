@@ -22,7 +22,7 @@ export const RoutesComponent = () => {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path={'/'} element={<CardsPack />} />
-          <Route path={PATH.CARDS} element={<Cards />} />
+          <Route path={PATH.CARDS + '/:cardsPack_id'} element={<Cards />} />
           <Route path={PATH.PROFILE} element={<Profile />} />
           <Route path={PATH.CARDS_PACKS} element={<CardsPack />} />
         </Route>
@@ -30,7 +30,7 @@ export const RoutesComponent = () => {
         <Route path={PATH.REGISTER} element={<Register />} />
         <Route path={PATH.NOT_FOUND} element={<Error404 />} />
         <Route path={PATH.PASSWORD_RECOVERY} element={<ForgotPassword />} />
-        <Route path={PATH.NEW_PASSWORD} element={<CreateNewPassword />} />
+        <Route path={PATH.NEW_PASSWORD + '/:token'} element={<CreateNewPassword />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={PATH.TEST_PAGE} element={<TestPage />} />
         <Route path={'*'} element={<Error404 />} />

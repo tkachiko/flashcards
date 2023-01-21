@@ -49,10 +49,11 @@ export const CardsPack = () => {
     dispatch(fetchPacks({ page, pageCount, user_id: userId }))
   }, [page, pageCount])
 
-  const handlerOpenCards = (cardsPack_id: string) => {
-    if (cardsPack_id) {
-      dispatch(setPackId(cardsPack_id))
-      navigate(PATH.CARDS + `${cardsPack_id}`)
+  const handlerOpenCards = (packId: string) => {
+    if (packId) {
+      dispatch(setPackId(packId))
+      debugger
+      navigate(PATH.CARDS + `/${packId}`)
     }
   }
 

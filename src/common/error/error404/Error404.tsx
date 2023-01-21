@@ -15,7 +15,7 @@ export const Error404 = () => {
           <div>Ooops!</div>
           <div>Sorry! Page not found!</div>
         </div>
-        <NavLink to={PATH.PROFILE} className={style.errorButton}>
+        <NavLink to={PATH.CARDS_PACKS} className={style.errorButton}>
           Back to homepage
         </NavLink>
       </div>

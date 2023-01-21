@@ -4,10 +4,10 @@ export const PATH = {
   REGISTER: '/register',
   PROFILE: '/profile',
   CARDS_PACKS: '/cards-packs',
-  CARDS: `/cards/:cardsPack_id`,
+  CARDS: `/cards`,
   NOT_FOUND: '/error404',
   PASSWORD_RECOVERY: '/password-recovery',
-  NEW_PASSWORD: '/set-new-password/:token',
+  NEW_PASSWORD: '/set-new-password',
   TEST_PAGE: '/test',
   CHECK_EMAIL: '/check_email',
 }
