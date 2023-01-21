@@ -1,0 +1,9 @@
+.wrapper{
+  display: flex;
+  justify-content: flex-end;
+  .img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}
