@@ -7,6 +7,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import dayjs from 'dayjs'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { PATH } from '../../app/routes/routes'
@@ -17,6 +18,7 @@ import { setPackId } from '../cards/cards-reducer'
 import { userIdSelector } from '../profile/profile-reducer'
 
 import {
+  addPackTC,
   cardPacksTotalCountSelector,
   fetchPacks,
   isMyPackSelector,
@@ -45,13 +47,9 @@ export const CardsPack = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // dispatch(fetchPacks({filter: {page, pageCount, userId}}))
     dispatch(fetchPacks({ page, pageCount, user_id: userId }))
   }, [page, pageCount])
 
-  const onClick = () => {
-    dispatch(addPackTC('New filter'))
-  }
   const handlerOpenCards = (cardsPack_id: string) => {
     if (cardsPack_id) {
       dispatch(setPackId(cardsPack_id))

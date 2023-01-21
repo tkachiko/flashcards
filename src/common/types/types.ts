@@ -145,15 +145,6 @@ export type CardType = {
 }
 //PacksType
 
-export type PacksType<D> = {
-  cardPacks: D
-  cardPacksTotalCount: number
-  maxCardsCount: number
-  minCardsCount: number
-  page: number
-  pageCount: number
-}
-
 export type CardsPackType = {
   _id: string
   user_id: string
@@ -162,7 +153,112 @@ export type CardsPackType = {
   created: string
   updated: string
 }
+export type GetPackSPayloadType = {
+  packName?: string
+  min?: number
+  max?: number
+  sortPacks?: string
+  page?: number
+  pageCount?: number
 
+  user_id?: string
+
+  block?: boolean
+}
+export type GetPacksResponseType = {
+  cardPacks: CardsPackType[]
+  cardPacksTotalCount: number
+  maxCardsCount: number
+  minCardsCount: number
+  page: number
+  pageCount: number
+}
+export type CreatePacksPayloadType = {
+  cardsPack: {
+    name: string
+    deckCover?: string
+    private?: boolean
+  }
+}
+export type CreatePackResponseType = {
+  newCardsPack: {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
+  }
+}
+export type DeletePackPayloadType = {
+  id: string
+}
+export type DeletePackResponseType = {
+  deletedCardsPack: {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
+  }
+}
+export type UpdatePackPayloadType = {
+  cardsPack: {
+    _id: string
+    cardsCount?: number
+    created?: string
+    grade?: number
+    more_id?: string
+    name?: string
+    path?: string
+    private?: boolean
+    rating?: number
+    shots?: number
+    type?: string
+    updated?: string
+    user_id?: string
+    user_name?: string
+    __v?: number
+  }
+}
+export type UpdatePackResponseType = {
+  updatedCardsPack: {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
+  }
+}
 //ThunkTypes
 
 export type ThunkAppDispatchType<ReturnType = void> = ThunkAction<
