@@ -2,7 +2,8 @@ import React from 'react'
 
 import { useAppDispatch } from '../../../../app/store'
 import reset from '../../../../assets/images/reset.svg'
-import style from '../ResetFilters/ResetFilters.module.scss'
+
+import style from './ResetFilters.module.scss'
 
 export type ResetFiltersType = {
   reset: () => void
