@@ -84,7 +84,6 @@ export const fetchPacks = createAsyncThunk<
     const response = await packsApi.getPack(filter.filter)
 
     dispatch(setSubmittingAC({ status: 'success' }))
-    console.log(response.data)
 
         return {data: response.data}
     } catch (e) {
