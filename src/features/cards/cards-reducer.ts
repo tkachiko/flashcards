@@ -1,10 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Dispatch } from 'redux'
 
 import { cardsApi } from '../../api/cardsApi'
 import { setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
-import { CardType, CreateCardRequestType, GetCardsRequestType } from '../../common/types/types'
+import {
+  AsyncThunkConfig,
+  CardType,
+  CreateCardRequestType,
+  GetCardsRequestType,
+} from '../../common/types/types'
 import { errorMessage } from '../../utils/error-utils'
 
 // thunk
@@ -12,8 +16,6 @@ import { errorMessage } from '../../utils/error-utils'
 export const fetchCardsTh = createAsyncThunk(
   'cards/fetchCards',
   async (data: GetCardsRequestType, { dispatch }) => {
-    debugger
-    console.log(data)
     dispatch(setSubmittingAC({ status: 'loading' }))
     const response = await cardsApi.getCards(data)
 
@@ -108,23 +110,3 @@ export const cardsTotalCountSelector = (state: RootStateType): number =>
 
 // types
 export type CardsReducerType = ReturnType<typeof setPackId>
-
-type AsyncThunkConfig = {
-  /* return type for `thunkApi.getState` */
-  state?: unknown
-  /* type for thunkApi.dispatch */
-  dispatch?: Dispatch
-  /* type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
-  extra?: unknown
-  /* type to be passed into rejectWithValue's first argument that will end up on rejectedAction.payload */
-  rejectValue?: unknown
-  /* return type of the `serializeError` option callback */
-  serializedErrorType?: unknown
-  /* type to be returned from the getPendingMeta option callback & merged into pendingAction.meta */
-  pendingMeta?: unknown
-  /* type to be passed into the second argument of `fulfillWithValue` to finally be merged into
-   `fulfilledAction.meta` */
-  fulfilledMeta?: unknown
-  /* type to be passed into the second argument of rejectWithValue to finally be merged into rejectedAction.meta */
-  rejectedMeta?: unknown
-}
