@@ -1,9 +1,7 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
-import { Slider } from '@mui/material'
-import {
-  fetchPacks
-} from '../../../features/packs/cardsPack-reducer'
+import { Slider, SliderProps } from '@mui/material'
+
 import style from '../SuperRange/SuperRange.module.scss'
 
 type SuperRangePropsType = {
@@ -19,10 +17,7 @@ export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
     props.changeValue(value)
   }
   const changeCommitted = (event: React.SyntheticEvent | Event, value: number | number[]) => {
-    const min = Array.isArray(value) ? value[0] : value
-    const max = Array.isArray(value) ? value[1] : value
-
-    dispatch(fetchPacks({ page: 1, pageCount: 10, min, max }))
+    props.changeValueCommitted(value)
   }
 
   return (
@@ -33,11 +28,12 @@ export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
         color={'primary'}
         onChange={change}
         onChangeCommitted={changeCommitted}
-        value={value}
-        max={maxCardsCount}
+        value={props.value}
+        min={props.min}
+        max={props.max}
         valueLabelDisplay={'auto'}
       />
-      <span id={'value-2'}>{value[1]}</span>
+      <span>{props.value[1]}</span>
     </div>
   )
 }

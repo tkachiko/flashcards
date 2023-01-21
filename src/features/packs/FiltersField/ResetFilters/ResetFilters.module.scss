@@ -1,9 +1,10 @@
-.wrapper{
+.wrapper {
   display: flex;
   justify-content: flex-end;
-  .img{
+  .img {
+    cursor: pointer;
+
     width: 20px;
     height: 20px;
-    cursor: pointer;
   }
 }
