@@ -156,6 +156,7 @@ export type PropsFilterType = {
   isMyPacks?: boolean
 }
 
+
 export type FilterType = {
   filter: PropsFilterType
 }
