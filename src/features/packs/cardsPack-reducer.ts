@@ -35,7 +35,7 @@ const slice = createSlice({
       maxCardsCount: 0 as number,
       minCardsCount: 0 as number,
       page: 1 as number,
-      pageCount: 10 as number,
+      pageCount: 4 as number,
     },
     isMyPacks: true as boolean,
   },
@@ -69,8 +69,9 @@ export const addPackTC = createAsyncThunk<
     dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       const response = await packsApi.createPack(payload)
+      const { pageCount, page } = state.pack.packs
 
-      dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+      dispatch(fetchPacks({ pageCount, page }))
       dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }
@@ -85,10 +86,10 @@ export const fetchPacks = createAsyncThunk<
   { data: GetPacksResponseType },
   GetPackSPayloadType,
   AsyncThunkConfig
->('cardsPack/fetchPacks', async (filter, thunkAPI) => {
-  thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
+>('cardsPack/fetchPacks', async (filter, { dispatch, getState, rejectWithValue }) => {
+  dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const state = thunkAPI.getState() as RootStateType
+    const state = getState() as RootStateType
 
     if (state.pack.isMyPacks) {
       filter.user_id = state.profile.profile._id
@@ -97,13 +98,13 @@ export const fetchPacks = createAsyncThunk<
     }
     const response = await packsApi.getPack(filter)
 
-    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
+    dispatch(setSubmittingAC({ status: 'success' }))
 
     return { data: response.data }
   } catch (e) {
     const error = e as Error | AxiosError
 
-    return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, error))
+    return rejectWithValue(errorMessage(dispatch, error))
   }
 })
 
@@ -116,8 +117,9 @@ export const deletePack = createAsyncThunk<
   try {
     const response = await packsApi.deletePack(payload)
     const state = getState() as RootStateType
+    const { pageCount, page } = state.pack.packs
 
-    dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+    dispatch(fetchPacks({ pageCount, page }))
 
     dispatch(setSubmittingAC({ status: 'success' }))
 
@@ -141,8 +143,9 @@ export const updatePack = createAsyncThunk<
     dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       const response = await packsApi.updatePack(payload)
+      const { pageCount, page } = state.pack.packs
 
-      dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+      dispatch(fetchPacks({ pageCount, page }))
       dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }

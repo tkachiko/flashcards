@@ -15,7 +15,6 @@ import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
 import { setPackId } from '../cards/cards-reducer'
-import { userIdSelector } from '../profile/profile-reducer'
 
 import {
   cardPacksTotalCountSelector,
@@ -34,7 +33,6 @@ export const CardsPack = () => {
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const [page, setPage] = useState(useAppSelector(pageSelector))
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
-  const userId = useAppSelector(userIdSelector)
 
   const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
@@ -44,7 +42,7 @@ export const CardsPack = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(fetchPacks({ page, pageCount, user_id: userId }))
+    dispatch(fetchPacks({ page, pageCount }))
   }, [page, pageCount])
 
   const handlerOpenCards = (cardsPack_id: string) => {

@@ -28,12 +28,7 @@ export const FiltersField = () => {
     const max = Array.isArray(value) ? value[1] : value
 
     setValue([min, max])
-
-    // dispatch(
-    //   fetchPacks({
-    //     filter: { page: 1, pageCount: 10, min, max },
-    //   })
-    // )
+    dispatch(fetchPacks({ min, max, packName: debouncedSearch }))
   }
 
   const handleChangeSearch = (search: string) => {
@@ -46,17 +41,18 @@ export const FiltersField = () => {
   }
 
   useEffect(() => {
+    setValue([minCardsCount, maxCardsCount])
+  }, [minCardsCount, maxCardsCount])
+
+  useEffect(() => {
     dispatch(
       fetchPacks({
-        page: 1,
-        pageCount: 10,
         packName: debouncedSearch,
-        min: minCardsCount,
-        max: maxCardsCount,
+        min: value[0],
+        max: value[1],
       })
     )
-    //setValue([minCardsCount, maxCardsCount])
-  }, [value, debouncedSearch])
+  }, [debouncedSearch])
 
   return (
     <div className={style.wrapper}>

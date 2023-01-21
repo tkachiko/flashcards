@@ -34,9 +34,9 @@ export const SuperPagination = (props: SuperPaginationType) => {
         <SuperSelect
           value={props.pageCount}
           options={[
-            { id: 5, value: 5 },
+            { id: 4, value: 4 },
             { id: 10, value: 10 },
-            { id: 20, value: 20 },
+            { id: 15, value: 15 },
           ]}
           onChange={onChangeSelect}
           className={style.text}
