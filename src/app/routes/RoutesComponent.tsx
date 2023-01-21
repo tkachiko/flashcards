@@ -21,7 +21,7 @@ export const RoutesComponent = () => {
     <>
       <Routes>
         <Route element={<PrivateRoutes />}>
-          <Route path={'/'} element={<Cards />} />
+          <Route path={'/'} element={<Profile />} />
           <Route path={PATH.CARDS} element={<Cards />} />
           <Route path={PATH.PROFILE} element={<Profile />} />
           <Route path={PATH.CARDS_PACKS} element={<CardsPack />} />

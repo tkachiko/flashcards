@@ -1,22 +1,9 @@
 @import './src/common/styles/sass/mixins';
 .container {
   padding: 0 136px;
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin: 40px 0;
+  .name {
+    font-weight: bold;
   }
-  .button {
-    padding: 8px 28px;
-
-    font-size: 16px;
-    color: #ffffff;
-
-    background: #366eff;
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  .icons {
   }
 }

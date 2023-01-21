@@ -12,7 +12,6 @@ export const errorMessage = (dispatch: Dispatch, err: AxiosError | Error) => {
     dispatch(setSubmittingAC({ status: 'failed' }))
     dispatch(setErrorAC({ error: finalError }))
   } else {
-    console.log(err)
     dispatch(setSubmittingAC({ status: 'failed' }))
     dispatch(setErrorAC({ error: err.message }))
   }
