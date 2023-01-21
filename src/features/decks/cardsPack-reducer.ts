@@ -136,6 +136,7 @@ export const updatePack = createAsyncThunk<
   }
 })
 
+
 export const packSelector = (state: RootStateType): PacksType<CardsPackType[]> => state.pack.packs
 export const isMyPackSelector = (state: RootStateType): boolean => state.pack.isMyPacks
 export const pageSelector = (state: RootStateType): number => state.pack.packs.page
