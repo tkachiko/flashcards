@@ -164,6 +164,7 @@ export type GetPackSPayloadType = {
   user_id?: string
 
   block?: boolean
+  isMyPacks?: boolean
 }
 export type GetPacksResponseType = {
   cardPacks: CardsPackType[]
