@@ -27,6 +27,7 @@ import {
 import s from './CardsPack.module.scss'
 import { ChangePacks } from './ChangePacks/ChangePacks'
 import { FiltersField } from './FiltersField/FiltersField'
+import { HeaderPacks } from './headerPacks/HeaderPacks'
 
 export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
@@ -59,12 +60,7 @@ export const CardsPack = () => {
   return (
     <div className={s.container}>
       <ErrorSnackbar />
-      <div className={s.header}>
-        <h3>Packs List</h3>
-        <button className={s.button} onClick={onClick}>
-          Add new pack
-        </button>
-      </div>
+      <HeaderPacks />
       <FiltersField />
       <TableContainer
         sx={{
@@ -93,8 +89,8 @@ export const CardsPack = () => {
                   {el.name}
                 </TableCell>
                 <TableCell align="right">{el.cardsCount}</TableCell>
-                <TableCell align="right">{el.updated}</TableCell>
-                <TableCell align="right">{el.created}</TableCell>
+                <TableCell align="right">{dayjs(el.updated).format('DD.MM.YYYY')}</TableCell>
+                <TableCell align="right">{dayjs(el.created).format('DD.MM.YYYY')}</TableCell>
                 <TableCell align="center">
                   <ChangePacks id={el._id} />
                 </TableCell>

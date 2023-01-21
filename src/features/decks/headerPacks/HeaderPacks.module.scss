@@ -1,14 +1,12 @@
-@import './src/common/styles/sass/mixins';
-.container {
-  padding: 0 136px;
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    margin: 40px 0;
-  }
+  margin: 40px 0;
   .button {
+    cursor: pointer;
+
     padding: 8px 28px;
 
     font-size: 16px;
