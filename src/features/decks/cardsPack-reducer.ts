@@ -59,9 +59,9 @@ export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
       dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
       dispatch(setSubmittingAC({ status: 'success' }))
 
-            return {data: response.data}
-        } catch (e) {
-            const error = e as Error | AxiosError
+      return { data: response.data }
+    } catch (e) {
+      const error = e as Error | AxiosError
 
       return rejectWithValue(errorMessage(dispatch, error))
     }
@@ -85,9 +85,9 @@ export const fetchPacks = createAsyncThunk<
 
     dispatch(setSubmittingAC({ status: 'success' }))
 
-        return {data: response.data}
-    } catch (e) {
-        const error = e as Error | AxiosError
+    return { data: response.data }
+  } catch (e) {
+    const error = e as Error | AxiosError
 
     return rejectWithValue(errorMessage(dispatch, error))
   }
@@ -106,9 +106,9 @@ export const deletePack = createAsyncThunk<
     dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
     dispatch(setSubmittingAC({ status: 'success' }))
 
-        return {data: response.data}
-    } catch (e) {
-        const error = e as Error | AxiosError
+    return { data: response.data }
+  } catch (e) {
+    const error = e as Error | AxiosError
 
     return rejectWithValue(errorMessage(dispatch, error))
   }
@@ -128,14 +128,13 @@ export const updatePack = createAsyncThunk<
     dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
     dispatch(setSubmittingAC({ status: 'success' }))
 
-        return {data: response.data}
-    } catch (e) {
-        const error = e as Error | AxiosError
+    return { data: response.data }
+  } catch (e) {
+    const error = e as Error | AxiosError
 
     return rejectWithValue(errorMessage(dispatch, error))
   }
 })
-
 
 export const packSelector = (state: RootStateType): PacksType<CardsPackType[]> => state.pack.packs
 export const isMyPackSelector = (state: RootStateType): boolean => state.pack.isMyPacks
