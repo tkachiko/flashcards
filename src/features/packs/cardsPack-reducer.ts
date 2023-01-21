@@ -1,10 +1,23 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
+import { cardsApi } from '../../api/cardsApi'
 import { packsApi } from '../../api/packsApi'
 import { setSubmittingAC } from '../../app/app-reducer'
 import { RootStateType } from '../../app/store'
-import { AsyncThunkConfig, CardsPackType, PacksType } from '../../common/types/types'
+import {
+  AsyncThunkConfig,
+  CardsPackType,
+  CreatePackResponseType,
+  CreatePacksPayloadType,
+  DeletePackPayloadType,
+  DeletePackResponseType,
+  GetCardsRequestType,
+  GetPackSPayloadType,
+  GetPacksResponseType,
+  UpdatePackPayloadType,
+  UpdatePackResponseType,
+} from '../../common/types/types'
 import { errorMessage } from '../../utils/error-utils'
 
 const slice = createSlice({
@@ -47,16 +60,20 @@ export const cardsPackReducer = slice.reducer
 
 export const { isMyPacksAC } = slice.actions
 
-export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
+export const addPackTC = createAsyncThunk<
+  { data: CreatePackResponseType },
+  CreatePacksPayloadType,
+  AsyncThunkConfig
+>(
   'cardsPack/addPack',
-  async (name: string, { dispatch, getState, rejectWithValue }) => {
+  async (payload: CreatePacksPayloadType, { dispatch, getState, rejectWithValue }) => {
     const state = getState() as RootStateType
 
     dispatch(setSubmittingAC({ status: 'loading' }))
     try {
-      const response = await packsApi.createPack(name)
+      const response = await packsApi.createPack(payload)
 
-      dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
+      dispatch(fetchPacks({ page: 1, pageCount: 10 }))
       dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }
@@ -68,8 +85,8 @@ export const addPackTC = createAsyncThunk<{}, string, AsyncThunkConfig>(
   }
 )
 export const fetchPacks = createAsyncThunk<
-  { data: PacksType<CardsPackType[]> },
-  FilterType,
+  { data: GetPacksResponseType },
+  GetPackSPayloadType,
   AsyncThunkConfig
 >('cardsPack/fetchPacks', async (filter, { dispatch, getState, rejectWithValue }) => {
   dispatch(setSubmittingAC({ status: 'loading' }))
@@ -77,11 +94,11 @@ export const fetchPacks = createAsyncThunk<
     const state = getState() as RootStateType
 
     if (state.pack.isMyPacks) {
-      filter.filter.userId = state.profile.profile._id
+      filter.user_id = state.profile.profile._id
     } else {
-      filter.filter.userId = ''
+      filter.user_id = ''
     }
-    const response = await packsApi.getPack(filter.filter)
+    const response = await packsApi.getPack(filter)
 
     dispatch(setSubmittingAC({ status: 'success' }))
 
@@ -94,16 +111,17 @@ export const fetchPacks = createAsyncThunk<
 })
 
 export const deletePack = createAsyncThunk<
-  { data: PacksType<CardsPackType[]> },
-  string,
+  { data: DeletePackResponseType },
+  DeletePackPayloadType,
   AsyncThunkConfig
->('cardsPack/deletePack', async (id: string, { getState, dispatch, rejectWithValue }) => {
+>('cardsPack/deletePack', async (payload, { getState, dispatch, rejectWithValue }) => {
   dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const response = await packsApi.deletePack(id)
+    const response = await packsApi.deletePack(payload)
     const state = getState() as RootStateType
 
-    dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
+    dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+
     dispatch(setSubmittingAC({ status: 'success' }))
 
     return { data: response.data }
@@ -115,28 +133,31 @@ export const deletePack = createAsyncThunk<
 })
 
 export const updatePack = createAsyncThunk<
-  { data: PacksType<CardsPackType[]> },
-  string,
+  { data: UpdatePackResponseType },
+  UpdatePackPayloadType,
   AsyncThunkConfig
->('cardsPack/updatePack', async (_id: string, { dispatch, getState, rejectWithValue }) => {
-  const state = getState() as RootStateType
+>(
+  'cardsPack/updatePack',
+  async (payload: UpdatePackPayloadType, { dispatch, getState, rejectWithValue }) => {
+    const state = getState() as RootStateType
 
-  dispatch(setSubmittingAC({ status: 'loading' }))
-  try {
-    const response = await packsApi.updatePack(_id)
+    dispatch(setSubmittingAC({ status: 'loading' }))
+    try {
+      const response = await packsApi.updatePack(payload)
 
-    dispatch(fetchPacks({ filter: { page: 1, pageCount: 10 } }))
-    dispatch(setSubmittingAC({ status: 'success' }))
+      dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+      dispatch(setSubmittingAC({ status: 'success' }))
 
-    return { data: response.data }
-  } catch (e) {
-    const error = e as Error | AxiosError
+      return { data: response.data }
+    } catch (e) {
+      const error = e as Error | AxiosError
 
-    return rejectWithValue(errorMessage(dispatch, error))
+      return rejectWithValue(errorMessage(dispatch, error))
+    }
   }
-})
+)
 
-export const packSelector = (state: RootStateType): PacksType<CardsPackType[]> => state.pack.packs
+export const packSelector = (state: RootStateType): GetPacksResponseType => state.pack.packs
 export const isMyPackSelector = (state: RootStateType): boolean => state.pack.isMyPacks
 export const pageSelector = (state: RootStateType): number => state.pack.packs.page
 export const cardPacksTotalCountSelector = (state: RootStateType): number =>
@@ -146,18 +167,5 @@ export const maxCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.maxCardsCount
 export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
-export type PropsFilterType = {
-  page: number
-  pageCount: number
-  userId?: string
-  min?: number
-  max?: number
-  isMyPacks?: boolean
-}
-
-
-export type FilterType = {
-  filter: PropsFilterType
-}
 
 export type CardsPacksActionType = ReturnType<typeof isMyPacksAC>

@@ -1,32 +1,27 @@
-import { CardsPackType, PacksType } from '../common/types/types'
+import {
+  CreatePackResponseType,
+  CreatePacksPayloadType,
+  DeletePackPayloadType,
+  DeletePackResponseType,
+  GetPackSPayloadType,
+  GetPacksResponseType,
+  UpdatePackPayloadType,
+  UpdatePackResponseType,
+} from '../common/types/types'
 
 import { instance } from './instance'
 
 export const packsApi = {
-  getPack(filter: {
-    page: number
-    pageCount: number
-    userId?: string
-    min?: number
-    max?: number
-  }) {
-    return instance.get<PacksType<CardsPackType[]>>('cards/pack', {
-      params: {
-        page: filter.page,
-        pageCount: filter.pageCount,
-        user_id: filter.userId,
-        min: filter.min,
-        max: filter.max,
-      },
-    })
+  getPack(payload: GetPackSPayloadType) {
+    return instance.get<GetPacksResponseType>('cards/pack', { params: payload })
   },
-  createPack(name: string) {
-    return instance.post(`cards/pack`, { cardsPack: { name } })
+  createPack(payload: CreatePacksPayloadType) {
+    return instance.post<CreatePackResponseType>('cards/pack', payload)
   },
-  updatePack(_id: string) {
-    return instance.put(`cards/pack`, { cardsPack: { _id } })
+  updatePack(payload: UpdatePackPayloadType) {
+    return instance.put<UpdatePackResponseType>('cards/pack', payload)
   },
-  deletePack(id: string) {
-    return instance.delete(`cards/pack?id=${id}`)
+  deletePack(payload: DeletePackPayloadType) {
+    return instance.delete<DeletePackResponseType>('cards/pack', { params: payload })
   },
 }

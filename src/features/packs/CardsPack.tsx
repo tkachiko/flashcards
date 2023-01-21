@@ -17,9 +17,9 @@ import { setPackId } from '../cards/cards-reducer'
 import { userIdSelector } from '../profile/profile-reducer'
 
 import {
-  addPackTC,
   cardPacksTotalCountSelector,
   fetchPacks,
+  isMyPackSelector,
   packSelector,
   pageCountSelector,
   pageSelector,
@@ -35,6 +35,7 @@ export const CardsPack = () => {
   const [page, setPage] = useState(useAppSelector(pageSelector))
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
   const userId = useAppSelector(userIdSelector)
+  const isMyPack = useAppSelector(isMyPackSelector)
 
   const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
@@ -44,7 +45,8 @@ export const CardsPack = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(fetchPacks({ filter: { page, pageCount, userId } }))
+    // dispatch(fetchPacks({filter: {page, pageCount, userId}}))
+    dispatch(fetchPacks({ page, pageCount, user_id: userId }))
   }, [page, pageCount])
 
   const onClick = () => {
@@ -71,11 +73,19 @@ export const CardsPack = () => {
         <Table sx={{ minWidth: 650, border: '1px solid #D9D9D9' }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Cards</TableCell>
-              <TableCell align="right">Last Updated</TableCell>
-              <TableCell align="right">Created by</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell className={s.name}>Name</TableCell>
+              <TableCell className={s.name} align="right">
+                Cards
+              </TableCell>
+              <TableCell className={s.name} align="right">
+                Last Updated
+              </TableCell>
+              <TableCell className={s.name} align="right">
+                Created by
+              </TableCell>
+              <TableCell className={s.name} align="right">
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
 
@@ -91,8 +101,8 @@ export const CardsPack = () => {
                 <TableCell align="right">{el.cardsCount}</TableCell>
                 <TableCell align="right">{dayjs(el.updated).format('DD.MM.YYYY')}</TableCell>
                 <TableCell align="right">{dayjs(el.created).format('DD.MM.YYYY')}</TableCell>
-                <TableCell align="center">
-                  <ChangePacks id={el._id} />
+                <TableCell className={s.icons} align="left">
+                  <ChangePacks id={el._id} userId={el.user_id} />
                 </TableCell>
               </TableRow>
             ))}
