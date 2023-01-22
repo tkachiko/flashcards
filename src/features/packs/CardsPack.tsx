@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { NotFoundSearching } from '../../common/components/NotFoundSearching/NotFoundSearching'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
+import { SuperSort } from '../../common/components/SuperSort/SuperSort'
 import { setPackId } from '../cards/cards-reducer'
 
 import {
@@ -35,8 +36,8 @@ export const CardsPack = () => {
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const [page, setPage] = useState(useAppSelector(pageSelector))
   const packName = useAppSelector(packNameSelector)
-
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
+  const [sort, setSort] = useState('')
 
   const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
@@ -56,6 +57,10 @@ export const CardsPack = () => {
       navigate(PATH.CARDS + `/${packId}`)
     }
   }
+  const onChangeSort = (newSort: string) => {
+    setSort(newSort)
+    dispatch(fetchPacks({ sortPacks: newSort }))
+  }
 
   return (
     <div className={s.container}>
@@ -73,7 +78,8 @@ export const CardsPack = () => {
                     Cards
                   </TableCell>
                   <TableCell className={s.name} align="right">
-                    Last Updated
+                    <span>Last Updated</span>
+                    <SuperSort sort={sort} value={'updated'} onChange={onChangeSort} />
                   </TableCell>
                   <TableCell className={s.name} align="right">
                     Created by
@@ -99,7 +105,7 @@ export const CardsPack = () => {
                     </TableCell>
                     <TableCell align="right">{el.cardsCount}</TableCell>
                     <TableCell align="right">{dayjs(el.updated).format('DD.MM.YYYY')}</TableCell>
-                    <TableCell align="right">{dayjs(el.created).format('DD.MM.YYYY')}</TableCell>
+                    <TableCell align="right">{el.user_name}</TableCell>
                     <TableCell className={s.icons} align="left">
                       <ChangePacks id={el._id} userId={el.user_id} />
                     </TableCell>

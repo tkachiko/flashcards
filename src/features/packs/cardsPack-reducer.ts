@@ -29,6 +29,7 @@ const slice = createSlice({
           cardsCount: 0 as number,
           created: '' as string,
           updated: '' as string,
+          user_name: '' as string,
         },
       ],
       cardPacksTotalCount: 0 as number,

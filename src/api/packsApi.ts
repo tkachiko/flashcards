@@ -21,6 +21,7 @@ export const packsApi = {
         min: filter.min,
         max: filter.max,
         packName: filter.packName,
+        sortPacks: filter.sortPacks,
       },
     })
   },

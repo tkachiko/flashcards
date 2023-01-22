@@ -152,6 +152,7 @@ export type CardsPackType = {
   cardsCount: number
   created: string
   updated: string
+  user_name: string
 }
 export type GetPackSPayloadType = {
   packName?: string
