@@ -10,7 +10,7 @@ import Teacher from '../../../assets/icons/teacher.svg'
 import { userIdSelector } from '../../profile/profile-reducer'
 import { deletePack, updatePack } from '../cardsPack-reducer'
 
-import s from './ChangePacks.module.scss'
+import style from './ChangePacks.module.scss'
 
 type ActionSettingType = {
   id: string
@@ -34,15 +34,15 @@ export const ChangePacks = (props: ActionSettingType) => {
   }
 
   return (
-    <div className={s.container}>
+    <div className={style.container}>
       {userId === props.userId ? (
         <>
-          <img className={s.icon} onClick={handlerOpenCards} src={Teacher} alt={'Teacher'} />
-          <img className={s.icon} onClick={handlerUpdatePack} src={Edit} alt={'Edit'} />
-          <img className={s.icon} onClick={handlerDeletePack} src={Delete} alt={'Delete'} />
+          <img className={style.icon} onClick={handlerOpenCards} src={Teacher} alt={'Teacher'} />
+          <img className={style.icon} onClick={handlerUpdatePack} src={Edit} alt={'Edit'} />
+          <img className={style.icon} onClick={handlerDeletePack} src={Delete} alt={'Delete'} />
         </>
       ) : (
-        <img className={s.icon} onClick={handlerOpenCards} src={Teacher} alt={'Teacher'} />
+        <img className={style.icon} onClick={handlerOpenCards} src={Teacher} alt={'Teacher'} />
       )}
     </div>
   )

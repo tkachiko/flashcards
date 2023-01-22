@@ -13,6 +13,10 @@
     background: #ffffff;
     border: 1px solid #e8e8e8;
     border-radius: 2px;
+
+    &:hover{
+      background: #879091;
+    }
     .img {
       cursor: pointer;
 

@@ -175,3 +175,16 @@ export const minCardsCountSelector = (state: RootStateType): number =>
 export const packNameSelector = (state: RootStateType): string => state.pack.packName
 
 export type CardsPacksActionType = ReturnType<typeof isMyPacksAC> | ReturnType<typeof setPackNameAC>
+
+export const packsListTableNames: TableHeaderDataType[] = [
+  { name: 'Name', sortName: 'name' },
+  { name: 'Cards', sortName: 'cardsCount' },
+  { name: 'Last Updated', sortName: 'updated' },
+  { name: 'Created by', sortName: 'user_name' },
+  { name: 'Actions', sortName: 'updated' },
+]
+
+type TableHeaderDataType = {
+  name: string
+  sortName: string
+}
