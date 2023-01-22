@@ -15,12 +15,10 @@ import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
 import { setPackId } from '../cards/cards-reducer'
-import { userIdSelector } from '../profile/profile-reducer'
 
 import {
   cardPacksTotalCountSelector,
   fetchPacks,
-  isMyPackSelector,
   packSelector,
   pageCountSelector,
   pageSelector,
@@ -35,8 +33,6 @@ export const CardsPack = () => {
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const [page, setPage] = useState(useAppSelector(pageSelector))
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
-  const userId = useAppSelector(userIdSelector)
-  const isMyPack = useAppSelector(isMyPackSelector)
 
   const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
@@ -46,7 +42,7 @@ export const CardsPack = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(fetchPacks({ page, pageCount, user_id: userId }))
+    dispatch(fetchPacks({ page, pageCount }))
   }, [page, pageCount])
 
   const handlerOpenCards = (packId: string) => {
@@ -62,12 +58,7 @@ export const CardsPack = () => {
       <ErrorSnackbar />
       <HeaderPacks />
       <FiltersField />
-      <TableContainer
-        sx={{
-          filter:
-            'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.1))',
-        }}
-      >
+      <TableContainer>
         <Table sx={{ minWidth: 650, border: '1px solid #D9D9D9' }} aria-label="simple table">
           <TableHead>
             <TableRow>

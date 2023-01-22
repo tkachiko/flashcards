@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -8,7 +8,16 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import search from '../../../../assets/images/search.svg'
 import style from '../SearchField/SearchField.module.scss'
 
-export const SearchField = () => {
+type SearchFieldType = {
+  search: string
+  handleChangeSearch: (search: string) => void
+}
+
+export const SearchField = (props: SearchFieldType) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    props.handleChangeSearch(event.target.value)
+  }
+
   return (
     <div className={style.wrapper}>
       <FormControl sx={{ m: 1, margin: '0 0' }} variant="outlined">
@@ -21,7 +30,8 @@ export const SearchField = () => {
             </InputAdornment>
           }
           label="Search"
-          value=""
+          value={props.search}
+          onChange={handleChange}
         />
       </FormControl>
     </div>

@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../../app/store'
 import Delete from '../../../assets/icons/Delete.svg'
 import Edit from '../../../assets/icons/Edit.svg'
 import Teacher from '../../../assets/icons/teacher.svg'
-import { deletePack, isMyPackSelector, packSelector, updatePack } from '../cardsPack-reducer'
+import { userIdSelector } from '../../profile/profile-reducer'
+import { deletePack, updatePack } from '../cardsPack-reducer'
 
 import s from './ChangePacks.module.scss'
 
@@ -17,9 +18,8 @@ type ActionSettingType = {
 }
 export const ChangePacks = (props: ActionSettingType) => {
   const navigate = useNavigate()
-  const pack = useAppSelector(packSelector)
   const dispatch = useAppDispatch()
-  const isMyPack = useAppSelector(isMyPackSelector)
+  const userId = useAppSelector(userIdSelector)
 
   const handlerDeletePack = () => {
     dispatch(deletePack({ id: props.id }))
@@ -35,7 +35,7 @@ export const ChangePacks = (props: ActionSettingType) => {
 
   return (
     <div className={s.container}>
-      {props.userId ? (
+      {userId === props.userId ? (
         <>
           <img className={s.icon} onClick={handlerOpenCards} src={Teacher} alt={'Teacher'} />
           <img className={s.icon} onClick={handlerUpdatePack} src={Edit} alt={'Edit'} />

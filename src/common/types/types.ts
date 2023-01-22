@@ -160,9 +160,7 @@ export type GetPackSPayloadType = {
   sortPacks?: string
   page?: number
   pageCount?: number
-
   user_id?: string
-
   block?: boolean
   isMyPacks?: boolean
 }

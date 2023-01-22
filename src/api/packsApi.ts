@@ -12,8 +12,17 @@ import {
 import { instance } from './instance'
 
 export const packsApi = {
-  getPack(payload: GetPackSPayloadType) {
-    return instance.get<GetPacksResponseType>('cards/pack', { params: payload })
+  getPack(filter: GetPackSPayloadType) {
+    return instance.get<GetPacksResponseType>('cards/pack', {
+      params: {
+        page: filter.page,
+        pageCount: filter.pageCount,
+        user_id: filter.user_id,
+        min: filter.min,
+        max: filter.max,
+        packName: filter.packName,
+      },
+    })
   },
   createPack(payload: CreatePacksPayloadType) {
     return instance.post<CreatePackResponseType>('cards/pack', payload)

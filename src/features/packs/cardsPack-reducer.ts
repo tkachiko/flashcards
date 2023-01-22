@@ -35,7 +35,7 @@ const slice = createSlice({
       maxCardsCount: 0 as number,
       minCardsCount: 0 as number,
       page: 1 as number,
-      pageCount: 10 as number,
+      pageCount: 4 as number,
     },
     isMyPacks: true as boolean,
   },
@@ -69,8 +69,9 @@ export const addPackTC = createAsyncThunk<
     dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       const response = await packsApi.createPack(payload)
+      const { pageCount, page } = state.pack.packs
 
-      dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+      dispatch(fetchPacks({ pageCount, page }))
       dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }
@@ -116,8 +117,9 @@ export const deletePack = createAsyncThunk<
   try {
     const response = await packsApi.deletePack(payload)
     const state = getState() as RootStateType
+    const { pageCount, page } = state.pack.packs
 
-    dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+    dispatch(fetchPacks({ pageCount, page }))
 
     dispatch(setSubmittingAC({ status: 'success' }))
 
@@ -141,8 +143,9 @@ export const updatePack = createAsyncThunk<
     dispatch(setSubmittingAC({ status: 'loading' }))
     try {
       const response = await packsApi.updatePack(payload)
+      const { pageCount, page } = state.pack.packs
 
-      dispatch(fetchPacks({ page: 1, pageCount: 10 }))
+      dispatch(fetchPacks({ pageCount, page }))
       dispatch(setSubmittingAC({ status: 'success' }))
 
       return { data: response.data }
@@ -164,5 +167,4 @@ export const maxCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.maxCardsCount
 export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
-
 export type CardsPacksActionType = ReturnType<typeof isMyPacksAC>

@@ -1,19 +1,23 @@
 import React from 'react'
 
+import Button from '@mui/material/Button'
+
+import { appStatusSelector } from '../../../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { fetchPacks, isMyPacksAC, isMyPackSelector } from '../../cardsPack-reducer'
 import style from '../SelectPackField/SelectPackField.module.scss'
 
 export const SelectPackField = () => {
+  const loadingStatus = useAppSelector(appStatusSelector)
   const isMyPack = useAppSelector(isMyPackSelector)
   const dispatch = useAppDispatch()
   const onClickAllPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: false }))
-    dispatch(fetchPacks({ page: 1, pageCount: 10, isMyPacks: false }))
+    dispatch(fetchPacks({}))
   }
   const onClickMyPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: true }))
-    dispatch(fetchPacks({ page: 1, pageCount: 10, isMyPacks: true }))
+    dispatch(fetchPacks({}))
   }
 
   const my_btn = style.standardButton + (isMyPack ? ' ' + style.selectedButton : '')
@@ -23,12 +27,20 @@ export const SelectPackField = () => {
     <div className={style.wrapper}>
       <span className={style.text}>Show packs cards</span>
       <div className={style.buttons}>
-        <button className={my_btn} onClick={onClickMyPacksHandler}>
+        <Button
+          disabled={loadingStatus === 'loading'}
+          className={my_btn}
+          onClick={onClickMyPacksHandler}
+        >
           My
-        </button>
-        <button className={all_btn} onClick={onClickAllPacksHandler}>
+        </Button>
+        <Button
+          disabled={loadingStatus === 'loading'}
+          className={all_btn}
+          onClick={onClickAllPacksHandler}
+        >
           All
-        </button>
+        </Button>
       </div>
     </div>
   )
