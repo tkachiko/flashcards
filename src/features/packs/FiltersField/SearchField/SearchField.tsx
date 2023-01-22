@@ -20,7 +20,7 @@ export const SearchField = (props: SearchFieldType) => {
 
   return (
     <div className={style.wrapper}>
-      <FormControl sx={{ m: 1, margin: '0 0' }} variant="outlined">
+      <FormControl sx={{ m: 1, margin: '0 0', width: '100%' }} variant="outlined">
         <InputLabel htmlFor="search for packs">Search</InputLabel>
         <OutlinedInput
           id="search for packs"

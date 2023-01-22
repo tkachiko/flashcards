@@ -1,10 +1,23 @@
 .wrapper {
   display: flex;
-  justify-content: flex-end;
-  .img {
-    cursor: pointer;
+  align-items: flex-end;
 
-    width: 20px;
-    height: 20px;
+  .imgBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 36px;
+
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 2px;
+    .img {
+      cursor: pointer;
+
+      width: 24px;
+      height: 24px;
+    }
   }
 }

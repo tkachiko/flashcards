@@ -1,5 +1,18 @@
+@import './src/common/styles/sass/mixins';
 .wrapper {
   display: flex;
-  gap: 20px;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: flex-end;
+  .title {
+
+    @include text(14px, 500, 17px);
+
+    font-style: normal;
+  }
+  .slider {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+  }
 }

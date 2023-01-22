@@ -26,19 +26,24 @@ export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
 
   return (
     <div className={style.wrapper}>
-      <span>{props.value[0]}</span>
-      <Slider
-        disabled={loadingStatus === 'loading'}
-        sx={{ width: 150 }}
-        color={'primary'}
-        onChange={change}
-        onChangeCommitted={changeCommitted}
-        value={props.value}
-        min={props.min}
-        max={props.max}
-        valueLabelDisplay={'auto'}
-      />
-      <span>{props.value[1]}</span>
+      <div className={style.title}>
+        <span>Number of cards</span>
+      </div>
+      <div className={style.slider}>
+        <span>{props.value[0]}</span>
+        <Slider
+          disabled={loadingStatus === 'loading'}
+          sx={{ width: 150 }}
+          color={'primary'}
+          onChange={change}
+          onChangeCommitted={changeCommitted}
+          value={props.value}
+          min={props.min}
+          max={props.max}
+          valueLabelDisplay={'auto'}
+        />
+        <span>{props.value[1]}</span>
+      </div>
     </div>
   )
 }
