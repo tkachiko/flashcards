@@ -90,6 +90,7 @@ export type CreateCardRequestType = {
   questionVideo?: string
   answerVideo?: string
   type?: string
+  pageCount?: number
 }
 
 export type GetCardsRequestType = {

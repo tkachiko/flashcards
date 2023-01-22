@@ -30,6 +30,7 @@ export const CardControls: FC<PropsType> = ({ id, question, answer }) => {
           cardsPack_id: packId,
           question,
           answer,
+          pageCount: 10,
         },
       })
     )
@@ -40,6 +41,7 @@ export const CardControls: FC<PropsType> = ({ id, question, answer }) => {
       deleteCardTh({
         data: {
           cardsPack_id: packId,
+          pageCount: 10,
         },
         cardId: id,
       })

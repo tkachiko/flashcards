@@ -46,11 +46,8 @@ export const updateCard = createAsyncThunk(
       await cardsApi.updateCard(updatedCard)
       await thunkAPI.dispatch(fetchCards(data))
       thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
-      // return { data }
     } catch (e: any) {
       thunkAPI.dispatch(setSubmittingAC({ status: 'failed' }))
-
-      // return thunkAPI.rejectWithValue(errorMessage(thunkAPI.dispatch, e))
     }
   }
 )
@@ -61,28 +58,39 @@ export const createCard = createAsyncThunk<
   AsyncThunkConfig
 >('cards/createCard', async (data, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
-  const response = await cardsApi.createCard({
-    cardsPack_id: data.card.cardsPack_id,
-    question: 'question',
-    answer: 'answer',
-  })
-
-  thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
-  console.log(response)
-  thunkAPI.dispatch(
-    fetchCards({
+  try {
+    const response = await cardsApi.createCard({
       cardsPack_id: data.card.cardsPack_id,
+      question: 'question',
+      answer: 'answer',
+      pageCount: 10,
     })
-  )
 
-  return response.data
+    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
+    thunkAPI.dispatch(
+      fetchCards({
+        cardsPack_id: data.card.cardsPack_id,
+        pageCount: 10,
+      })
+    )
+
+    return response.data
+  } catch (e: any) {
+    thunkAPI.dispatch(setSubmittingAC({ status: 'failed' }))
+    errorMessage(thunkAPI.dispatch, e)
+  }
 })
 
-export const deleteCardTh = createAsyncThunk(
+export const deleteCardTh = createAsyncThunk<
+  {},
+  { data: GetCardsRequestType; cardId: string },
+  AsyncThunkConfig
+>(
   'cards/deleteCard',
   async ({ data, cardId }: { data: GetCardsRequestType; cardId: string }, thunkAPI) => {
+    thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
+    console.log(data)
     try {
-      thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
       await cardsApi.deleteCard(cardId)
       await thunkAPI.dispatch(fetchCards(data))
       thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
@@ -121,6 +129,7 @@ const slice = createSlice({
         state.cardsData = { ...action.payload.data }
         state.isLoaded = true
         state.packId = action.payload.packId
+        console.log(action.payload.data.pageCount)
       }
     })
     builder.addCase(createCard.fulfilled, (state, action) => {
@@ -139,6 +148,9 @@ export const cardsReducer = slice.reducer
 export const { setPackId } = slice.actions
 export const cardsTotalCountSelector = (state: RootStateType): number =>
   state.cards.cardsData.cardsTotalCount
+export const userIdSelector = (state: RootStateType): string => state.profile.profile._id
+export const packUserIdSelector = (state: RootStateType): string | null =>
+  state.cards.cardsData.packUserId
 
 // types
 export type CardsReducerType = ReturnType<typeof setPackId>

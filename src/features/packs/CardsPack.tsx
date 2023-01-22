@@ -51,7 +51,6 @@ export const CardsPack = () => {
   const handlerOpenCards = (packId: string) => {
     if (packId) {
       dispatch(setPackId(packId))
-      debugger
       navigate(PATH.CARDS + `/${packId}`)
     }
   }

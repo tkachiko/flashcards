@@ -7,10 +7,9 @@
 
   display: flex;
   gap: 8px;
-  align-items: center;
 
+  width: 100%;
   margin-top: 24px;
-  margin-left: 140px;
 
   &:hover {
     .image {
@@ -30,7 +29,6 @@
   }
 
   .backText {
-
     @include text(14px, 400, 24px);
 
     font-style: normal;
