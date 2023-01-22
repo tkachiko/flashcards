@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 
-import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -13,12 +12,15 @@ import { useParams } from 'react-router-dom'
 import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import { Back2Packs } from '../../common/components/Back2Packs/Back2Packs'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
+import { SuperTableHead } from '../../common/components/SuperTable/SuperTableHead/SuperTableHead'
 import styleContainer from '../../common/styles/Container.module.scss'
 import { isMyPackSelector } from '../packs/cardsPack-reducer'
 
+import { Card } from './Card'
 import { CardControls } from './cardControls/CardControls'
-import { createCard, fetchCards } from './cards-reducer'
+import { fetchCards } from './cards-reducer'
 import style from './Cards.module.scss'
+import { EmptyPack } from './emptyPack/EmptyPack'
 
 export const Cards = () => {
   const { cardsPack_id } = useParams()
@@ -40,78 +42,68 @@ export const Cards = () => {
         dispatch(
           fetchCards({
             cardsPack_id,
-            pageCount: 5,
+            pageCount: 10,
             answer: '',
           })
         )
     }
   }, [])
 
-  const onCreateCardHandler = () => {
-    dispatch(
-      createCard({
-        card: {
-          cardsPack_id: packId,
-        },
-      })
-    )
-  }
+  console.log(isMyPack)
 
   return (
-    <div className={`${style.container} ${styleContainer.container}`}>
-      <ErrorSnackbar />
-      <Back2Packs />
-      <div className={style.header}>
-        <h2>My pack</h2>
-        <Button
-          variant={'contained'}
-          type={'button'}
-          fullWidth
-          disableRipple
-          // disabled={status === 'loading'}
-          className={style.button}
-          onClick={onCreateCardHandler}
-        >
-          Add new card
-        </Button>
+    <div>
+      <div className={`${style.container} ${styleContainer.container}`}>
+        <ErrorSnackbar />
+        <Back2Packs />
+        {cardsData.cards.length > 0 ? (
+          <>
+            <SuperTableHead />
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead className={style.tHead}>
+                  <TableRow>
+                    <TableCell>Question</TableCell>
+                    <TableCell align="right">Answer</TableCell>
+                    <TableCell align="right">Last Updated</TableCell>
+                    <TableCell align="right">Grade</TableCell>
+                    <TableCell align="right"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {cardsData.cards &&
+                    cardsData.cards.map(card => {
+                      return (
+                        <TableRow
+                          key={card._id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <Card
+                            answer={card.answer}
+                            question={card.question}
+                            grade={card.grade}
+                            updated={card.updated}
+                          />
+                          {/*{isMyPack && (*/}
+                          <TableCell align="center">
+                            <CardControls
+                              id={card._id}
+                              question={card.question}
+                              answer={card.answer}
+                            />
+                          </TableCell>
+                          {/*)}*/}
+                        </TableRow>
+                      )
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </>
+        ) : (
+          <EmptyPack />
+        )}
       </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead className={style.tHead}>
-            <TableRow>
-              <TableCell>Question</TableCell>
-              <TableCell align="right">Answer</TableCell>
-              <TableCell align="right">Last Updated</TableCell>
-              <TableCell align="right">Grade</TableCell>
-              <TableCell align="right"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cardsData.cards &&
-              cardsData.cards.map(card => (
-                <TableRow key={card._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {card.question}
-                  </TableCell>
-                  <TableCell align="right">{card.answer}</TableCell>
-                  <TableCell align="right">{card.updated.slice(0, -14)}</TableCell>
-                  <TableCell align="right">{card.grade}</TableCell>
-                  {/*{isMyPack && (*/}
-                  <TableCell align="center">
-                    <CardControls id={card._id} question={card.question} answer={card.answer} />
-                  </TableCell>
-                  {/*)}*/}
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {/*<SuperPagination*/}
-      {/*  page={page}*/}
-      {/*  onChange={onChangePagination}*/}
-      {/*  pageCount={pageCount}*/}
-      {/*  cardPacksTotalCount={cardsTotalCount}*/}
-      {/*/>*/}
     </div>
   )
 }

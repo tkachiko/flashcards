@@ -1,0 +1,24 @@
+@import './src/common/styles/sass/variables';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  margin: 40px 0;
+
+  .button {
+    width: 184px;
+    height: 36px;
+
+    text-transform: none;
+
+    background-color: $primaryColor;
+    border-radius: 30px;
+
+    &:hover {
+      background-color: $secondColor;
+    }
+  }
+}
