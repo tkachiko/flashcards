@@ -4,7 +4,14 @@ import { useDebounce } from 'usehooks-ts'
 
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { SuperRange } from '../../../common/components/SuperRange/SuperRange'
-import { fetchPacks, maxCardsCountSelector, minCardsCountSelector } from '../cardsPack-reducer'
+import {
+  fetchPacks,
+  maxCardsCountSelector,
+  minCardsCountSelector,
+  packNameSelector,
+  pageCountSelector,
+  setPackNameAC,
+} from '../cardsPack-reducer'
 import style from '../FiltersField/FiltersField.module.scss'
 
 import { ResetFilters } from './ResetFilters/ResetFilters'
@@ -14,10 +21,13 @@ import { SelectPackField } from './SelectPackField/SelectPackField'
 export const FiltersField = () => {
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
   const minCardsCount = useAppSelector(minCardsCountSelector)
+  const pageCount = useAppSelector(pageCountSelector)
+  const packName = useAppSelector(packNameSelector)
 
   const dispatch = useAppDispatch()
+
   const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount])
-  const [search, setSearch] = useState<string>('')
+  const [search, setSearch] = useState<string>(packName)
   const debouncedSearch = useDebounce<string>(search, 500)
 
   const change = (value: number | number[]) => {
@@ -28,10 +38,11 @@ export const FiltersField = () => {
     const max = Array.isArray(value) ? value[1] : value
 
     setValue([min, max])
-    dispatch(fetchPacks({ min, max, packName: debouncedSearch }))
+    dispatch(fetchPacks({ min, max, packName: debouncedSearch, pageCount }))
   }
 
   const handleChangeSearch = (search: string) => {
+    dispatch(setPackNameAC({ packName: search }))
     setSearch(search)
   }
 
@@ -50,6 +61,7 @@ export const FiltersField = () => {
         packName: debouncedSearch,
         min: value[0],
         max: value[1],
+        pageCount,
       })
     )
   }, [debouncedSearch])
@@ -57,7 +69,7 @@ export const FiltersField = () => {
   return (
     <div className={style.wrapper}>
       <SearchField search={search} handleChangeSearch={handleChangeSearch} />
-      <SelectPackField />
+      <SelectPackField pageCount={pageCount} packName={packName} />
       <SuperRange
         min={minCardsCount}
         max={maxCardsCount}

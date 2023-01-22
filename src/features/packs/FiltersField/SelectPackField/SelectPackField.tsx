@@ -7,17 +7,22 @@ import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { fetchPacks, isMyPacksAC, isMyPackSelector } from '../../cardsPack-reducer'
 import style from '../SelectPackField/SelectPackField.module.scss'
 
-export const SelectPackField = () => {
+type SelectPackFieldPropsType = {
+  pageCount: number
+  packName: string
+}
+
+export const SelectPackField = (props: SelectPackFieldPropsType) => {
   const loadingStatus = useAppSelector(appStatusSelector)
   const isMyPack = useAppSelector(isMyPackSelector)
   const dispatch = useAppDispatch()
   const onClickAllPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: false }))
-    dispatch(fetchPacks({}))
+    dispatch(fetchPacks({ pageCount: props.pageCount, packName: props.packName }))
   }
   const onClickMyPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: true }))
-    dispatch(fetchPacks({}))
+    dispatch(fetchPacks({ pageCount: props.pageCount, packName: props.packName }))
   }
 
   const my_btn = style.standardButton + (isMyPack ? ' ' + style.selectedButton : '')

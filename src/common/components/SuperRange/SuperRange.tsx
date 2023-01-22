@@ -2,6 +2,8 @@ import React, { FC } from 'react'
 
 import { Slider, SliderProps } from '@mui/material'
 
+import { appStatusSelector } from '../../../app/app-reducer'
+import { useAppSelector } from '../../../app/store'
 import style from '../SuperRange/SuperRange.module.scss'
 
 type SuperRangePropsType = {
@@ -13,6 +15,8 @@ type SuperRangePropsType = {
 }
 
 export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
+  const loadingStatus = useAppSelector(appStatusSelector)
+
   const change = (event: React.SyntheticEvent | Event, value: number | number[]) => {
     props.changeValue(value)
   }
@@ -24,6 +28,7 @@ export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
     <div className={style.wrapper}>
       <span>{props.value[0]}</span>
       <Slider
+        disabled={loadingStatus === 'loading'}
         sx={{ width: 150 }}
         color={'primary'}
         onChange={change}

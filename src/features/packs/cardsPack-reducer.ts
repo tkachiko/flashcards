@@ -38,10 +38,14 @@ const slice = createSlice({
       pageCount: 4 as number,
     },
     isMyPacks: true as boolean,
+    packName: '' as string,
   },
   reducers: {
     isMyPacksAC(state, action: PayloadAction<{ isMyPacks: boolean }>) {
       state.isMyPacks = action.payload.isMyPacks
+    },
+    setPackNameAC(state, action: PayloadAction<{ packName: string }>) {
+      state.packName = action.payload.packName
     },
   },
   extraReducers: builder => {
@@ -55,7 +59,7 @@ const slice = createSlice({
 
 export const cardsPackReducer = slice.reducer
 
-export const { isMyPacksAC } = slice.actions
+export const { isMyPacksAC, setPackNameAC } = slice.actions
 
 export const addPackTC = createAsyncThunk<
   { data: CreatePackResponseType },
@@ -167,4 +171,6 @@ export const maxCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.maxCardsCount
 export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
-export type CardsPacksActionType = ReturnType<typeof isMyPacksAC>
+export const packNameSelector = (state: RootStateType): string => state.pack.packName
+
+export type CardsPacksActionType = ReturnType<typeof isMyPacksAC> | ReturnType<typeof setPackNameAC>
