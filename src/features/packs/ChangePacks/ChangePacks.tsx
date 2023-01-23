@@ -25,7 +25,7 @@ export const ChangePacks = (props: ActionSettingType) => {
     dispatch(deletePack({ id: props.id }))
   }
   const handlerUpdatePack = () => {
-    dispatch(updatePack({ cardsPack: { _id: props.id } }))
+    dispatch(updatePack({ cardsPack: { _id: props.id, name: 'Update' } }))
   }
   const handlerOpenCards = () => {
     if (props.id) {
