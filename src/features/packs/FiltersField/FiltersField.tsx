@@ -6,7 +6,6 @@ import {
   fetchPacks,
   maxCardsCountSelector,
   minCardsCountSelector,
-  packNameSelector,
   pageCountSelector,
   setPackNameAC,
 } from '../cardsPack-reducer'
@@ -27,7 +26,6 @@ export const FiltersField = (props: FiltersFieldPropsType) => {
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
   const minCardsCount = useAppSelector(minCardsCountSelector)
   const pageCount = useAppSelector(pageCountSelector)
-  const packName = useAppSelector(packNameSelector)
 
   const dispatch = useAppDispatch()
 
@@ -61,7 +59,7 @@ export const FiltersField = (props: FiltersFieldPropsType) => {
   return (
     <div className={style.wrapper}>
       <SearchField search={props.search} handleChangeSearch={handleChangeSearch} />
-      <SelectPackField pageCount={pageCount} packName={packName} />
+      <SelectPackField />
       <SuperRange
         min={minCardsCount}
         max={maxCardsCount}
