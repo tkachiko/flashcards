@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { useNavigate } from 'react-router-dom'
 
+import { appStatusSelector } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { userIdSelector } from '../../profile/profile-reducer'
@@ -23,7 +24,7 @@ export const ChangePacks = (props: ActionSettingType) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const userId = useAppSelector(userIdSelector)
-
+  const loadingStatus = useAppSelector(appStatusSelector)
   const handlerDeletePack = () => {
     dispatch(deletePack({ id: props.id }))
   }
@@ -41,17 +42,20 @@ export const ChangePacks = (props: ActionSettingType) => {
       {userId === props.userId ? (
         <>
           <Tooltip title="Learn">
-            <IconButton disabled={!props.cardscount} onClick={handlerOpenCards}>
+            <IconButton
+              disabled={loadingStatus === 'loading' || !props.cardscount}
+              onClick={handlerOpenCards}
+            >
               <SchoolIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title="Update">
-            <IconButton onClick={handlerUpdatePack}>
+            <IconButton disabled={loadingStatus === 'loading'} onClick={handlerUpdatePack}>
               <EditIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete">
-            <IconButton onClick={handlerDeletePack}>
+            <IconButton disabled={loadingStatus === 'loading'} onClick={handlerDeletePack}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>
