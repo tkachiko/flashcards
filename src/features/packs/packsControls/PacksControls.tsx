@@ -58,7 +58,7 @@ export const PacksControls: FC<PacksControlsType> = ({
         {user_name}
       </TableCell>
       <TableCell sx={{ width: '12%' }} className={s.icons} align="left">
-        <ChangePacks id={id} userId={userId} />
+        <ChangePacks cardscount={cardsCount} id={id} userId={userId} />
       </TableCell>
     </TableRow>
   )
