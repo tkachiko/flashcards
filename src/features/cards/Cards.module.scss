@@ -3,5 +3,6 @@
 @import './src/common/styles/sass/mixins';
 
 .container {
+
   @include flex(column, center, center, nowrap, center);
 }
