@@ -1,36 +1,29 @@
 import React from 'react'
 
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
 import SchoolIcon from '@mui/icons-material/School'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { useNavigate } from 'react-router-dom'
 
-import { appStatusSelector } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
-import { useAppDispatch, useAppSelector } from '../../../app/store'
+import {useAppSelector } from '../../../app/store'
+import { appStatusSelector } from '../../../app/app-reducer'
+import { DeleteModal } from '../../modal/DeleteModal'
+import { EditModal } from '../../modal/EditModal'
 import { userIdSelector } from '../../profile/profile-reducer'
-import { deletePack, updatePack } from '../cardsPack-reducer'
 
 import style from './ChangePacks.module.scss'
 
 type ActionSettingType = {
   id: string
   userId: string
+  name: string
   cardscount: number
 }
 export const ChangePacks = (props: ActionSettingType) => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
   const userId = useAppSelector(userIdSelector)
   const loadingStatus = useAppSelector(appStatusSelector)
-  const handlerDeletePack = () => {
-    dispatch(deletePack({ id: props.id }))
-  }
-  const handlerUpdatePack = () => {
-    dispatch(updatePack({ cardsPack: { _id: props.id, name: 'Update' } }))
-  }
   const handlerOpenCards = () => {
     if (props.id) {
       navigate(PATH.CARDS)
@@ -43,22 +36,16 @@ export const ChangePacks = (props: ActionSettingType) => {
         <>
           <Tooltip title="Learn">
             <IconButton
-              disabled={loadingStatus === 'loading' || !props.cardscount}
-              onClick={handlerOpenCards}
+                disabled={loadingStatus === 'loading' || !props.cardscount}
+                onClick={handlerOpenCards}
             >
               <SchoolIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Update">
-            <IconButton disabled={loadingStatus === 'loading'} onClick={handlerUpdatePack}>
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton disabled={loadingStatus === 'loading'} onClick={handlerDeletePack}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+          <div>
+            <EditModal id={props.id} name={props.name} />
+          </div>
+          <DeleteModal id={props.id} name={props.name} />
         </>
       ) : (
         <Tooltip title="Learn">

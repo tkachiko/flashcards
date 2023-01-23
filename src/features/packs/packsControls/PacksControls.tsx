@@ -18,10 +18,8 @@ type PacksControlsType = {
   updated: string
   user_name: string
   userId: string
-  index: number
 }
 export const PacksControls: FC<PacksControlsType> = ({
-  index,
   id,
   name,
   user_name,
@@ -39,7 +37,7 @@ export const PacksControls: FC<PacksControlsType> = ({
   }
 
   return (
-    <TableRow key={`${id}-${index}`} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell
         sx={{ cursor: 'pointer', width: '22%' }}
         component="th"
@@ -58,7 +56,7 @@ export const PacksControls: FC<PacksControlsType> = ({
         {user_name}
       </TableCell>
       <TableCell sx={{ width: '12%' }} className={s.icons} align="left">
-        <ChangePacks cardscount={cardsCount} id={id} userId={userId} />
+        <ChangePacks cardscount={cardsCount} id={id} userId={userId} name={name} />
       </TableCell>
     </TableRow>
   )

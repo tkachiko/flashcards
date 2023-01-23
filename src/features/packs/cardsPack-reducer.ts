@@ -41,7 +41,8 @@ const slice = createSlice({
     searchParams: {
       isMyPacks: true as boolean,
       packName: '' as string,
-    },
+      isNewCardPackAdded: false as boolean,
+    }
   },
   reducers: {
     isMyPacksAC(state, action: PayloadAction<{ isMyPacks: boolean }>) {
@@ -52,6 +53,9 @@ const slice = createSlice({
     },
     setPageAC(state, action: PayloadAction<{ page: number }>) {
       state.packs.page = action.payload.page
+    },
+    isNewCardPackAddedAC(state, action: PayloadAction<{ isNewCardPackAdded: boolean }>) {
+      state.searchParams.isNewCardPackAdded = action.payload.isNewCardPackAdded
     },
   },
   extraReducers: builder => {
@@ -65,7 +69,7 @@ const slice = createSlice({
 
 export const cardsPackReducer = slice.reducer
 
-export const { isMyPacksAC, setPackNameAC, setPageAC } = slice.actions
+export const { isMyPacksAC, setPackNameAC, setPageAC,isNewCardPackAddedAC } = slice.actions
 
 export const addPackTC = createAsyncThunk<
   { data: CreatePackResponseType },
@@ -89,6 +93,8 @@ export const addPackTC = createAsyncThunk<
       const error = e as Error | AxiosError
 
       return rejectWithValue(errorMessage(dispatch, error))
+    } finally {
+      dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
     }
   }
 )
@@ -138,6 +144,8 @@ export const deletePack = createAsyncThunk<
     const error = e as Error | AxiosError
 
     return rejectWithValue(errorMessage(dispatch, error))
+  } finally {
+    dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
   }
 })
 
@@ -163,6 +171,8 @@ export const updatePack = createAsyncThunk<
       const error = e as Error | AxiosError
 
       return rejectWithValue(errorMessage(dispatch, error))
+    } finally {
+      dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
     }
   }
 )
@@ -178,11 +188,15 @@ export const maxCardsCountSelector = (state: RootStateType): number =>
 export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
 export const packNameSelector = (state: RootStateType): string => state.pack.searchParams.packName
+export const isNewCardPackAddedSelector = (state: RootStateType): boolean => state.pack.searchParams.isNewCardPackAdded
 
 export type CardsPacksActionType =
   | ReturnType<typeof isMyPacksAC>
   | ReturnType<typeof setPackNameAC>
-  | ReturnType<typeof setPageAC>
+  | ReturnType<typeof isNewCardPackAddedAC>
+    | ReturnType<typeof setPageAC>
+
+
 
 export const packsListTableNames: TableHeaderDataType[] = [
   { name: 'Name', sortName: 'name' },
