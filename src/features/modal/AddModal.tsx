@@ -46,7 +46,7 @@ export const AddModals: FC<AddModalsType> = ({
   }, [isNewCardPackAdded])
 
   return (
-    <BasicModals isOpen={isModalAddOpen} setIsModalOpen={setIsModalOpen} handleClose={handleClose}>
+    <BasicModals isOpen={isModalAddOpen} handleClose={handleClose}>
       <div className={s.container}>
         <div className={s.headerContainer}>
           <p className={s.title}>Add new pack</p>
