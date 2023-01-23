@@ -20,6 +20,8 @@ import { setPackId } from '../cards/cards-reducer'
 import {
   cardPacksTotalCountSelector,
   fetchPacks,
+  maxCardsCountSelector,
+  minCardsCountSelector,
   packNameSelector,
   packSelector,
   pageCountSelector,
@@ -36,6 +38,8 @@ export const CardsPack = () => {
   const [page, setPage] = useState(useAppSelector(pageSelector))
   const packName = useAppSelector(packNameSelector)
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
+  const maxCardsCount = useAppSelector(maxCardsCountSelector)
+  const minCardsCount = useAppSelector(minCardsCountSelector)
 
   const onChangePagination = (newPage: number, newCount: number) => {
     setPage(newPage)
@@ -44,16 +48,16 @@ export const CardsPack = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    dispatch(fetchPacks({ page, pageCount }))
-  }, [page, pageCount])
-
   const handlerOpenCards = (packId: string) => {
     if (packId) {
       dispatch(setPackId(packId))
       navigate(PATH.CARDS + `/${packId}`)
     }
   }
+
+  useEffect(() => {
+    dispatch(fetchPacks({ page, pageCount, packName, min: minCardsCount, max: maxCardsCount }))
+  }, [page, pageCount])
 
   return (
     <div className={s.container}>

@@ -55,16 +55,16 @@ export const FiltersField = () => {
     setValue([minCardsCount, maxCardsCount])
   }, [minCardsCount, maxCardsCount])
 
-  useEffect(() => {
-    dispatch(
-      fetchPacks({
-        packName: debouncedSearch,
-        min: value[0],
-        max: value[1],
-        pageCount,
-      })
-    )
-  }, [debouncedSearch])
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchPacks({
+  //       packName: debouncedSearch,
+  //       min: value[0],
+  //       max: value[1],
+  //       pageCount,
+  //     })
+  //   )
+  // }, [debouncedSearch])
 
   return (
     <div className={style.wrapper}>
