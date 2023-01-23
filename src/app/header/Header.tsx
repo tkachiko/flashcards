@@ -20,11 +20,15 @@ export const Header = () => {
     navigate(PATH.LOGIN)
   }
 
+  const navigateToProfile = () => {
+    navigate(PATH.PROFILE)
+  }
+
   return (
     <div className={style.container}>
       <img src={itIncubator} alt={'incubator logo'} />
       {isLoggedIn ? (
-        <div className={style.login_info}>
+        <div onClick={navigateToProfile} className={style.login_info}>
           <span className={style.nickname}>{nickname}</span>
           <div className={style.avatar}>
             <img src={avatar} alt={'avatar'} />
