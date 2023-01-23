@@ -5,9 +5,9 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { useNavigate } from 'react-router-dom'
 
-import { PATH } from '../../../app/routes/routes'
-import {useAppSelector } from '../../../app/store'
 import { appStatusSelector } from '../../../app/app-reducer'
+import { PATH } from '../../../app/routes/routes'
+import { useAppSelector } from '../../../app/store'
 import { DeleteModal } from '../../modal/DeleteModal'
 import { EditModal } from '../../modal/EditModal'
 import { userIdSelector } from '../../profile/profile-reducer'
@@ -36,8 +36,8 @@ export const ChangePacks = (props: ActionSettingType) => {
         <>
           <Tooltip title="Learn">
             <IconButton
-                disabled={loadingStatus === 'loading' || !props.cardscount}
-                onClick={handlerOpenCards}
+              disabled={loadingStatus === 'loading' || !props.cardscount}
+              onClick={handlerOpenCards}
             >
               <SchoolIcon />
             </IconButton>

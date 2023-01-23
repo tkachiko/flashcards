@@ -69,11 +69,10 @@ export const CardsPack = () => {
             <Table sx={{ minWidth: 650, border: '1px solid #D9D9D9' }} aria-label="simple table">
               <SuperTableHead />
               <TableBody>
-                {pack?.cardPacks?.map((el, i) => {
+                {pack?.cardPacks?.map(el => {
                   return (
                     <PacksControls
                       key={el._id}
-                      index={i}
                       id={el._id}
                       name={el.name}
                       cardsCount={el.cardsCount}

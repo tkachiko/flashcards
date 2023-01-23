@@ -1,16 +1,18 @@
 import React, { FC, useEffect, useState } from 'react'
 
+import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 
+import { appStatusSelector } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import Close from '../../assets/icons/close.svg'
-import Delete from '../../assets/icons/Delete.svg'
 import {
   deletePack,
   isNewCardPackAddedAC,
   isNewCardPackAddedSelector,
 } from '../packs/cardsPack-reducer'
-import style from '../packs/ChangePacks/ChangePacks.module.scss'
 
 import { BasicModals } from './basicModals'
 import s from './DeleteModal.module.scss'
@@ -21,6 +23,7 @@ type AddModalsType = {
 }
 export const DeleteModal: FC<AddModalsType> = ({ id, name }) => {
   const dispatch = useAppDispatch()
+  const loadingStatus = useAppSelector(appStatusSelector)
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -41,8 +44,12 @@ export const DeleteModal: FC<AddModalsType> = ({ id, name }) => {
 
   return (
     <>
-      <img className={style.icon} onClick={handleOpen} src={Delete} alt={'Delete'} />
-      <BasicModals isOpen={open} setIsModalOpen={setOpen} handleClose={handleClose}>
+      <Tooltip title="Delete">
+        <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+      <BasicModals isOpen={open} handleClose={handleClose}>
         <div className={s.container}>
           <div className={s.headerContainer}>
             <p className={s.title}>Delete Pack</p>

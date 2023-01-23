@@ -1,17 +1,21 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
-import { Checkbox, FormControlLabel, TextField } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
 import Button from '@mui/material/Button'
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import IconButton from '@mui/material/IconButton'
+import TextField from '@mui/material/TextField'
+import Tooltip from '@mui/material/Tooltip'
 
+import { appStatusSelector } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/store'
 import Close from '../../assets/icons/close.svg'
-import Edit from '../../assets/icons/Edit.svg'
 import {
   isNewCardPackAddedAC,
   isNewCardPackAddedSelector,
   updatePack,
 } from '../packs/cardsPack-reducer'
-import style from '../packs/ChangePacks/ChangePacks.module.scss'
 
 import s from './AddandUpdateModal.module.scss'
 import { BasicModals } from './basicModals'
@@ -21,6 +25,7 @@ type AddModalsType = {
 }
 export const EditModal: FC<AddModalsType> = ({ id, name }) => {
   const dispatch = useAppDispatch()
+  const loadingStatus = useAppSelector(appStatusSelector)
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
   const [text, setText] = useState(name)
   const [open, setOpen] = useState(false)
@@ -46,7 +51,11 @@ export const EditModal: FC<AddModalsType> = ({ id, name }) => {
 
   return (
     <>
-      <img className={style.icon} onClick={handleOpen} src={Edit} alt={'Edit'} />
+      <Tooltip title="Update">
+        <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
       <BasicModals isOpen={open} handleClose={handleClose}>
         <div className={s.container}>
           <div className={s.headerContainer}>
