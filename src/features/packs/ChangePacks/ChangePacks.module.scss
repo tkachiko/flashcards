@@ -1,10 +1,10 @@
 .container {
   display: flex;
+  gap: 10px;
   justify-content: flex-start;
-  gap: 20px;
   .icon {
     cursor: pointer;
-    &:hover{
+    &:hover {
       background: #879091;
     }
   }
