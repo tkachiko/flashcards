@@ -20,7 +20,7 @@ export const CardsHeader: FC<PropsType> = ({ onCreateCardHandler }) => {
 
   return (
     <div className={style.header}>
-      {isMyPack ? <h2>{packName}</h2> : <h2>Friend&apos;s Pack</h2>}
+      {isMyPack ? <h2>{packName}</h2> : <h2>{packName}</h2>}
 
       <Button
         variant={'contained'}
