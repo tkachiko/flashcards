@@ -114,6 +114,7 @@ export type GetCardsResponseType<D> = {
   pageCount: number
   token: string
   tokenDeathTime: number
+  packName: string
 }
 
 export type UpdateCardRequestType = {

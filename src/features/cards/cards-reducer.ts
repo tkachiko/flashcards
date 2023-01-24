@@ -25,6 +25,8 @@ export const fetchCards = createAsyncThunk<
   try {
     const response = await cardsApi.getCards(data)
 
+    console.log(response)
+
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { packId: data.cardsPack_id, data: response.data }
@@ -113,6 +115,7 @@ const slice = createSlice({
       packUserId: null as string | null,
       page: 1 as number,
       pageCount: 10 as number,
+      packName: '' as string,
     },
     packId: null as string | null,
     isLoaded: false,
@@ -146,6 +149,6 @@ export const cardsTotalCountSelector = (state: RootStateType): number =>
 export const userIdSelector = (state: RootStateType): string => state.profile.profile._id
 export const packUserIdSelector = (state: RootStateType): string | null =>
   state.cards.cardsData.packUserId
-
+export const packNameSelector = (state: RootStateType): string => state.cards.cardsData.packName
 // types
 export type CardsReducerType = ReturnType<typeof setPackId>
