@@ -1,0 +1,29 @@
+@import './src/common/styles/sass/variables';
+
+@import './src/common/styles/sass/mixins';
+
+.container {
+  margin-top: 86px;
+
+  p {
+
+    @include text(16px, 400, 20px);
+
+    opacity: 0.5;
+  }
+
+  .button {
+    width: 184px;
+    height: 36px;
+    margin-top: 32px;
+
+    text-transform: none;
+
+    background-color: $primaryColor;
+    border-radius: 30px;
+
+    &:hover {
+      background-color: $secondColor;
+    }
+  }
+}
