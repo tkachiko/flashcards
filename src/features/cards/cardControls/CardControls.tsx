@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { RootStateType, useAppDispatch, useAppSelector } from '../../../app/store'
 import Delete from '../../../assets/icons/Delete.svg'
 import Edit from '../../../assets/icons/Edit.svg'
-import { deleteCardTh, updateCard } from '../cards-reducer'
+import { deleteCard, updateCard } from '../cards-reducer'
 
 import style from './CardControls.module.scss'
 
@@ -14,7 +14,7 @@ type PropsType = {
 }
 
 export const CardControls: FC<PropsType> = ({ id, question, answer }) => {
-  const { cardsData, packId } = useAppSelector((state: RootStateType) => state.cards)
+  const { packId } = useAppSelector((state: RootStateType) => state.cards)
 
   const dispatch = useAppDispatch()
 
@@ -38,7 +38,7 @@ export const CardControls: FC<PropsType> = ({ id, question, answer }) => {
 
   const onDeleteCardHandler = () => {
     dispatch(
-      deleteCardTh({
+      deleteCard({
         data: {
           cardsPack_id: packId,
           pageCount: 10,
