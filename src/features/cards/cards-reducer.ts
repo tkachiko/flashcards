@@ -89,7 +89,6 @@ export const deleteCardTh = createAsyncThunk<
   'cards/deleteCard',
   async ({ data, cardId }: { data: GetCardsRequestType; cardId: string }, thunkAPI) => {
     thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
-    console.log(data)
     try {
       await cardsApi.deleteCard(cardId)
       await thunkAPI.dispatch(fetchCards(data))
@@ -129,7 +128,6 @@ const slice = createSlice({
         state.cardsData = { ...action.payload.data }
         state.isLoaded = true
         state.packId = action.payload.packId
-        console.log(action.payload.data.pageCount)
       }
     })
     builder.addCase(createCard.fulfilled, (state, action) => {
@@ -138,9 +136,6 @@ const slice = createSlice({
         state.isLoaded = true
       }
     })
-    // builder.addCase(updateCard.fulfilled, (state, action) => {
-    //   console.log(action.payload)
-    // })
   },
 })
 
