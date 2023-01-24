@@ -35,12 +35,14 @@ export const ChangePacks = (props: ActionSettingType) => {
       {userId === props.userId ? (
         <>
           <Tooltip title="Learn">
-            <IconButton
-              disabled={loadingStatus === 'loading' || !props.cardscount}
-              onClick={handlerOpenCards}
-            >
-              <SchoolIcon />
-            </IconButton>
+            <span>
+              <IconButton
+                disabled={loadingStatus === 'loading' || !props.cardscount}
+                onClick={handlerOpenCards}
+              >
+                <SchoolIcon />
+              </IconButton>
+            </span>
           </Tooltip>
           <div>
             <EditModal id={props.id} name={props.name} />
@@ -49,9 +51,11 @@ export const ChangePacks = (props: ActionSettingType) => {
         </>
       ) : (
         <Tooltip title="Learn">
-          <IconButton disabled={!props.cardscount} onClick={handlerOpenCards}>
-            <SchoolIcon />
-          </IconButton>
+          <span>
+            <IconButton disabled={!props.cardscount} onClick={handlerOpenCards}>
+              <SchoolIcon />
+            </IconButton>
+          </span>
         </Tooltip>
       )}
     </div>

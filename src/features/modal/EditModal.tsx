@@ -52,9 +52,11 @@ export const EditModal: FC<AddModalsType> = ({ id, name }) => {
   return (
     <>
       <Tooltip title="Update">
-        <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
-          <EditIcon />
-        </IconButton>
+        <span>
+          <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
+            <EditIcon />
+          </IconButton>
+        </span>
       </Tooltip>
       <BasicModals isOpen={open} handleClose={handleClose}>
         <div className={s.container}>

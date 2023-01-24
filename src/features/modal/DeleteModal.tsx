@@ -45,9 +45,11 @@ export const DeleteModal: FC<AddModalsType> = ({ id, name }) => {
   return (
     <>
       <Tooltip title="Delete">
-        <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
-          <DeleteIcon />
-        </IconButton>
+        <span>
+          <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
+            <DeleteIcon />
+          </IconButton>
+        </span>
       </Tooltip>
       <BasicModals isOpen={open} handleClose={handleClose}>
         <div className={s.container}>
