@@ -75,7 +75,7 @@ export type SignUpResponseType = {
 
 export type GradeRequestType = {
   card_id: string
-  grade: number
+  grade: number | null
 }
 
 export type CreateCardRequestType = {

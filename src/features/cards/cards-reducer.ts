@@ -10,6 +10,7 @@ import {
   CreateCardRequestType,
   GetCardsRequestType,
   GetCardsResponseType,
+  GradeRequestType,
   UpdateCardRequestType,
 } from '../../common/types/types'
 import { errorMessage } from '../../utils/error-utils'
@@ -83,7 +84,7 @@ export const createCard = createAsyncThunk<
   }
 })
 
-export const deleteCardTh = createAsyncThunk<
+export const deleteCard = createAsyncThunk<
   {},
   { data: GetCardsRequestType; cardId: string },
   AsyncThunkConfig
@@ -103,6 +104,24 @@ export const deleteCardTh = createAsyncThunk<
     }
   }
 )
+
+export const setGrade = createAsyncThunk<
+  { card_id: string; grade: number | null },
+  { card_id: string; grade: number | null },
+  AsyncThunkConfig
+>('cards/fetchGrade', async (data: GradeRequestType, thunkAPI) => {
+  thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
+  try {
+    const result = await cardsApi.setGrade(data)
+
+    thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
+
+    return result.data
+  } catch (e: any) {
+    thunkAPI.dispatch(setSubmittingAC({ status: 'failed' }))
+    errorMessage(thunkAPI.dispatch, e)
+  }
+})
 
 const slice = createSlice({
   name: 'cards',
@@ -146,6 +165,17 @@ const slice = createSlice({
       if (action.payload) {
         state.cardsData.cards = action.payload.data
         state.isLoaded = true
+      }
+    })
+    builder.addCase(setGrade.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.cardsData.cards.map(card =>
+          card._id === action.payload.card_id
+            ? {
+                grade: action.payload.grade,
+              }
+            : card
+        )
       }
     })
   },

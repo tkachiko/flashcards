@@ -12,6 +12,7 @@ import { useDebounce } from 'usehooks-ts'
 import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import { Back2Packs } from '../../common/components/Back2Packs/Back2Packs'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
+import { NotFoundSearching } from '../../common/components/NotFoundSearching/NotFoundSearching'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
 import { SuperTableHeader } from '../../common/components/SuperTable/SuperTableHead/SuperTableHeader'
 import styleContainer from '../../common/styles/Container.module.scss'
@@ -89,7 +90,18 @@ export const Cards = () => {
           })
         )
     }
-  }, [page, pageCount, debouncedSearch])
+  }, [page, pageCount, debouncedSearch, cardsPack_id])
+
+  const aaa = () => {
+    return debouncedSearch.length ? (
+      <div style={{ width: '100%' }}>
+        <SearchField search={debouncedSearch} handleChangeSearch={handleChangeSearch} />
+        <NotFoundSearching packName={debouncedSearch} />
+      </div>
+    ) : (
+      <EmptyPack onCreateCardHandler={onCreateCardHandler} />
+    )
+  }
 
   console.log(cards)
 
@@ -118,8 +130,8 @@ export const Cards = () => {
                             question={card.question}
                             grade={card.grade}
                             updated={card.updated}
+                            card_id={card._id}
                           />
-                          {/*{isMyPack && (*/}
                           <TableCell align="center">
                             <CardControls
                               id={card._id}
@@ -127,7 +139,6 @@ export const Cards = () => {
                               answer={card.answer}
                             />
                           </TableCell>
-                          {/*)}*/}
                         </TableRow>
                       )
                     })}
@@ -142,7 +153,7 @@ export const Cards = () => {
             />
           </>
         ) : (
-          <EmptyPack onCreateCardHandler={onCreateCardHandler} />
+          aaa()
         )}
       </div>
     </div>

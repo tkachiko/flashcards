@@ -3,6 +3,7 @@ import {
   CreateCardRequestType,
   GetCardsRequestType,
   GetCardsResponseType,
+  GradeRequestType,
   UpdateCardRequestType,
 } from '../common/types/types'
 
@@ -20,5 +21,8 @@ export const cardsApi = {
   },
   deleteCard(id: string) {
     return instance.delete(`cards/card?id=${id}`)
+  },
+  setGrade(data: GradeRequestType) {
+    return instance.put(`cards/grade`, data)
   },
 }
