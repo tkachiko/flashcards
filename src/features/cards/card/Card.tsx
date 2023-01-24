@@ -16,9 +16,9 @@ export const Card: FC<PropsType> = ({ question, answer, updated, grade }) => {
       <TableCell component="th" scope="row">
         {question}
       </TableCell>
-      <TableCell align="right">{answer}</TableCell>
-      <TableCell align="right">{dayjs(updated).format('DD.MM.YYYY')}</TableCell>
-      <TableCell align="right">{grade}</TableCell>
+      <TableCell align="left">{answer}</TableCell>
+      <TableCell align="left">{dayjs(updated).format('DD.MM.YYYY')}</TableCell>
+      <TableCell align="left">{grade}</TableCell>
     </>
   )
 }

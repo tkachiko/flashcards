@@ -7,10 +7,16 @@ import TableSortLabel from '@mui/material/TableSortLabel'
 
 import { appStatusSelector } from '../../../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
-import { fetchPacks, packsListTableNames } from '../../../../features/packs/cardsPack-reducer'
+import { CardsTableHeaderDataType, fetchCards } from '../../../../features/cards/cards-reducer'
+import { fetchPacks, TableHeaderDataType } from '../../../../features/packs/cardsPack-reducer'
 import style from '../SuperTableHead/SuperTableHead.module.scss'
 
-export const SuperTableHead = () => {
+type SuperTableHeaderPropsType = {
+  titles: TableHeaderDataType[] | CardsTableHeaderDataType[]
+  cardPack_id: string | null
+}
+
+export const SuperTableHeader = (props: SuperTableHeaderPropsType) => {
   const loadingStatus = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<string>('down')
@@ -21,13 +27,15 @@ export const SuperTableHead = () => {
 
   const onChangeSort = (newSort: string) => {
     setSort(newSort)
-    dispatch(fetchPacks({ sortPacks: newSort }))
+    props.titles[0].name === 'Name'
+      ? dispatch(fetchPacks({ sortPacks: newSort }))
+      : dispatch(fetchCards({ cardsPack_id: props.cardPack_id, sortCards: newSort }))
   }
 
   return (
     <TableHead>
       <TableRow>
-        {packsListTableNames.map(el => {
+        {props.titles.map(el => {
           const up = '0' + el.sortName
           const down = '1' + el.sortName
 

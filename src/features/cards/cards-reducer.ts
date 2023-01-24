@@ -169,3 +169,16 @@ export type CardsReducerType =
   | ReturnType<typeof setPackId>
   | ReturnType<typeof setSearchCardName>
   | ReturnType<typeof setCardPage>
+
+export const cardsListTableNames: CardsTableHeaderDataType[] = [
+  { name: 'Question', sortName: 'question' },
+  { name: 'Answer', sortName: 'answer' },
+  { name: 'Last Updated', sortName: 'updated' },
+  { name: 'Grade', sortName: 'user_name' },
+  { name: '', sortName: '' },
+]
+
+export type CardsTableHeaderDataType = {
+  name: string
+  sortName: string
+}

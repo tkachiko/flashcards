@@ -116,6 +116,7 @@ export type GetCardsResponseType<D> = {
   token: string
   tokenDeathTime: number
   packName: string
+  sortCards: string
 }
 
 export type UpdateCardRequestType = {

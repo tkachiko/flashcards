@@ -206,7 +206,7 @@ export const packsListTableNames: TableHeaderDataType[] = [
   { name: 'Actions', sortName: 'updated' },
 ]
 
-type TableHeaderDataType = {
+export type TableHeaderDataType = {
   name: string
   sortName: string
 }

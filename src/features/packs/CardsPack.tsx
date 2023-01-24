@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../app/store'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
 import { NotFoundSearching } from '../../common/components/NotFoundSearching/NotFoundSearching'
 import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
-import { SuperTableHead } from '../../common/components/SuperTable/SuperTableHead/SuperTableHead'
+import { SuperTableHeader } from '../../common/components/SuperTable/SuperTableHead/SuperTableHeader'
 
 import {
   cardPacksTotalCountSelector,
@@ -18,6 +18,7 @@ import {
   isMyPackSelector,
   packNameSearchSelector,
   packSelector,
+  packsListTableNames,
   pageCountSelector,
   pageSelector,
   setPackNameAC,
@@ -67,7 +68,7 @@ export const CardsPack = () => {
         <div>
           <TableContainer>
             <Table sx={{ minWidth: 650, border: '1px solid #D9D9D9' }} aria-label="simple table">
-              <SuperTableHead />
+              <SuperTableHeader titles={packsListTableNames} cardPack_id={null} />
               <TableBody>
                 {pack?.cardPacks?.map(el => {
                   return (
