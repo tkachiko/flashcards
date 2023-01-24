@@ -4,5 +4,5 @@
 
 .container {
 
-  @include flex(column, center, center, nowrap, center);
+  @include flex(column, center, flex-start, nowrap, center);
 }

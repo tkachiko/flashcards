@@ -3,12 +3,17 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { PATH } from '../../../app/routes/routes'
+import { useAppDispatch } from '../../../app/store'
 import arrowBack from '../../../assets/images/arrow.svg'
+import { setSearchCardName } from '../../../features/cards/cards-reducer'
 import style from '../Back2Packs/Back2Packs.module.scss'
 
 export const Back2Packs = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
   const go2Packs = () => {
+    dispatch(setSearchCardName(''))
     navigate(PATH.CARDS_PACKS)
   }
 

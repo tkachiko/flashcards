@@ -102,6 +102,7 @@ export type GetCardsRequestType = {
   sortCards?: string
   page?: number
   pageCount?: number
+  cardQuestion?: string
 }
 
 export type GetCardsResponseType<D> = {

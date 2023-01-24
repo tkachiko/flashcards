@@ -9,7 +9,7 @@ type SuperPaginationType = {
   page: number
   onChange: (page: number, pageCount: number) => void
   pageCount: number
-  cardPacksTotalCount: number
+  itemsTotalCount: number
 }
 
 export const SuperPagination = (props: SuperPaginationType) => {
@@ -24,7 +24,7 @@ export const SuperPagination = (props: SuperPaginationType) => {
     <div className={style.wrapper}>
       <Pagination
         color={'primary'}
-        count={Math.ceil(props.cardPacksTotalCount / props.pageCount)}
+        count={Math.ceil(props.itemsTotalCount / props.pageCount)}
         page={props.page}
         shape="rounded"
         onChange={onChangePagination}

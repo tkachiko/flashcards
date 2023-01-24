@@ -16,7 +16,7 @@ import {
   cardPacksTotalCountSelector,
   fetchPacks,
   isMyPackSelector,
-  packNameSelector,
+  packNameSearchSelector,
   packSelector,
   pageCountSelector,
   pageSelector,
@@ -33,9 +33,9 @@ export const CardsPack = () => {
   const pack = useAppSelector(packSelector)
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const page = useAppSelector(pageSelector)
-  const packName = useAppSelector(packNameSelector)
+  const packNameSearch = useAppSelector(packNameSearchSelector)
   const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
-  const [search, setSearch] = useState<string>(packName)
+  const [search, setSearch] = useState<string>(packNameSearch)
   const debouncedSearch = useDebounce<string>(search, 500)
 
   const onChangePagination = (newPage: number, newCount: number) => {
@@ -50,7 +50,7 @@ export const CardsPack = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchPacks({ page, pageCount, packName }))
+    dispatch(fetchPacks({ page, pageCount, packName: packNameSearch }))
   }, [page, pageCount, debouncedSearch, isMyPack])
 
   return (
@@ -89,11 +89,11 @@ export const CardsPack = () => {
             page={page}
             onChange={onChangePagination}
             pageCount={pageCount}
-            cardPacksTotalCount={cardPacksTotalCount}
+            itemsTotalCount={cardPacksTotalCount}
           />
         </div>
       ) : (
-        <NotFoundSearching packName={packName} />
+        <NotFoundSearching packName={packNameSearch} />
       )}
     </div>
   )

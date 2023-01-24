@@ -187,7 +187,8 @@ export const maxCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.maxCardsCount
 export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
-export const packNameSelector = (state: RootStateType): string => state.pack.searchParams.packName
+export const packNameSearchSelector = (state: RootStateType): string =>
+  state.pack.searchParams.packName
 export const isNewCardPackAddedSelector = (state: RootStateType): boolean =>
   state.pack.searchParams.isNewCardPackAdded
 

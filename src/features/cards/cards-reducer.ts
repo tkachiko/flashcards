@@ -119,10 +119,19 @@ const slice = createSlice({
     },
     packId: null as string | null,
     isLoaded: false,
+    searchParams: {
+      cardName: '' as string,
+    },
   },
   reducers: {
     setPackId(state, action: PayloadAction<string>) {
       state.packId = action.payload
+    },
+    setSearchCardName(state, action: PayloadAction<string>) {
+      state.searchParams.cardName = action.payload
+    },
+    setCardPage(state, action: PayloadAction<number>) {
+      state.cardsData.page = action.payload
     },
   },
   extraReducers: builder => {
@@ -143,12 +152,20 @@ const slice = createSlice({
 })
 
 export const cardsReducer = slice.reducer
-export const { setPackId } = slice.actions
+export const { setPackId, setSearchCardName, setCardPage } = slice.actions
 export const cardsTotalCountSelector = (state: RootStateType): number =>
   state.cards.cardsData.cardsTotalCount
 export const userIdSelector = (state: RootStateType): string => state.profile.profile._id
 export const packUserIdSelector = (state: RootStateType): string | null =>
   state.cards.cardsData.packUserId
 export const packNameSelector = (state: RootStateType): string => state.cards.cardsData.packName
+export const cardNameSelector = (state: RootStateType): string => state.cards.searchParams.cardName
+export const pageCardsSelector = (state: RootStateType): number => state.cards.cardsData.page
+export const pageCountCardsSelector = (state: RootStateType): number =>
+  state.cards.cardsData.pageCount
+
 // types
-export type CardsReducerType = ReturnType<typeof setPackId>
+export type CardsReducerType =
+  | ReturnType<typeof setPackId>
+  | ReturnType<typeof setSearchCardName>
+  | ReturnType<typeof setCardPage>
