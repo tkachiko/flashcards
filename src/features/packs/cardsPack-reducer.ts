@@ -38,15 +38,24 @@ const slice = createSlice({
       page: 1 as number,
       pageCount: 4 as number,
     },
-    isMyPacks: true as boolean,
-    packName: '' as string,
+    searchParams: {
+      isMyPacks: true as boolean,
+      packName: '' as string,
+      isNewCardPackAdded: false as boolean,
+    },
   },
   reducers: {
     isMyPacksAC(state, action: PayloadAction<{ isMyPacks: boolean }>) {
-      state.isMyPacks = action.payload.isMyPacks
+      state.searchParams.isMyPacks = action.payload.isMyPacks
     },
     setPackNameAC(state, action: PayloadAction<{ packName: string }>) {
-      state.packName = action.payload.packName
+      state.searchParams.packName = action.payload.packName
+    },
+    setPageAC(state, action: PayloadAction<{ page: number }>) {
+      state.packs.page = action.payload.page
+    },
+    isNewCardPackAddedAC(state, action: PayloadAction<{ isNewCardPackAdded: boolean }>) {
+      state.searchParams.isNewCardPackAdded = action.payload.isNewCardPackAdded
     },
   },
   extraReducers: builder => {
@@ -60,7 +69,7 @@ const slice = createSlice({
 
 export const cardsPackReducer = slice.reducer
 
-export const { isMyPacksAC, setPackNameAC } = slice.actions
+export const { isMyPacksAC, setPackNameAC, setPageAC, isNewCardPackAddedAC } = slice.actions
 
 export const addPackTC = createAsyncThunk<
   { data: CreatePackResponseType },
@@ -84,6 +93,8 @@ export const addPackTC = createAsyncThunk<
       const error = e as Error | AxiosError
 
       return rejectWithValue(errorMessage(dispatch, error))
+    } finally {
+      dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
     }
   }
 )
@@ -96,7 +107,7 @@ export const fetchPacks = createAsyncThunk<
   try {
     const state = getState() as RootStateType
 
-    if (state.pack.isMyPacks) {
+    if (state.pack.searchParams.isMyPacks) {
       filter.user_id = state.profile.profile._id
     } else {
       filter.user_id = ''
@@ -133,6 +144,8 @@ export const deletePack = createAsyncThunk<
     const error = e as Error | AxiosError
 
     return rejectWithValue(errorMessage(dispatch, error))
+  } finally {
+    dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
   }
 })
 
@@ -158,12 +171,14 @@ export const updatePack = createAsyncThunk<
       const error = e as Error | AxiosError
 
       return rejectWithValue(errorMessage(dispatch, error))
+    } finally {
+      dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
     }
   }
 )
 
 export const packSelector = (state: RootStateType): GetPacksResponseType => state.pack.packs
-export const isMyPackSelector = (state: RootStateType): boolean => state.pack.isMyPacks
+export const isMyPackSelector = (state: RootStateType): boolean => state.pack.searchParams.isMyPacks
 export const pageSelector = (state: RootStateType): number => state.pack.packs.page
 export const cardPacksTotalCountSelector = (state: RootStateType): number =>
   state.pack.packs.cardPacksTotalCount
@@ -172,9 +187,15 @@ export const maxCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.maxCardsCount
 export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
-export const packNameSelector = (state: RootStateType): string => state.pack.packName
+export const packNameSelector = (state: RootStateType): string => state.pack.searchParams.packName
+export const isNewCardPackAddedSelector = (state: RootStateType): boolean =>
+  state.pack.searchParams.isNewCardPackAdded
 
-export type CardsPacksActionType = ReturnType<typeof isMyPacksAC> | ReturnType<typeof setPackNameAC>
+export type CardsPacksActionType =
+  | ReturnType<typeof isMyPacksAC>
+  | ReturnType<typeof setPackNameAC>
+  | ReturnType<typeof isNewCardPackAddedAC>
+  | ReturnType<typeof setPageAC>
 
 export const packsListTableNames: TableHeaderDataType[] = [
   { name: 'Name', sortName: 'name' },

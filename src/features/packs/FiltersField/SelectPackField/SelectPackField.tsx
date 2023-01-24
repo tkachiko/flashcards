@@ -4,25 +4,20 @@ import Button from '@mui/material/Button'
 
 import { appStatusSelector } from '../../../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
-import { fetchPacks, isMyPacksAC, isMyPackSelector } from '../../cardsPack-reducer'
+import { isMyPacksAC, isMyPackSelector, setPageAC } from '../../cardsPack-reducer'
 import style from '../SelectPackField/SelectPackField.module.scss'
 
-type SelectPackFieldPropsType = {
-  pageCount: number
-  packName: string
-}
-
-export const SelectPackField = (props: SelectPackFieldPropsType) => {
+export const SelectPackField = () => {
   const loadingStatus = useAppSelector(appStatusSelector)
   const isMyPack = useAppSelector(isMyPackSelector)
   const dispatch = useAppDispatch()
   const onClickAllPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: false }))
-    dispatch(fetchPacks({ pageCount: props.pageCount, packName: props.packName }))
+    dispatch(setPageAC({ page: 1 }))
   }
   const onClickMyPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: true }))
-    dispatch(fetchPacks({ pageCount: props.pageCount, packName: props.packName }))
+    dispatch(setPageAC({ page: 1 }))
   }
 
   const my_btn = style.standardButton + (isMyPack ? ' ' + style.selectedButton : '')

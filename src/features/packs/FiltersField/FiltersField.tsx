@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import { useDebounce } from 'usehooks-ts'
-
 import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { SuperRange } from '../../../common/components/SuperRange/SuperRange'
 import {
   fetchPacks,
   maxCardsCountSelector,
   minCardsCountSelector,
-  packNameSelector,
   pageCountSelector,
   setPackNameAC,
 } from '../cardsPack-reducer'
@@ -18,17 +15,21 @@ import { ResetFilters } from './ResetFilters/ResetFilters'
 import { SearchField } from './SearchField/SearchField'
 import { SelectPackField } from './SelectPackField/SelectPackField'
 
-export const FiltersField = () => {
+type FiltersFieldPropsType = {
+  search: string
+  debouncedSearch: string
+  setSearch: (search: string) => void
+  handleChangeSearch: (search: string) => void
+}
+
+export const FiltersField = (props: FiltersFieldPropsType) => {
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
   const minCardsCount = useAppSelector(minCardsCountSelector)
   const pageCount = useAppSelector(pageCountSelector)
-  const packName = useAppSelector(packNameSelector)
 
   const dispatch = useAppDispatch()
 
   const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount])
-  const [search, setSearch] = useState<string>(packName)
-  const debouncedSearch = useDebounce<string>(search, 500)
 
   const change = (value: number | number[]) => {
     setValue(value as number[])
@@ -38,38 +39,27 @@ export const FiltersField = () => {
     const max = Array.isArray(value) ? value[1] : value
 
     setValue([min, max])
-    dispatch(fetchPacks({ min, max, packName: debouncedSearch, pageCount }))
+    dispatch(fetchPacks({ min, max, packName: props.debouncedSearch, pageCount }))
   }
 
   const handleChangeSearch = (search: string) => {
-    dispatch(setPackNameAC({ packName: search }))
-    setSearch(search)
+    props.handleChangeSearch(search)
   }
 
   const resetFilters = () => {
     setValue([minCardsCount, maxCardsCount])
-    setSearch('')
+    props.setSearch('')
+    dispatch(setPackNameAC({ packName: '' }))
   }
 
   useEffect(() => {
     setValue([minCardsCount, maxCardsCount])
   }, [minCardsCount, maxCardsCount])
 
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchPacks({
-  //       packName: debouncedSearch,
-  //       min: value[0],
-  //       max: value[1],
-  //       pageCount,
-  //     })
-  //   )
-  // }, [debouncedSearch])
-
   return (
     <div className={style.wrapper}>
-      <SearchField search={search} handleChangeSearch={handleChangeSearch} />
-      <SelectPackField pageCount={pageCount} packName={packName} />
+      <SearchField search={props.search} handleChangeSearch={handleChangeSearch} />
+      <SelectPackField />
       <SuperRange
         min={minCardsCount}
         max={maxCardsCount}

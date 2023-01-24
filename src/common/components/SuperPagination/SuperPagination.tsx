@@ -17,7 +17,7 @@ export const SuperPagination = (props: SuperPaginationType) => {
     props.onChange(newPage, props.pageCount)
   }
   const onChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    props.onChange(props.page, +event.currentTarget.value)
+    props.onChange(1, +event.currentTarget.value)
   }
 
   return (

@@ -1,0 +1,57 @@
+@import 'src/common/styles/sass/variables';
+
+@import 'src/common/styles/sass/mixins';
+.container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 19px 24px 47px;
+  .headerContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .title {
+
+      @include text(18px, 500, 22px);
+
+      margin-bottom: 55px;
+    }
+    .img {
+      padding-top: 4px;
+    }
+  }
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 35px;
+
+    .buttonCancel {
+      width: 127px;
+      height: 36px;
+
+      text-transform: none;
+
+      background-color: $bgColor;
+      border-radius: 30px;
+
+      &:hover {
+        background-color: $bgSecondColor;
+      }
+    }
+
+    .buttonDelete {
+      width: 127px;
+      height: 36px;
+
+      text-transform: none;
+
+      background-color: #ff3636;
+      border-radius: 30px;
+
+      &:hover {
+        background-color: #cc1439;
+      }
+    }
+  }
+}
