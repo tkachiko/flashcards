@@ -14,14 +14,24 @@ type SuperRangePropsType = {
   changeValueCommitted: (value: number | number[]) => void
 }
 
+let beforeChange: any = null
+
 export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
   const loadingStatus = useAppSelector(appStatusSelector)
 
-  const change = (event: React.SyntheticEvent | Event, value: number | number[]) => {
-    props.changeValue(value)
+  const change = (event: React.SyntheticEvent | Event, newValue: any) => {
+    if (!beforeChange) {
+      beforeChange = [...props.value]
+    }
+
+    if (beforeChange[0] !== newValue[0] && beforeChange[1] !== newValue[1]) {
+      return
+    }
+    props.changeValue(newValue)
   }
-  const changeCommitted = (event: React.SyntheticEvent | Event, value: number | number[]) => {
-    props.changeValueCommitted(value)
+  const changeCommitted = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
+    props.changeValueCommitted(newValue)
+    beforeChange = null
   }
 
   return (
