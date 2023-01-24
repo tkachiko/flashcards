@@ -1,31 +1,20 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import Button from '@mui/material/Button'
 
 import { appStatusSelector } from '../../../app/app-reducer'
-import { RootStateType, useAppDispatch, useAppSelector } from '../../../app/store'
+import { useAppSelector } from '../../../app/store'
 import { isMyPackSelector } from '../../packs/cardsPack-reducer'
-import { createCard } from '../cards-reducer'
 
 import style from './CardsHeader.module.scss'
 
-export const CardsHeader = () => {
+type PropsType = {
+  onCreateCardHandler: () => void
+}
+
+export const CardsHeader: FC<PropsType> = ({ onCreateCardHandler }) => {
   const loadingStatus = useAppSelector(appStatusSelector)
   const isMyPack = useAppSelector(isMyPackSelector)
-  const { cardsData, packId } = useAppSelector((state: RootStateType) => state.cards)
-
-  const dispatch = useAppDispatch()
-
-  const onCreateCardHandler = () => {
-    dispatch(
-      createCard({
-        card: {
-          cardsPack_id: packId,
-          pageCount: 10,
-        },
-      })
-    )
-  }
 
   return (
     <div className={style.header}>
