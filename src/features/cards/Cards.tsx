@@ -12,21 +12,31 @@ import { useParams } from 'react-router-dom'
 import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import { Back2Packs } from '../../common/components/Back2Packs/Back2Packs'
 import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
-import { SuperTableHead } from '../../common/components/SuperTable/SuperTableHead/SuperTableHead'
 import styleContainer from '../../common/styles/Container.module.scss'
-import { isMyPackSelector } from '../packs/cardsPack-reducer'
 
-import { Card } from './Card'
+import { Card } from './card/Card'
 import { CardControls } from './cardControls/CardControls'
-import { fetchCards } from './cards-reducer'
+import { createCard, fetchCards } from './cards-reducer'
 import style from './Cards.module.scss'
+import { CardsHeader } from './cardsHeader/CardsHeader'
 import { EmptyPack } from './emptyPack/EmptyPack'
 
 export const Cards = () => {
   const { cardsPack_id } = useParams()
   const { cardsData, packId } = useAppSelector((state: RootStateType) => state.cards)
-  const isMyPack = useAppSelector(isMyPackSelector)
+  const { cards } = cardsData
   const dispatch = useAppDispatch()
+
+  const onCreateCardHandler = () => {
+    dispatch(
+      createCard({
+        card: {
+          cardsPack_id: packId,
+          pageCount: 10,
+        },
+      })
+    )
+  }
 
   useEffect(() => {
     if (packId) {
@@ -49,16 +59,16 @@ export const Cards = () => {
     }
   }, [])
 
-  console.log(isMyPack)
+  console.log(cards)
 
   return (
     <div>
       <div className={`${style.container} ${styleContainer.container}`}>
         <ErrorSnackbar />
         <Back2Packs />
-        {cardsData.cards.length > 0 ? (
+        {cards && cards.length > 0 ? (
           <>
-            <SuperTableHead />
+            <CardsHeader onCreateCardHandler={onCreateCardHandler} />
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead className={style.tHead}>
@@ -101,7 +111,7 @@ export const Cards = () => {
             </TableContainer>
           </>
         ) : (
-          <EmptyPack />
+          <EmptyPack onCreateCardHandler={onCreateCardHandler} />
         )}
       </div>
     </div>
