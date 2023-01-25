@@ -21,7 +21,7 @@ type AddModalsType = {
   id: string
   name: string
 }
-export const DeleteModal: FC<AddModalsType> = ({ id, name }) => {
+export const DeleteModalPack: FC<AddModalsType> = ({ id, name }) => {
   const dispatch = useAppDispatch()
   const loadingStatus = useAppSelector(appStatusSelector)
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
@@ -31,7 +31,7 @@ export const DeleteModal: FC<AddModalsType> = ({ id, name }) => {
   const handlerOnClickCancel = () => {
     setOpen(false)
   }
-  const handlerOnClickAddPack = () => {
+  const handlerOnClickDeletePack = () => {
     dispatch(deletePack({ id: id }))
   }
 
@@ -63,7 +63,7 @@ export const DeleteModal: FC<AddModalsType> = ({ id, name }) => {
               Cancel
             </Button>
             <Button
-              onClick={handlerOnClickAddPack}
+              onClick={handlerOnClickDeletePack}
               type={'submit'}
               variant={'contained'}
               className={s.buttonDelete}
