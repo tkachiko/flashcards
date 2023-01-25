@@ -1,16 +1,17 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import EditIcon from '@mui/icons-material/Edit'
+import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
-import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
+import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 
 import { appStatusSelector } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/store'
+import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
 import Close from '../../assets/icons/close.svg'
+import { updateCard } from '../cards/cards-reducer'
 import {
   isNewCardPackAddedAC,
   isNewCardPackAddedSelector,
@@ -19,32 +20,60 @@ import {
 
 import s from './AddandUpdateModal.module.scss'
 import { BasicModals } from './basicModals'
+
 type AddModalsType = {
   id: string
-  name: string
+  questionValue: string
+  answerValue: string
 }
-export const EditModal: FC<AddModalsType> = ({ id, name }) => {
+export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValue }) => {
   const dispatch = useAppDispatch()
   const loadingStatus = useAppSelector(appStatusSelector)
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
-  const [text, setText] = useState(name)
+  const { packId } = useAppSelector((state: RootStateType) => state.cards)
   const [open, setOpen] = useState(false)
+  const [answer, setAnswer] = useState(answerValue)
+  const [question, setQuestion] = useState(questionValue)
+  const [age, setAge] = useState('')
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value)
+  }
+  const handlerQuestion = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuestion(e.currentTarget.value)
+  }
+  const handlerAnswer = (e: ChangeEvent<HTMLInputElement>) => {
+    setAnswer(e.currentTarget.value)
+  }
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setText(e.currentTarget.value)
-  }
+
   const handlerOnClickCancel = () => {
     setOpen(false)
   }
-  const handlerOnClickAddPack = () => {
-    dispatch(updatePack({ cardsPack: { _id: id, name: text } }))
+  const handlerOnClickEditCard = () => {
+    dispatch(
+      updateCard({
+        updatedCard: {
+          _id: id,
+          question: question,
+          answer: answer,
+        },
+        data: {
+          cardsPack_id: packId,
+          question: questionValue,
+          answer: answerValue,
+          pageCount: 10,
+        },
+      })
+    )
   }
 
   useEffect(() => {
     if (isNewCardPackAdded) {
       setOpen(false)
-      setText('')
+      setAnswer(answer)
+      setQuestion(question)
       dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: false }))
     }
   }, [isNewCardPackAdded])
@@ -64,25 +93,40 @@ export const EditModal: FC<AddModalsType> = ({ id, name }) => {
             <p className={s.title}>Edit pack</p>
             <img onClick={handlerOnClickCancel} className={s.img} src={Close} alt={'close'} />
           </div>
+          <FormControl variant="standard" sx={{ width: '100%', marginBottom: '23px' }}>
+            <InputLabel id="demo-simple-select-standard-label">Choose a question format</InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={age}
+              onChange={handleChange}
+              label="Age"
+            >
+              <MenuItem value={10}>Text</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             className={s.input}
             id="standard-basic"
-            label="Name pack"
+            label="Question"
             variant="standard"
-            onChange={handlerInput}
-            defaultValue={text}
+            onChange={handlerQuestion}
+            defaultValue={question}
           />
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            className={s.checkBox}
-            label="Private pack"
+          <TextField
+            className={s.input}
+            id="standard-basic"
+            label="Answer"
+            variant="standard"
+            onChange={handlerAnswer}
+            defaultValue={answer}
           />
           <div className={s.buttonContainer}>
             <Button onClick={handlerOnClickCancel} variant="text" className={s.buttonCancel}>
               Cancel
             </Button>
             <Button
-              onClick={handlerOnClickAddPack}
+              onClick={handlerOnClickEditCard}
               type={'submit'}
               variant={'contained'}
               className={s.buttonSave}
