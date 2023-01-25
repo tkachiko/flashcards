@@ -24,7 +24,6 @@ import {
   cardNameSelector,
   cardsListTableNames,
   cardsTotalCountSelector,
-  createCard,
   fetchCards,
   pageCardsSelector,
   pageCountCardsSelector,
@@ -47,17 +46,6 @@ export const Cards = () => {
   const cardsTotalCount = useAppSelector(cardsTotalCountSelector)
 
   const dispatch = useAppDispatch()
-
-  const onCreateCardHandler = () => {
-    dispatch(
-      createCard({
-        card: {
-          cardsPack_id: packId,
-          pageCount: 10,
-        },
-      })
-    )
-  }
 
   const handleChangeSearch = (search: string) => {
     setSearch(search)
@@ -99,7 +87,7 @@ export const Cards = () => {
         <NotFoundSearching packName={debouncedSearch} />
       </div>
     ) : (
-      <EmptyPack onCreateCardHandler={onCreateCardHandler} />
+      <EmptyPack />
     )
   }
 
@@ -112,7 +100,7 @@ export const Cards = () => {
         <Back2Packs />
         {cards && cards.length > 0 ? (
           <>
-            <CardsHeader onCreateCardHandler={onCreateCardHandler} />
+            <CardsHeader />
             <SearchField search={search} handleChangeSearch={handleChangeSearch} />
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">

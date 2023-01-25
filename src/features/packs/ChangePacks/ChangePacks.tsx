@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import { appStatusSelector } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/routes'
 import { useAppSelector } from '../../../app/store'
-import { DeleteModal } from '../../modal/DeleteModal'
-import { EditModal } from '../../modal/EditModal'
+import { DeleteModalPack } from '../../modal/DeleteModalPack'
+import { EditModalPack } from '../../modal/EditModalPack'
 import { userIdSelector } from '../../profile/profile-reducer'
 
 import style from './ChangePacks.module.scss'
@@ -45,9 +45,9 @@ export const ChangePacks = (props: ActionSettingType) => {
             </span>
           </Tooltip>
           <div>
-            <EditModal id={props.id} name={props.name} />
+            <EditModalPack id={props.id} name={props.name} />
           </div>
-          <DeleteModal id={props.id} name={props.name} />
+          <DeleteModalPack id={props.id} name={props.name} />
         </>
       ) : (
         <Tooltip title="Learn">

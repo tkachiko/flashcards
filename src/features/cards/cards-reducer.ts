@@ -14,6 +14,7 @@ import {
   UpdateCardRequestType,
 } from '../../common/types/types'
 import { errorMessage } from '../../utils/error-utils'
+import { isNewCardPackAddedAC } from '../packs/cardsPack-reducer'
 
 // thunk
 
@@ -51,6 +52,8 @@ export const updateCard = createAsyncThunk(
       thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
     } catch (e: any) {
       thunkAPI.dispatch(setSubmittingAC({ status: 'failed' }))
+    } finally {
+      thunkAPI.dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
     }
   }
 )
@@ -64,8 +67,8 @@ export const createCard = createAsyncThunk<
   try {
     const response = await cardsApi.createCard({
       cardsPack_id: data.card.cardsPack_id,
-      question: 'question',
-      answer: 'answer',
+      question: data.card.question,
+      answer: data.card.answer,
       pageCount: 10,
     })
 
@@ -81,6 +84,8 @@ export const createCard = createAsyncThunk<
   } catch (e: any) {
     thunkAPI.dispatch(setSubmittingAC({ status: 'failed' }))
     errorMessage(thunkAPI.dispatch, e)
+  } finally {
+    thunkAPI.dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
   }
 })
 
@@ -101,6 +106,8 @@ export const deleteCard = createAsyncThunk<
     } catch (e: any) {
       thunkAPI.dispatch(setSubmittingAC({ status: 'failed' }))
       errorMessage(thunkAPI.dispatch, e)
+    } finally {
+      thunkAPI.dispatch(isNewCardPackAddedAC({ isNewCardPackAdded: true }))
     }
   }
 )
