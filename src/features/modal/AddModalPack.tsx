@@ -19,7 +19,11 @@ type AddModalsType = {
   handleOpen: () => void
   handleClose: () => void
 }
-export const AddModals: FC<AddModalsType> = ({ isModalAddOpen, setIsModalOpen, handleClose }) => {
+export const AddModalPack: FC<AddModalsType> = ({
+  isModalAddOpen,
+  setIsModalOpen,
+  handleClose,
+}) => {
   const dispatch = useAppDispatch()
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
   const [text, setText] = useState('')
