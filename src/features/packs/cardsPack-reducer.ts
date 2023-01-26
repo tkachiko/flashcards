@@ -39,8 +39,11 @@ const slice = createSlice({
       pageCount: 4 as number,
     },
     searchParams: {
-      isMyPacks: true as boolean,
+      isMyPacks: false as boolean,
       packName: '' as string,
+      idSearch: '' as string,
+      min: 0 as number,
+      max: 100 as number,
       isNewCardPackAdded: false as boolean,
     },
   },
@@ -53,6 +56,9 @@ const slice = createSlice({
     },
     setPageAC(state, action: PayloadAction<{ page: number }>) {
       state.packs.page = action.payload.page
+    },
+    setIdSearchAC(state, action: PayloadAction<{ id: string }>) {
+      state.searchParams.idSearch = action.payload.id
     },
     isNewCardPackAddedAC(state, action: PayloadAction<{ isNewCardPackAdded: boolean }>) {
       state.searchParams.isNewCardPackAdded = action.payload.isNewCardPackAdded
@@ -69,7 +75,8 @@ const slice = createSlice({
 
 export const cardsPackReducer = slice.reducer
 
-export const { isMyPacksAC, setPackNameAC, setPageAC, isNewCardPackAddedAC } = slice.actions
+export const { isMyPacksAC, setPackNameAC, setPageAC, isNewCardPackAddedAC, setIdSearchAC } =
+  slice.actions
 
 export const addPackTC = createAsyncThunk<
   { data: CreatePackResponseType },
@@ -102,16 +109,9 @@ export const fetchPacks = createAsyncThunk<
   { data: GetPacksResponseType },
   GetPackSPayloadType,
   AsyncThunkConfig
->('cardsPack/fetchPacks', async (filter, { dispatch, getState, rejectWithValue }) => {
+>('cardsPack/fetchPacks', async (filter, { dispatch, rejectWithValue }) => {
   dispatch(setSubmittingAC({ status: 'loading' }))
   try {
-    const state = getState() as RootStateType
-
-    if (state.pack.searchParams.isMyPacks) {
-      filter.user_id = state.profile.profile._id
-    } else {
-      filter.user_id = ''
-    }
     const response = await packsApi.getPack(filter)
 
     dispatch(setSubmittingAC({ status: 'success' }))
@@ -189,6 +189,7 @@ export const minCardsCountSelector = (state: RootStateType): number =>
   state.pack.packs.minCardsCount
 export const packNameSearchSelector = (state: RootStateType): string =>
   state.pack.searchParams.packName
+export const idSearchSelector = (state: RootStateType): string => state.pack.searchParams.idSearch
 export const isNewCardPackAddedSelector = (state: RootStateType): boolean =>
   state.pack.searchParams.isNewCardPackAdded
 
@@ -197,6 +198,7 @@ export type CardsPacksActionType =
   | ReturnType<typeof setPackNameAC>
   | ReturnType<typeof isNewCardPackAddedAC>
   | ReturnType<typeof setPageAC>
+  | ReturnType<typeof setIdSearchAC>
 
 export const packsListTableNames: TableHeaderDataType[] = [
   { name: 'Name', sortName: 'name' },

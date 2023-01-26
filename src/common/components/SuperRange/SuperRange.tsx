@@ -4,6 +4,10 @@ import { Slider, SliderProps } from '@mui/material'
 
 import { appStatusSelector } from '../../../app/app-reducer'
 import { useAppSelector } from '../../../app/store'
+import {
+  maxCardsCountSelector,
+  minCardsCountSelector,
+} from '../../../features/packs/cardsPack-reducer'
 import style from '../SuperRange/SuperRange.module.scss'
 
 type SuperRangePropsType = {
@@ -14,24 +18,16 @@ type SuperRangePropsType = {
   changeValueCommitted: (value: number | number[]) => void
 }
 
-let beforeChange: any = null
-
 export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
+  const maxCardsCount = useAppSelector(maxCardsCountSelector)
+  const minCardsCount = useAppSelector(minCardsCountSelector)
   const loadingStatus = useAppSelector(appStatusSelector)
 
   const change = (event: React.SyntheticEvent | Event, newValue: any) => {
-    if (!beforeChange) {
-      beforeChange = [...props.value]
-    }
-
-    if (beforeChange[0] !== newValue[0] && beforeChange[1] !== newValue[1]) {
-      return
-    }
     props.changeValue(newValue)
   }
   const changeCommitted = (event: React.SyntheticEvent | Event, newValue: number | number[]) => {
     props.changeValueCommitted(newValue)
-    beforeChange = null
   }
 
   return (
@@ -40,7 +36,7 @@ export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
         <span>Number of cards</span>
       </div>
       <div className={style.slider}>
-        <span>{props.value[0]}</span>
+        <span>{typeof props.value === 'object' ? props.value[0] : 0}</span>
         <Slider
           disabled={loadingStatus === 'loading'}
           sx={{ width: 150 }}
@@ -48,11 +44,12 @@ export const SuperRange: FC<SliderProps & SuperRangePropsType> = props => {
           onChange={change}
           onChangeCommitted={changeCommitted}
           value={props.value}
-          min={props.min}
-          max={props.max}
+          min={minCardsCount}
+          max={maxCardsCount}
           valueLabelDisplay={'auto'}
+          disableSwap
         />
-        <span>{props.value[1]}</span>
+        <span>{typeof props.value === 'object' ? props.value[1] : 100}</span>
       </div>
     </div>
   )
