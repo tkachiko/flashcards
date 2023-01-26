@@ -160,8 +160,8 @@ export type CardsPackType = {
 }
 export type GetPackSPayloadType = {
   packName?: string
-  min?: number
-  max?: number
+  min?: number | string
+  max?: number | string
   sortPacks?: string
   page?: number
   pageCount?: number

@@ -1,27 +1,58 @@
 import React from 'react'
 
 import Button from '@mui/material/Button'
+import { useSearchParams } from 'react-router-dom'
 
 import { appStatusSelector } from '../../../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
-import { isMyPacksAC, isMyPackSelector, setPageAC } from '../../cardsPack-reducer'
+import { userIdSelector } from '../../../profile/profile-reducer'
+import {
+  fetchPacks,
+  isMyPacksAC,
+  packNameSearchSelector,
+  pageCountSelector,
+  setIdSearchAC,
+  setPageAC,
+} from '../../cardsPack-reducer'
 import style from '../SelectPackField/SelectPackField.module.scss'
 
 export const SelectPackField = () => {
   const loadingStatus = useAppSelector(appStatusSelector)
-  const isMyPack = useAppSelector(isMyPackSelector)
+  const pageCount = useAppSelector(pageCountSelector)
+  const packNameSearch = useAppSelector(packNameSearchSelector)
+  const userId = useAppSelector(userIdSelector)
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const dispatch = useAppDispatch()
   const onClickAllPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: false }))
     dispatch(setPageAC({ page: 1 }))
+    dispatch(setIdSearchAC({ id: '' }))
+    setSearchParams({
+      page: '1',
+      pageCount: pageCount.toString(),
+      user_id: '',
+      packName: packNameSearch,
+    })
+    dispatch(fetchPacks({ page: 1, pageCount, user_id: '', packName: packNameSearch }))
   }
   const onClickMyPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: true }))
     dispatch(setPageAC({ page: 1 }))
+    dispatch(setIdSearchAC({ id: userId }))
+    setSearchParams({
+      page: '1',
+      pageCount: pageCount.toString(),
+      user_id: userId,
+      packName: packNameSearch,
+    })
+    dispatch(fetchPacks({ page: 1, pageCount, user_id: userId, packName: packNameSearch }))
   }
 
-  const my_btn = style.standardButton + (isMyPack ? ' ' + style.selectedButton : '')
-  const all_btn = style.standardButton + (isMyPack ? '' : ' ' + style.selectedButton)
+  const isMy = searchParams.get('user_id')
+
+  const my_btn = style.standardButton + (isMy ? ' ' + style.selectedButton : '')
+  const all_btn = style.standardButton + (isMy ? '' : ' ' + style.selectedButton)
 
   return (
     <div className={style.wrapper}>

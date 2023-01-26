@@ -13,6 +13,8 @@ import { instance } from './instance'
 
 export const packsApi = {
   getPack(filter: GetPackSPayloadType) {
+    console.log(filter.page)
+
     return instance.get<GetPacksResponseType>('cards/pack', {
       params: {
         page: filter.page,

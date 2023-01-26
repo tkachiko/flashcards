@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { useAppDispatch, useAppSelector } from '../../../app/store'
 import { SuperRange } from '../../../common/components/SuperRange/SuperRange'
-import {
-  fetchPacks,
-  maxCardsCountSelector,
-  minCardsCountSelector,
-  pageCountSelector,
-  setPackNameAC,
-} from '../cardsPack-reducer'
 import style from '../FiltersField/FiltersField.module.scss'
 
 import { ResetFilters } from './ResetFilters/ResetFilters'
@@ -20,26 +12,29 @@ type FiltersFieldPropsType = {
   debouncedSearch: string
   setSearch: (search: string) => void
   handleChangeSearch: (search: string) => void
+  handleParams: (
+    page: number,
+    pageCount: number,
+    search: string,
+    user_id: string,
+    min: number,
+    max: number
+  ) => void
+  searchId: string
+  page: number
+  pageCount: number
+  value: number[]
+  changeValue: (value: number | number[]) => void
+  changeValueCommitted: (value: number | number[]) => void
+  resetFilters: () => void
 }
 
 export const FiltersField = (props: FiltersFieldPropsType) => {
-  const maxCardsCount = useAppSelector(maxCardsCountSelector)
-  const minCardsCount = useAppSelector(minCardsCountSelector)
-  const pageCount = useAppSelector(pageCountSelector)
-
-  const dispatch = useAppDispatch()
-
-  const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount])
-
   const change = (value: number | number[]) => {
-    setValue(value as number[])
+    props.changeValue(value)
   }
   const changeCommitted = (value: number | number[]) => {
-    const min = Array.isArray(value) ? value[0] : value
-    const max = Array.isArray(value) ? value[1] : value
-
-    setValue([min, max])
-    dispatch(fetchPacks({ min, max, packName: props.debouncedSearch, pageCount }))
+    props.changeValueCommitted(value)
   }
 
   const handleChangeSearch = (search: string) => {
@@ -47,23 +42,20 @@ export const FiltersField = (props: FiltersFieldPropsType) => {
   }
 
   const resetFilters = () => {
-    setValue([minCardsCount, maxCardsCount])
-    props.setSearch('')
-    dispatch(setPackNameAC({ packName: '' }))
+    props.resetFilters()
   }
 
-  useEffect(() => {
-    setValue([minCardsCount, maxCardsCount])
-  }, [minCardsCount, maxCardsCount])
+  const min = typeof props.value === 'object' ? props.value[0] : 0
+  const max = typeof props.value === 'object' ? props.value[1] : 100
 
   return (
     <div className={style.wrapper}>
       <SearchField search={props.search} handleChangeSearch={handleChangeSearch} />
       <SelectPackField />
       <SuperRange
-        min={minCardsCount}
-        max={maxCardsCount}
-        value={value}
+        min={min}
+        max={max}
+        value={props.value}
         changeValue={change}
         changeValueCommitted={changeCommitted}
       />

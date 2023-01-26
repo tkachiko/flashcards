@@ -8,12 +8,13 @@ import TableSortLabel from '@mui/material/TableSortLabel'
 import { appStatusSelector } from '../../../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { CardsTableHeaderDataType, fetchCards } from '../../../../features/cards/cards-reducer'
-import { fetchPacks, TableHeaderDataType } from '../../../../features/packs/cardsPack-reducer'
+import { TableHeaderDataType } from '../../../../features/packs/cardsPack-reducer'
 import style from '../SuperTableHead/SuperTableHead.module.scss'
 
 type SuperTableHeaderPropsType = {
   titles: TableHeaderDataType[] | CardsTableHeaderDataType[]
   cardPack_id: string | null
+  sortPacks?: (newSort: string) => void
 }
 
 export const SuperTableHeader = (props: SuperTableHeaderPropsType) => {
@@ -28,8 +29,12 @@ export const SuperTableHeader = (props: SuperTableHeaderPropsType) => {
   const onChangeSort = (newSort: string) => {
     setSort(newSort)
     props.titles[0].name === 'Name'
-      ? dispatch(fetchPacks({ sortPacks: newSort }))
+      ? sortPacks(newSort)
       : dispatch(fetchCards({ cardsPack_id: props.cardPack_id, sortCards: newSort }))
+  }
+
+  const sortPacks = (newSort: string) => {
+    props.sortPacks ? props.sortPacks(newSort) : ''
   }
 
   return (
