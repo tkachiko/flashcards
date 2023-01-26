@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { packsApi } from '../../api/packsApi'
-import { setSubmittingAC } from '../../app/app-reducer'
-import { RootStateType } from '../../app/store'
+import { packsApi } from 'api/packsApi'
+import { setSubmittingAC } from 'app/app-reducer'
+import { RootStateType } from 'app/store'
 import {
   AsyncThunkConfig,
   CreatePackResponseType,
@@ -14,8 +14,8 @@ import {
   GetPacksResponseType,
   UpdatePackPayloadType,
   UpdatePackResponseType,
-} from '../../common/types/types'
-import { errorMessage } from '../../utils/error-utils'
+} from 'common/types/types'
+import { errorMessage } from 'utils/error-utils'
 
 const slice = createSlice({
   name: 'cardsPack',

@@ -12,14 +12,14 @@ import { useFormik } from 'formik'
 import { Navigate, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { appStatusSelector } from '../../../app/app-reducer'
-import { PATH } from '../../../app/routes/routes'
-import { useAppDispatch, useAppSelector } from '../../../app/store'
-import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
-
-import styleContainer from './../../../common/styles/Container.module.scss'
 import { isLoggedInSelector, LoginTC } from './auth-reducer'
 import style from './Login.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { PATH } from 'app/routes/routes'
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
+import styleContainer from 'common/styles/Container.module.scss'
 
 export const Login = () => {
   const navigate = useNavigate()

@@ -1,3 +1,5 @@
+import { instance } from './instance'
+
 import {
   CardType,
   CreateCardRequestType,
@@ -5,9 +7,7 @@ import {
   GetCardsResponseType,
   GradeRequestType,
   UpdateCardRequestType,
-} from '../common/types/types'
-
-import { instance } from './instance'
+} from 'common/types/types'
 
 export const cardsApi = {
   getCards(data: GetCardsRequestType) {

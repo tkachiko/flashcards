@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { profileApi } from '../api/profileApi'
-import { StatusType, ThunkAppDispatchType } from '../common/types/types'
-import { setIsLoggedInAC } from '../features/auth/login/auth-reducer'
-import { setDataAC } from '../features/profile/profile-reducer'
-
 import { RootStateType } from './store'
+
+import { profileApi } from 'api/profileApi'
+import { StatusType, ThunkAppDispatchType } from 'common/types/types'
+import { setIsLoggedInAC } from 'features/auth/login/auth-reducer'
+import { setDataAC } from 'features/profile/profile-reducer'
 
 export type InitialStateType = typeof initialState
 

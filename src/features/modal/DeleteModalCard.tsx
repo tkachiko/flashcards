@@ -5,18 +5,14 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 
-import { appStatusSelector } from '../../app/app-reducer'
-import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
-import Close from '../../assets/icons/close.svg'
-import { deleteCard } from '../cards/cards-reducer'
-import {
-  deletePack,
-  isNewCardPackAddedAC,
-  isNewCardPackAddedSelector,
-} from '../packs/cardsPack-reducer'
-
 import { BasicModals } from './basicModals'
 import s from './DeleteModal.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { RootStateType, useAppDispatch, useAppSelector } from 'app/store'
+import Close from 'assets/icons/close.svg'
+import { deleteCard } from 'features/cards/cards-reducer'
+import { isNewCardPackAddedAC, isNewCardPackAddedSelector } from 'features/packs/cardsPack-reducer'
 
 type AddModalsType = {
   id: string

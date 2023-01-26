@@ -4,16 +4,16 @@ import FormGroup from '@mui/material/FormGroup'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useFormik } from 'formik'
 
-import { appStatusSelector } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/store'
-import { Back2Packs } from '../../common/components/Back2Packs/Back2Packs'
-import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
-import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
-import { logoutTC } from '../auth/login/auth-reducer'
-
-import styleContainer from './../../common/styles/Container.module.scss'
 import { changeNameTC, emailSelector, nameSelector } from './profile-reducer'
 import style from './Profile.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { Back2Packs } from 'common/components/Back2Packs/Back2Packs'
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
+import { SuperEditableSpan } from 'common/components/SuperEditableSpan/SuperEditableSpan'
+import styleContainer from 'common/styles/Container.module.scss'
+import { logoutTC } from 'features/auth/login/auth-reducer'
 
 type FormikErrorType = {
   nickname?: string

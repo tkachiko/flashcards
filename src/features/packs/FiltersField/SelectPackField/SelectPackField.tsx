@@ -2,10 +2,11 @@ import React from 'react'
 
 import Button from '@mui/material/Button'
 
-import { appStatusSelector } from '../../../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../../../app/store'
-import { isMyPacksAC, isMyPackSelector, setPageAC } from '../../cardsPack-reducer'
 import style from '../SelectPackField/SelectPackField.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { isMyPacksAC, isMyPackSelector, setPageAC } from 'features/packs/cardsPack-reducer'
 
 export const SelectPackField = () => {
   const loadingStatus = useAppSelector(appStatusSelector)

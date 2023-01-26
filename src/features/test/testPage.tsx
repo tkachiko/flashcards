@@ -1,15 +1,15 @@
 import React, { ChangeEvent, useState } from 'react'
 
-import { SuperButton } from '../../common/components/SuperButton/SuperButton'
-import { SuperCheckbox } from '../../common/components/SuperCheckbox/SuperCheckbox'
-import { SuperEditableSpan } from '../../common/components/SuperEditableSpan/SuperEditableSpan'
-import { SuperInputText } from '../../common/components/SuperInputText/SuperInputText'
-import { SuperRadio } from '../../common/components/SuperRadio/SuperRadio'
-import { SuperSelect } from '../../common/components/SuperSelect/SuperSelect'
-import { SuperSort } from '../../common/components/SuperSort/SuperSort'
-import styleContainer from '../../common/styles/Container.module.scss'
-
 import style from './TestPage.module.css'
+
+import { SuperButton } from 'common/components/SuperButton/SuperButton'
+import { SuperCheckbox } from 'common/components/SuperCheckbox/SuperCheckbox'
+import { SuperEditableSpan } from 'common/components/SuperEditableSpan/SuperEditableSpan'
+import { SuperInputText } from 'common/components/SuperInputText/SuperInputText'
+import { SuperRadio } from 'common/components/SuperRadio/SuperRadio'
+import { SuperSelect } from 'common/components/SuperSelect/SuperSelect'
+import { SuperSort } from 'common/components/SuperSort/SuperSort'
+import styleContainer from 'common/styles/Container.module.scss'
 
 export const TestPage = () => {
   const [value, onChangeOption] = useState(1)

@@ -6,12 +6,6 @@ import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import { useDebounce } from 'usehooks-ts'
 
-import { useAppDispatch, useAppSelector } from '../../app/store'
-import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
-import { NotFoundSearching } from '../../common/components/NotFoundSearching/NotFoundSearching'
-import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
-import { SuperTableHeader } from '../../common/components/SuperTable/SuperTableHead/SuperTableHeader'
-
 import {
   cardPacksTotalCountSelector,
   fetchPacks,
@@ -28,6 +22,12 @@ import s from './CardsPack.module.scss'
 import { FiltersField } from './FiltersField/FiltersField'
 import { HeaderPacks } from './headerPacks/HeaderPacks'
 import { PacksControls } from './packsControls/PacksControls'
+
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
+import { NotFoundSearching } from 'common/components/NotFoundSearching/NotFoundSearching'
+import { SuperPagination } from 'common/components/SuperPagination/SuperPagination'
+import { SuperTableHeader } from 'common/components/SuperTable/SuperTableHead/SuperTableHeader'
 
 export const CardsPack = () => {
   const isMyPack = useAppSelector(isMyPackSelector)

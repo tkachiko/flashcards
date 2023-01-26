@@ -1,14 +1,15 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 
 import Button from '@mui/material/Button'
 
-import { appStatusSelector } from '../../../app/app-reducer'
-import { useAppSelector } from '../../../app/store'
-import { AddModalCard } from '../../modal/AddModalCard'
-import { isMyPackSelector } from '../../packs/cardsPack-reducer'
 import { packNameSelector } from '../cards-reducer'
 
 import style from './CardsHeader.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { useAppSelector } from 'app/store'
+import { AddModalCard } from 'features/modal/AddModalCard'
+import { isMyPackSelector } from 'features/packs/cardsPack-reducer'
 
 export const CardsHeader = () => {
   const loadingStatus = useAppSelector(appStatusSelector)

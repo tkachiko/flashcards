@@ -2,14 +2,14 @@ import * as React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import itIncubator from '../../assets/images/It-incubator.svg'
-import avatar from '../../assets/images/person.png'
-import { isLoggedInSelector } from '../../features/auth/login/auth-reducer'
-import { nameSelector } from '../../features/profile/profile-reducer'
-import { PATH } from '../routes/routes'
-import { useAppSelector } from '../store'
-
 import style from './Header.module.scss'
+
+import { PATH } from 'app/routes/routes'
+import { useAppSelector } from 'app/store'
+import itIncubator from 'assets/images/It-incubator.svg'
+import avatar from 'assets/images/person.png'
+import { isLoggedInSelector } from 'features/auth/login/auth-reducer'
+import { nameSelector } from 'features/profile/profile-reducer'
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)

@@ -5,14 +5,14 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { useNavigate } from 'react-router-dom'
 
-import { appStatusSelector } from '../../../app/app-reducer'
-import { PATH } from '../../../app/routes/routes'
-import { useAppSelector } from '../../../app/store'
-import { DeleteModalPack } from '../../modal/DeleteModalPack'
-import { EditModalPack } from '../../modal/EditModalPack'
-import { userIdSelector } from '../../profile/profile-reducer'
-
 import style from './ChangePacks.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { PATH } from 'app/routes/routes'
+import { useAppSelector } from 'app/store'
+import { DeleteModalPack } from 'features/modal/DeleteModalPack'
+import { EditModalPack } from 'features/modal/EditModalPack'
+import { userIdSelector } from 'features/profile/profile-reducer'
 
 type ActionSettingType = {
   id: string

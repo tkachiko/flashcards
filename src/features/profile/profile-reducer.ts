@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios, { AxiosError } from 'axios'
 
-import { profileApi } from '../../api/profileApi'
-import { setSubmittingAC } from '../../app/app-reducer'
-import { RootStateType } from '../../app/store'
-import { ProfileDataType, ThunkAppDispatchType } from '../../common/types/types'
-import { errorMessage } from '../../utils/error-utils'
+import { profileApi } from 'api/profileApi'
+import { setSubmittingAC } from 'app/app-reducer'
+import { RootStateType } from 'app/store'
+import { ProfileDataType, ThunkAppDispatchType } from 'common/types/types'
+import { errorMessage } from 'utils/error-utils'
 
 const initialState = {
   profile: {

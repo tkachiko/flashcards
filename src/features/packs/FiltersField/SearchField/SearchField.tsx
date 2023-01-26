@@ -5,8 +5,9 @@ import InputAdornment from '@mui/material/InputAdornment'
 import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
 
-import search from '../../../../assets/images/search.svg'
 import style from '../SearchField/SearchField.module.scss'
+
+import search from 'assets/images/search.svg'
 
 type SearchFieldType = {
   search: string
@@ -26,7 +27,7 @@ export const SearchField = (props: SearchFieldType) => {
           id="search for packs"
           startAdornment={
             <InputAdornment position="start">
-              <img className={style.img} src={search}></img>
+              <img className={style.img} src={search} alt={'search'}></img>
             </InputAdornment>
           }
           label="Search"

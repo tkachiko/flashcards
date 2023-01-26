@@ -2,11 +2,11 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 
-import { PATH } from '../../../../app/routes/routes'
-import { useAppSelector } from '../../../../app/store'
-import styleContainer from '../../../../common/styles/Container.module.scss'
-
 import style from './CheckEmail.module.css'
+
+import { PATH } from 'app/routes/routes'
+import { useAppSelector } from 'app/store'
+import styleContainer from 'common/styles/Container.module.scss'
 
 export const CheckEmail = () => {
   const email = useAppSelector(state => state.password.forgetEmail)

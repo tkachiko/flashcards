@@ -1,6 +1,6 @@
-import { ResponseType, UpdatedUserResponseType } from '../common/types/types'
-
 import { instance } from './instance'
+
+import { ResponseType, UpdatedUserResponseType } from 'common/types/types'
 
 export const profileApi = {
   authMe() {

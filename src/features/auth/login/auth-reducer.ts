@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { loginApi } from '../../../api/loginApi'
-import { setSubmittingAC } from '../../../app/app-reducer'
-import { RootStateType } from '../../../app/store'
-import { LoginType, ThunkAppDispatchType } from '../../../common/types/types'
-import { errorMessage } from '../../../utils/error-utils'
-import { deleteUserDataAC, setDataAC } from '../../profile/profile-reducer'
+import { loginApi } from 'api/loginApi'
+import { setSubmittingAC } from 'app/app-reducer'
+import { RootStateType } from 'app/store'
+import { LoginType, ThunkAppDispatchType } from 'common/types/types'
+import { deleteUserDataAC, setDataAC } from 'features/profile/profile-reducer'
+import { errorMessage } from 'utils/error-utils'
 
 const initialState = {
   isLoggedIn: false,

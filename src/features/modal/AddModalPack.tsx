@@ -3,16 +3,17 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { Checkbox, FormControlLabel, TextField } from '@mui/material'
 import Button from '@mui/material/Button'
 
-import { useAppDispatch, useAppSelector } from '../../app/store'
-import Close from '../../assets/icons/close.svg'
+import s from './AddandUpdateModal.module.scss'
+import { BasicModals } from './basicModals'
+
+import { useAppDispatch, useAppSelector } from 'app/store'
+import Close from 'assets/icons/close.svg'
 import {
   addPackTC,
   isNewCardPackAddedAC,
   isNewCardPackAddedSelector,
-} from '../packs/cardsPack-reducer'
+} from 'features/packs/cardsPack-reducer'
 
-import s from './AddandUpdateModal.module.scss'
-import { BasicModals } from './basicModals'
 type AddModalsType = {
   isModalAddOpen: boolean
   setIsModalOpen: (isOpen: boolean) => void

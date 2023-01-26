@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
-import { ResponseForgotType, SetNewPasswordType } from '../common/types/types'
+import { ResponseForgotType, SetNewPasswordType } from 'common/types/types'
 
 export const instanceHeroku = axios.create({
   baseURL: 'https://neko-back.herokuapp.com/2.0/',

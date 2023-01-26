@@ -1,3 +1,5 @@
+import { instance } from './instance'
+
 import {
   CreatePackResponseType,
   CreatePacksPayloadType,
@@ -7,9 +9,7 @@ import {
   GetPacksResponseType,
   UpdatePackPayloadType,
   UpdatePackResponseType,
-} from '../common/types/types'
-
-import { instance } from './instance'
+} from 'common/types/types'
 
 export const packsApi = {
   getPack(filter: GetPackSPayloadType) {

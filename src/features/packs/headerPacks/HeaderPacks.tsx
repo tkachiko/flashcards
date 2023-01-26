@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 
 import Button from '@mui/material/Button'
 
-import { appStatusSelector } from '../../../app/app-reducer'
-import { useAppSelector } from '../../../app/store'
-import { AddModalPack } from '../../modal/AddModalPack'
-
 import s from './HeaderPacks.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { useAppSelector } from 'app/store'
+import { AddModalPack } from 'features/modal/AddModalPack'
 
 export const HeaderPacks = () => {
   const loadingStatus = useAppSelector(appStatusSelector)

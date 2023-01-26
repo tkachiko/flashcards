@@ -8,17 +8,17 @@ import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 
-import { appStatusSelector } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/store'
-import Close from '../../assets/icons/close.svg'
+import s from './AddandUpdateModal.module.scss'
+import { BasicModals } from './basicModals'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { useAppDispatch, useAppSelector } from 'app/store'
+import Close from 'assets/icons/close.svg'
 import {
   isNewCardPackAddedAC,
   isNewCardPackAddedSelector,
   updatePack,
-} from '../packs/cardsPack-reducer'
-
-import s from './AddandUpdateModal.module.scss'
-import { BasicModals } from './basicModals'
+} from 'features/packs/cardsPack-reducer'
 type AddModalsType = {
   id: string
   name: string

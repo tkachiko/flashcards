@@ -12,14 +12,14 @@ import { useFormik } from 'formik'
 import { NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { appErrorSelector, appStatusSelector, setSubmittingAC } from '../../../app/app-reducer'
-import { PATH } from '../../../app/routes/routes'
-import { useAppDispatch, useAppSelector } from '../../../app/store'
-import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar'
-import styleContainer from '../../../common/styles/Container.module.scss'
-
 import { createUserTC } from './register-reducer'
 import style from './Register.module.scss'
+
+import { appErrorSelector, appStatusSelector, setSubmittingAC } from 'app/app-reducer'
+import { PATH } from 'app/routes/routes'
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
+import styleContainer from 'common/styles/Container.module.scss'
 
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false)

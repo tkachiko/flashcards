@@ -11,12 +11,12 @@ import { useFormik } from 'formik'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { PATH } from '../../../../app/routes/routes'
-import { useAppDispatch, useAppSelector } from '../../../../app/store'
-import styleContainer from '../../../../common/styles/Container.module.scss'
-import { newPasswordSuccessTH } from '../../password-reducer'
-
 import style from './CreateNewPassword.module.scss'
+
+import { PATH } from 'app/routes/routes'
+import { useAppDispatch, useAppSelector } from 'app/store'
+import styleContainer from 'common/styles/Container.module.scss'
+import { newPasswordSuccessTH } from 'features/password/password-reducer'
 
 export const CreateNewPassword = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -25,7 +25,6 @@ export const CreateNewPassword = () => {
   const params = useParams()
   const token = params.token
 
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const toggleShowPassword = () => {

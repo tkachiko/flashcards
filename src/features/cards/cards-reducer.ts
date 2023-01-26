@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { cardsApi } from '../../api/cardsApi'
-import { setSubmittingAC } from '../../app/app-reducer'
-import { RootStateType } from '../../app/store'
+import { cardsApi } from 'api/cardsApi'
+import { setSubmittingAC } from 'app/app-reducer'
+import { RootStateType } from 'app/store'
 import {
   AsyncThunkConfig,
   CardType,
@@ -12,9 +12,9 @@ import {
   GetCardsResponseType,
   GradeRequestType,
   UpdateCardRequestType,
-} from '../../common/types/types'
-import { errorMessage } from '../../utils/error-utils'
-import { isNewCardPackAddedAC } from '../packs/cardsPack-reducer'
+} from 'common/types/types'
+import { isNewCardPackAddedAC } from 'features/packs/cardsPack-reducer'
+import { errorMessage } from 'utils/error-utils'
 
 // thunk
 

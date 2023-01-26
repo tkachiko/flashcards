@@ -2,19 +2,19 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
-import { Error404 } from '../../common/error/error404/Error404'
-import { Login } from '../../features/auth/login/Login'
-import { Register } from '../../features/auth/register/Register'
-import { Cards } from '../../features/cards/Cards'
-import { CardsPack } from '../../features/packs/CardsPack'
-import { CheckEmail } from '../../features/password/recovery/checkEmail/CheckEmail'
-import { CreateNewPassword } from '../../features/password/recovery/createNewPassword/CreateNewPassword'
-import { ForgotPassword } from '../../features/password/recovery/forgotPassword/ForgotPassword'
-import { Profile } from '../../features/profile/Profile'
-import { TestPage } from '../../features/test/testPage'
-
 import { PrivateRoutes } from './PrivateRoutes'
 import { PATH } from './routes'
+
+import { Error404 } from 'common/error/error404/Error404'
+import { Login } from 'features/auth/login/Login'
+import { Register } from 'features/auth/register/Register'
+import { Cards } from 'features/cards/Cards'
+import { CardsPack } from 'features/packs/CardsPack'
+import { CheckEmail } from 'features/password/recovery/checkEmail/CheckEmail'
+import { CreateNewPassword } from 'features/password/recovery/createNewPassword/CreateNewPassword'
+import { ForgotPassword } from 'features/password/recovery/forgotPassword/ForgotPassword'
+import { Profile } from 'features/profile/Profile'
+import { TestPage } from 'features/test/testPage'
 
 export const RoutesComponent = () => {
   return (

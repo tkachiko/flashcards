@@ -1,6 +1,6 @@
-import { LoginType, LogOutResponseType, ResponseType } from '../common/types/types'
-
 import { instance } from './instance'
+
+import { LoginType, LogOutResponseType, ResponseType } from 'common/types/types'
 
 export const loginApi = {
   login(data: LoginType) {

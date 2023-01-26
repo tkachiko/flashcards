@@ -1,6 +1,6 @@
-import { SignUpResponseType } from '../common/types/types'
-
 import { instance } from './instance'
+
+import { SignUpResponseType } from 'common/types/types'
 
 export const registerApi = {
   createUser(email: string, password: string) {

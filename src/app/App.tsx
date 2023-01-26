@@ -9,7 +9,7 @@ import { Header } from './header/Header'
 import { RoutesComponent } from './routes/RoutesComponent'
 import { useAppDispatch, useAppSelector } from './store'
 
-function App() {
+export function App() {
   const status = useAppSelector(appStatusSelector)
   const isInitialized = useAppSelector(appIsInitializedSelector)
   const dispatch = useAppDispatch()
@@ -34,5 +34,3 @@ function App() {
     </div>
   )
 }
-
-export default App

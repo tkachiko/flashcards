@@ -1,12 +1,12 @@
 import { Dispatch } from 'redux'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
-import { AppActionsType } from '../../app/app-reducer'
-import { RootStateType } from '../../app/store'
-import { AuthActionType } from '../../features/auth/login/auth-reducer'
-import { CardsReducerType } from '../../features/cards/cards-reducer'
-import { CardsPacksActionType } from '../../features/packs/cardsPack-reducer'
-import { ProfileActionsType } from '../../features/profile/profile-reducer'
+import { AppActionsType } from 'app/app-reducer'
+import { RootStateType } from 'app/store'
+import { AuthActionType } from 'features/auth/login/auth-reducer'
+import { CardsReducerType } from 'features/cards/cards-reducer'
+import { CardsPacksActionType } from 'features/packs/cardsPack-reducer'
+import { ProfileActionsType } from 'features/profile/profile-reducer'
 
 export type StatusType = 'idle' | 'loading' | 'success' | 'failed'
 

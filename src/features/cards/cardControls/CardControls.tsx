@@ -1,10 +1,9 @@
 import React, { FC } from 'react'
 
-import { DeleteModalCard } from '../../modal/DeleteModalCard'
-import { EditModalCard } from '../../modal/EditModalCard'
-
-
 import style from './CardControls.module.scss'
+
+import { DeleteModalCard } from 'features/modal/DeleteModalCard'
+import { EditModalCard } from 'features/modal/EditModalCard'
 
 type PropsType = {
   id: string

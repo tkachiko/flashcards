@@ -1,11 +1,12 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
+
 import Button from '@mui/material/Button'
 
-import { appStatusSelector } from '../../../app/app-reducer'
-import { useAppSelector } from '../../../app/store'
-import { AddModalCard } from '../../modal/AddModalCard'
-
 import style from './EmptyPack.module.scss'
+
+import { appStatusSelector } from 'app/app-reducer'
+import { useAppSelector } from 'app/store'
+import { AddModalCard } from 'features/modal/AddModalCard'
 
 export const EmptyPack = () => {
   const loadingStatus = useAppSelector(appStatusSelector)

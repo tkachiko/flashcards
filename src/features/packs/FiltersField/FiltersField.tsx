@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from '../../../app/store'
-import { SuperRange } from '../../../common/components/SuperRange/SuperRange'
+import style from '../FiltersField/FiltersField.module.scss'
+
+import { ResetFilters } from './ResetFilters/ResetFilters'
+import { SearchField } from './SearchField/SearchField'
+import { SelectPackField } from './SelectPackField/SelectPackField'
+
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { SuperRange } from 'common/components/SuperRange/SuperRange'
 import {
   fetchPacks,
   maxCardsCountSelector,
   minCardsCountSelector,
   pageCountSelector,
   setPackNameAC,
-} from '../cardsPack-reducer'
-import style from '../FiltersField/FiltersField.module.scss'
-
-import { ResetFilters } from './ResetFilters/ResetFilters'
-import { SearchField } from './SearchField/SearchField'
-import { SelectPackField } from './SelectPackField/SelectPackField'
+} from 'features/packs/cardsPack-reducer'
 
 type FiltersFieldPropsType = {
   search: string

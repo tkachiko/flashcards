@@ -4,16 +4,13 @@ import { FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mu
 import Button from '@mui/material/Button'
 import InputLabel from '@mui/material/InputLabel'
 
-import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
-import Close from '../../assets/icons/close.svg'
-import { createCard } from '../cards/cards-reducer'
-import {
-  isNewCardPackAddedAC,
-  isNewCardPackAddedSelector,
-} from '../packs/cardsPack-reducer'
-
 import s from './AddandUpdateModal.module.scss'
 import { BasicModals } from './basicModals'
+
+import { RootStateType, useAppDispatch, useAppSelector } from 'app/store'
+import Close from 'assets/icons/close.svg'
+import { createCard } from 'features/cards/cards-reducer'
+import { isNewCardPackAddedAC, isNewCardPackAddedSelector } from 'features/packs/cardsPack-reducer'
 
 type AddModalsType = {
   isModalAddOpen: boolean

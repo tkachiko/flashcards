@@ -2,10 +2,11 @@ import React from 'react'
 
 import { NavLink } from 'react-router-dom'
 
-import { PATH } from '../../../app/routes/routes'
 import styleContainer from '../../styles/Container.module.scss'
 
 import style from './Error404.module.css'
+
+import { PATH } from 'app/routes/routes'
 
 export const Error404 = () => {
   return (

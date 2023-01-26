@@ -5,11 +5,12 @@ import TableRow from '@mui/material/TableRow'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
-import { PATH } from '../../../app/routes/routes'
-import { useAppDispatch } from '../../../app/store'
-import { setPackId } from '../../cards/cards-reducer'
 import s from '../CardsPack.module.scss'
 import { ChangePacks } from '../ChangePacks/ChangePacks'
+
+import { PATH } from 'app/routes/routes'
+import { useAppDispatch } from 'app/store'
+import { setPackId } from 'features/cards/cards-reducer'
 
 type PacksControlsType = {
   id: string

@@ -4,8 +4,9 @@ import { Rating } from '@mui/material'
 import TableCell from '@mui/material/TableCell'
 import dayjs from 'dayjs'
 
-import { useAppDispatch } from '../../../app/store'
 import { setGrade } from '../cards-reducer'
+
+import { useAppDispatch } from 'app/store'
 
 type PropsType = {
   question: string

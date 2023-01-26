@@ -9,15 +9,6 @@ import TableRow from '@mui/material/TableRow'
 import { useParams } from 'react-router-dom'
 import { useDebounce } from 'usehooks-ts'
 
-import { RootStateType, useAppDispatch, useAppSelector } from '../../app/store'
-import { Back2Packs } from '../../common/components/Back2Packs/Back2Packs'
-import { ErrorSnackbar } from '../../common/components/ErrorSnackbar/ErrorSnackbar'
-import { NotFoundSearching } from '../../common/components/NotFoundSearching/NotFoundSearching'
-import { SuperPagination } from '../../common/components/SuperPagination/SuperPagination'
-import { SuperTableHeader } from '../../common/components/SuperTable/SuperTableHead/SuperTableHeader'
-import styleContainer from '../../common/styles/Container.module.scss'
-import { SearchField } from '../packs/FiltersField/SearchField/SearchField'
-
 import { Card } from './card/Card'
 import { CardControls } from './cardControls/CardControls'
 import {
@@ -33,6 +24,15 @@ import {
 import style from './Cards.module.scss'
 import { CardsHeader } from './cardsHeader/CardsHeader'
 import { EmptyPack } from './emptyPack/EmptyPack'
+
+import { RootStateType, useAppDispatch, useAppSelector } from 'app/store'
+import { Back2Packs } from 'common/components/Back2Packs/Back2Packs'
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
+import { NotFoundSearching } from 'common/components/NotFoundSearching/NotFoundSearching'
+import { SuperPagination } from 'common/components/SuperPagination/SuperPagination'
+import { SuperTableHeader } from 'common/components/SuperTable/SuperTableHead/SuperTableHeader'
+import styleContainer from 'common/styles/Container.module.scss'
+import { SearchField } from 'features/packs/FiltersField/SearchField/SearchField'
 
 export const Cards = () => {
   const { cardsPack_id } = useParams()
