@@ -3,9 +3,10 @@ import React from 'react'
 import Button from '@mui/material/Button'
 import { useSearchParams } from 'react-router-dom'
 
+import style from '../SelectPackField/SelectPackField.module.scss'
+
 import { appStatusSelector } from 'app/app-reducer'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { userIdSelector } from 'features/profile/profile-reducer'
 import {
   fetchPacks,
   setIdSearchAC,
@@ -14,7 +15,7 @@ import {
   pageCountSelector,
   setPageAC,
 } from 'features/packs/cardsPack-reducer'
-import style from '../SelectPackField/SelectPackField.module.scss'
+import { userIdSelector } from 'features/profile/profile-reducer'
 
 export const SelectPackField = () => {
   const loadingStatus = useAppSelector(appStatusSelector)

@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { SuperRange } from 'common/components/SuperRange/SuperRange'
 import style from '../FiltersField/FiltersField.module.scss'
+
 import { ResetFilters } from './ResetFilters/ResetFilters'
 import { SearchField } from './SearchField/SearchField'
 import { SelectPackField } from './SelectPackField/SelectPackField'
+
+import { SuperRange } from 'common/components/SuperRange/SuperRange'
 
 type FiltersFieldPropsType = {
   search: string

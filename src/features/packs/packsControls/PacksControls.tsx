@@ -6,12 +6,11 @@ import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
 import s from '../CardsPack.module.scss'
-
+import { ChangePacks } from '../ChangePacks/ChangePacks'
 
 import { PATH } from 'app/routes/routes'
 import { useAppDispatch } from 'app/store'
 import { setPackId } from 'features/cards/cards-reducer'
-import { ChangePacks } from '../ChangePacks/ChangePacks'
 
 type PacksControlsType = {
   id: string
