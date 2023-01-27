@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/flashcards/static/css/main.20e2c9ff.css",
-    "main.js": "/flashcards/static/js/main.8e404497.js",
+    "main.css": "/flashcards/static/css/main.ca89bab4.css",
+    "main.js": "/flashcards/static/js/main.8d84989b.js",
     "static/js/787.bc597fc4.chunk.js": "/flashcards/static/js/787.bc597fc4.chunk.js",
     "static/media/Montserrat-SemiBold.ttf": "/flashcards/static/media/Montserrat-SemiBold.d5e0cc788cba9ced1fb9.ttf",
     "static/media/Montserrat-ExtraBold.ttf": "/flashcards/static/media/Montserrat-ExtraBold.3a9ee100617f45a96d92.ttf",
@@ -15,24 +15,22 @@
     "static/media/person.png": "/flashcards/static/media/person.4c6981b3aa26e18ed4ec.png",
     "static/media/email.svg": "/flashcards/static/media/email.cdfba66fde5a43fa07de.svg",
     "static/media/It-incubator.svg": "/flashcards/static/media/It-incubator.3c09153556dc0fef65c4fc532ee16562.svg",
-    "static/media/Delete.svg": "/flashcards/static/media/Delete.5074d598f7a8970a63dfa17b33aebe95.svg",
-    "static/media/Edit.svg": "/flashcards/static/media/Edit.22b87cfecc031e713e076cd779cde7e3.svg",
     "static/media/camera.svg": "/flashcards/static/media/camera.f44d951526acbd5ef97e.svg",
     "static/media/editIcon.svg": "/flashcards/static/media/editIcon.7694a66559d465dce8256956717bdc8f.svg",
     "static/media/arrow.svg": "/flashcards/static/media/arrow.eb1c7ba399c562d8c9ef1e435a15dcfd.svg",
     "static/media/checked.svg": "/flashcards/static/media/checked.dbc3a00fedbdfccec9b9.svg",
-    "static/media/teacher.svg": "/flashcards/static/media/teacher.61316ef9f9bb14acdf57faf399645aeb.svg",
     "static/media/reset.svg": "/flashcards/static/media/reset.f4baca970723e7e36b4e961253519055.svg",
     "index.html": "/flashcards/index.html",
     "static/media/logout.svg": "/flashcards/static/media/logout.4631dbd136b384a81188.svg",
     "static/media/eye.svg": "/flashcards/static/media/eye.c17bef40168b74ac6804.svg",
     "static/media/search.svg": "/flashcards/static/media/search.abeb3a36a0808848f7a731bfc257cc53.svg",
-    "main.20e2c9ff.css.map": "/flashcards/static/css/main.20e2c9ff.css.map",
-    "main.8e404497.js.map": "/flashcards/static/js/main.8e404497.js.map",
+    "static/media/close.svg": "/flashcards/static/media/close.47159591103829ef3885caae41e0490f.svg",
+    "main.ca89bab4.css.map": "/flashcards/static/css/main.ca89bab4.css.map",
+    "main.8d84989b.js.map": "/flashcards/static/js/main.8d84989b.js.map",
     "787.bc597fc4.chunk.js.map": "/flashcards/static/js/787.bc597fc4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.20e2c9ff.css",
-    "static/js/main.8e404497.js"
+    "static/css/main.ca89bab4.css",
+    "static/js/main.8d84989b.js"
   ]
 }
