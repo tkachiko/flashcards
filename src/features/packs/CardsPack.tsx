@@ -84,34 +84,6 @@ export const CardsPack = () => {
       min: value[0].toString(),
       max: value[1].toString(),
     })
-    dispatch(
-      fetchPacks({
-        page,
-        pageCount,
-        packName: search,
-        user_id: searchId,
-        min: value[0],
-        max: value[1],
-      })
-    )
-  }
-
-  const handleParams = (
-    page: number,
-    pageCount: number,
-    search: string,
-    user_id: string,
-    min: number,
-    max: number
-  ) => {
-    setSearchParams({
-      page: page.toString(),
-      pageCount: pageCount.toString(),
-      search,
-      user_id,
-      min: min.toString(),
-      max: max.toString(),
-    })
   }
 
   const change = (value: number | number[]) => {
@@ -187,7 +159,7 @@ export const CardsPack = () => {
         max: params.max,
       })
     )
-  }, [])
+  }, [debouncedSearch])
 
   return (
     <div className={s.container}>
@@ -201,7 +173,6 @@ export const CardsPack = () => {
         setSearch={setSearch}
         debouncedSearch={debouncedSearch}
         handleChangeSearch={handleChangeSearch}
-        handleParams={handleParams}
         searchId={searchId}
         value={value}
         changeValue={change}

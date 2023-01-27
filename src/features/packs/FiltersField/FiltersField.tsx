@@ -13,14 +13,6 @@ type FiltersFieldPropsType = {
   debouncedSearch: string
   setSearch: (search: string) => void
   handleChangeSearch: (search: string) => void
-  handleParams: (
-    page: number,
-    pageCount: number,
-    search: string,
-    user_id: string,
-    min: number,
-    max: number
-  ) => void
   searchId: string
   page: number
   pageCount: number
