@@ -4,6 +4,11 @@
 
 .container {
   margin-top: 86px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+  gap: 10px;
 
   p {
 

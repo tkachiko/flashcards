@@ -86,7 +86,7 @@ export const Cards = () => {
         <Back2Packs />
         {cards && cards.length > 0 ? (
           <>
-            <CardsHeader />
+            <CardsHeader packId={packId} />
             <div className={style.search}>
               <SearchField search={search} handleChangeSearch={handleChangeSearch} />
             </div>
