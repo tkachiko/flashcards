@@ -38,7 +38,9 @@ export const CardsPack = () => {
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
   const page = useAppSelector(pageSelector)
   const packNameSearch = useAppSelector(packNameSearchSelector)
-  const [pageCount, setPageCount] = useState(useAppSelector(pageCountSelector))
+  const [pageCount, setPageCount] = useState(
+    searchParams.get('pageCount') || useAppSelector(pageCountSelector)
+  )
   const [search, setSearch] = useState<string>(searchParams.get('packName') || packNameSearch)
   const debouncedSearch = useDebounce<string>(search, 500)
   const searchId = useAppSelector(idSearchSelector)
@@ -104,7 +106,14 @@ export const CardsPack = () => {
       max: max.toString(),
     })
     dispatch(
-      fetchPacks({ page: 1, pageCount, packName: packNameSearch, user_id: searchId, min, max })
+      fetchPacks({
+        page: 1,
+        pageCount: +pageCount,
+        packName: packNameSearch,
+        user_id: searchId,
+        min,
+        max,
+      })
     )
   }
 
@@ -135,7 +144,7 @@ export const CardsPack = () => {
     dispatch(
       fetchPacks({
         sortPacks: newSort,
-        pageCount,
+        pageCount: +pageCount,
         packName: packNameSearch,
         min: value[0],
         max: value[1],
@@ -168,7 +177,7 @@ export const CardsPack = () => {
       <FiltersField
         resetFilters={resetFilters}
         page={page}
-        pageCount={pageCount}
+        pageCount={+pageCount}
         search={search}
         setSearch={setSearch}
         debouncedSearch={debouncedSearch}
@@ -207,7 +216,7 @@ export const CardsPack = () => {
           <SuperPagination
             page={page}
             onChange={onChangePagination}
-            pageCount={pageCount}
+            pageCount={+pageCount}
             itemsTotalCount={cardPacksTotalCount}
           />
         </div>
