@@ -23,12 +23,11 @@ import {
 } from './cards-reducer'
 import style from './Cards.module.scss'
 import { CardsHeader } from './cardsHeader/CardsHeader'
-import { EmptyPack } from './emptyPack/EmptyPack'
+import { NotFoundCards } from './NotFoundCards/NotFoundCards'
 
 import { RootStateType, useAppDispatch, useAppSelector } from 'app/store'
 import { Back2Packs } from 'common/components/Back2Packs/Back2Packs'
 import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
-import { NotFoundSearching } from 'common/components/NotFoundSearching/NotFoundSearching'
 import { SuperPagination } from 'common/components/SuperPagination/SuperPagination'
 import { SuperTableHeader } from 'common/components/SuperTable/SuperTableHead/SuperTableHeader'
 import styleContainer from 'common/styles/Container.module.scss'
@@ -80,19 +79,6 @@ export const Cards = () => {
     }
   }, [page, pageCount, debouncedSearch, cardsPack_id])
 
-  const aaa = () => {
-    return debouncedSearch.length ? (
-      <div style={{ width: '100%' }}>
-        <SearchField search={debouncedSearch} handleChangeSearch={handleChangeSearch} />
-        <NotFoundSearching packName={debouncedSearch} />
-      </div>
-    ) : (
-      <EmptyPack />
-    )
-  }
-
-  console.log(cards)
-
   return (
     <div>
       <div className={`${style.container} ${styleContainer.container}`}>
@@ -143,7 +129,10 @@ export const Cards = () => {
             />
           </>
         ) : (
-          aaa()
+          <NotFoundCards
+            debouncedSearch={debouncedSearch}
+            handleChangeSearch={handleChangeSearch}
+          />
         )}
       </div>
     </div>

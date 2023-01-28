@@ -5,13 +5,15 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 
+import { userIdSelector } from '../profile/profile-reducer'
+
 import { BasicModals } from './basicModals'
 import s from './DeleteModal.module.scss'
 
 import { appStatusSelector } from 'app/app-reducer'
 import { RootStateType, useAppDispatch, useAppSelector } from 'app/store'
 import Close from 'assets/icons/close.svg'
-import { deleteCard } from 'features/cards/cards-reducer'
+import { deleteCard, packUserIdSelector } from 'features/cards/cards-reducer'
 import { isNewCardPackAddedAC, isNewCardPackAddedSelector } from 'features/packs/cardsPack-reducer'
 
 type AddModalsType = {
@@ -23,6 +25,8 @@ export const DeleteModalCard: FC<AddModalsType> = ({ id, questionValue }) => {
   const loadingStatus = useAppSelector(appStatusSelector)
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
   const { packId } = useAppSelector((state: RootStateType) => state.cards)
+  const packUserId = useAppSelector(packUserIdSelector)
+  const userId = useAppSelector(userIdSelector)
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -53,7 +57,10 @@ export const DeleteModalCard: FC<AddModalsType> = ({ id, questionValue }) => {
     <>
       <Tooltip title="Delete">
         <span>
-          <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
+          <IconButton
+            disabled={loadingStatus === 'loading' || packUserId !== userId}
+            onClick={handleOpen}
+          >
             <DeleteIcon />
           </IconButton>
         </span>

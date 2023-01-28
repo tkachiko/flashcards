@@ -8,13 +8,15 @@ import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 
+import { userIdSelector } from '../profile/profile-reducer'
+
 import s from './AddandUpdateModal.module.scss'
 import { BasicModals } from './basicModals'
 
 import { appStatusSelector } from 'app/app-reducer'
 import { RootStateType, useAppDispatch, useAppSelector } from 'app/store'
 import Close from 'assets/icons/close.svg'
-import { updateCard } from 'features/cards/cards-reducer'
+import { packUserIdSelector, updateCard } from 'features/cards/cards-reducer'
 import { isNewCardPackAddedAC, isNewCardPackAddedSelector } from 'features/packs/cardsPack-reducer'
 
 type AddModalsType = {
@@ -31,6 +33,8 @@ export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValu
   const [answer, setAnswer] = useState(answerValue)
   const [question, setQuestion] = useState(questionValue)
   const [age, setAge] = useState('')
+  const packUserId = useAppSelector(packUserIdSelector)
+  const userId = useAppSelector(userIdSelector)
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value)
@@ -78,7 +82,10 @@ export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValu
     <>
       <Tooltip title="Update">
         <span>
-          <IconButton disabled={loadingStatus === 'loading'} onClick={handleOpen}>
+          <IconButton
+            disabled={loadingStatus === 'loading' || packUserId !== userId}
+            onClick={handleOpen}
+          >
             <EditIcon />
           </IconButton>
         </span>
