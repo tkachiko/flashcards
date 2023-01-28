@@ -1,0 +1,9 @@
+.packName {
+  overflow: hidden;
+  display: inline-block;
+
+  width: 100px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

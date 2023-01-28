@@ -5,4 +5,8 @@
 .container {
 
   @include flex(column, center, flex-start, nowrap, center);
+  .search {
+    width: 100%;
+    margin-bottom: 24px;
+  }
 }

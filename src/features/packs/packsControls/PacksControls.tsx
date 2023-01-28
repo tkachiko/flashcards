@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 import s from '../CardsPack.module.scss'
 import { ChangePacks } from '../ChangePacks/ChangePacks'
+import style from '../packsControls/PacksControls.module.scss'
 
 import { PATH } from 'app/routes/routes'
 import { useAppDispatch } from 'app/store'
@@ -45,7 +46,7 @@ export const PacksControls: FC<PacksControlsType> = ({
         scope="row"
         onClick={() => handlerOpenCards(id)}
       >
-        {name}
+        <span className={style.packName}>{name}</span>
       </TableCell>
       <TableCell sx={{ width: '22%' }} align="left">
         {cardsCount}

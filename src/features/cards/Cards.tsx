@@ -101,7 +101,10 @@ export const Cards = () => {
         {cards && cards.length > 0 ? (
           <>
             <CardsHeader />
-            <SearchField search={search} handleChangeSearch={handleChangeSearch} />
+            <div className={style.search}>
+              <SearchField search={search} handleChangeSearch={handleChangeSearch} />
+            </div>
+
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <SuperTableHeader titles={cardsListTableNames} cardPack_id={packId} />
@@ -118,7 +121,6 @@ export const Cards = () => {
                             question={card.question}
                             grade={card.grade}
                             updated={card.updated}
-                            card_id={card._id}
                           />
                           <TableCell align="center">
                             <CardControls
