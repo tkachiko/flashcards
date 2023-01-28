@@ -2,6 +2,8 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
+import { LearningCards } from '../../features/learningCards/LearningCards'
+
 import { PrivateRoutes } from './PrivateRoutes'
 import { PATH } from './routes'
 
@@ -25,6 +27,7 @@ export const RoutesComponent = () => {
           <Route path={PATH.CARDS + '/:cardsPack_id'} element={<Cards />} />
           <Route path={PATH.PROFILE} element={<Profile />} />
           <Route path={PATH.CARDS_PACKS} element={<CardsPack />} />
+          <Route path={PATH.LEARNING_CARDS + '/:cardsPack_id'} element={<LearningCards />} />
         </Route>
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTER} element={<Register />} />

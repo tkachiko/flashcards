@@ -1,0 +1,26 @@
+@import './src/common/styles/sass/variables';
+
+@import './src/common/styles/sass/mixins';
+
+.question {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+
+  margin-bottom: 13px;
+  .questionTitle {
+    font-weight: 600;
+  }
+}
+.questionsShots {
+
+  @include text(14px, 400, 24px);
+
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+
+  margin-bottom: 30px;
+
+  font-style: normal;
+}

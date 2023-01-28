@@ -3,6 +3,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
+import { learningCardsReducer } from '../features/learningCards/learnCards-reducer'
+
 import { appReducer } from './app-reducer'
 
 import { AppThunk } from 'common/types/types'
@@ -19,6 +21,7 @@ export const rootReducer = combineReducers({
   profile: profileReducer,
   cards: cardsReducer,
   pack: cardsPackReducer,
+  learningCards: learningCardsReducer,
 })
 
 export const store = configureStore({

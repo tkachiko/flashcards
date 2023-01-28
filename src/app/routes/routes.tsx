@@ -10,4 +10,5 @@ export const PATH = {
   NEW_PASSWORD: '/set-new-password',
   TEST_PAGE: '/test',
   CHECK_EMAIL: '/check_email',
-}
+  LEARNING_CARDS: '/learning',
+} as const

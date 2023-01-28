@@ -5,11 +5,13 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { useNavigate } from 'react-router-dom'
 
+import { setPackId } from '../../cards/cards-reducer'
+
 import style from './ChangePacks.module.scss'
 
 import { appStatusSelector } from 'app/app-reducer'
 import { PATH } from 'app/routes/routes'
-import { useAppSelector } from 'app/store'
+import { useAppDispatch, useAppSelector } from 'app/store'
 import { DeleteModalPack } from 'features/modal/DeleteModalPack'
 import { EditModalPack } from 'features/modal/EditModalPack'
 import { userIdSelector } from 'features/profile/profile-reducer'
@@ -22,12 +24,12 @@ type ActionSettingType = {
 }
 export const ChangePacks = (props: ActionSettingType) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const userId = useAppSelector(userIdSelector)
   const loadingStatus = useAppSelector(appStatusSelector)
-  const handlerOpenCards = () => {
-    if (props.id) {
-      navigate(PATH.CARDS)
-    }
+  const handlerOpenCards = (packId: string) => {
+    dispatch(setPackId(packId))
+    navigate(PATH.LEARNING_CARDS + `/${packId}`)
   }
 
   return (
@@ -38,7 +40,7 @@ export const ChangePacks = (props: ActionSettingType) => {
             <span>
               <IconButton
                 disabled={loadingStatus === 'loading' || !props.cardscount}
-                onClick={handlerOpenCards}
+                onClick={() => handlerOpenCards(props.id)}
               >
                 <SchoolIcon />
               </IconButton>
@@ -52,7 +54,7 @@ export const ChangePacks = (props: ActionSettingType) => {
       ) : (
         <Tooltip title="Learn">
           <span>
-            <IconButton disabled={!props.cardscount} onClick={handlerOpenCards}>
+            <IconButton disabled={!props.cardscount} onClick={() => handlerOpenCards(props.id)}>
               <SchoolIcon />
             </IconButton>
           </span>

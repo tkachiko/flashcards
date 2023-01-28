@@ -1,6 +1,8 @@
 import { Dispatch } from 'redux'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
+import { LearningCardsActionsType } from '../../features/learningCards/learnCards-reducer'
+
 import { AppActionsType } from 'app/app-reducer'
 import { RootStateType } from 'app/store'
 import { AuthActionType } from 'features/auth/login/auth-reducer'
@@ -263,6 +265,20 @@ export type UpdatePackResponseType = {
     _id: string
   }
 }
+
+//CardsType
+
+export type CardsDataType = {
+  cards: CardType[]
+  cardsTotalCount: number
+  maxGrade: number
+  minGrade: number
+  packUserId: string | null
+  page: number
+  pageCount: number
+  packName: string
+}
+
 //ThunkTypes
 
 export type ThunkAppDispatchType<ReturnType = void> = ThunkAction<
@@ -292,3 +308,4 @@ export type ActionsType =
   | AuthActionType
   | CardsReducerType
   | CardsPacksActionType
+  | LearningCardsActionsType
