@@ -3,6 +3,8 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { Checkbox, FormControlLabel, TextField } from '@mui/material'
 import Button from '@mui/material/Button'
 
+import { InputTypeFile } from '../../common/inputFile/InputTypeFile'
+
 import s from './AddandUpdateModal.module.scss'
 import { BasicModals } from './basicModals'
 
@@ -53,6 +55,7 @@ export const AddModalPack: FC<AddModalsType> = ({
           <p className={s.title}>Add new pack</p>
           <img onClick={handlerOnClickCancel} className={s.img} src={Close} alt={'close'} />
         </div>
+        <InputTypeFile />
         <TextField
           className={s.input}
           id="standard-basic"
