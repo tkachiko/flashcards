@@ -69,6 +69,8 @@ export const createCard = createAsyncThunk<
       cardsPack_id: data.card.cardsPack_id,
       question: data.card.question,
       answer: data.card.answer,
+      answerImg: data.card.answerImg,
+      questionImg: data.card.questionImg,
       pageCount: 10,
     })
 

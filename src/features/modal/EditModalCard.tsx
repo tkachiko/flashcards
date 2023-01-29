@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 
+import { InputTypeFileCard } from '../../common/inputFile/InputTypeFileCard'
 import { userIdSelector } from '../profile/profile-reducer'
 
 import s from './AddandUpdateModal.module.scss'
@@ -32,12 +33,14 @@ export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValu
   const [open, setOpen] = useState(false)
   const [answer, setAnswer] = useState(answerValue)
   const [question, setQuestion] = useState(questionValue)
-  const [age, setAge] = useState('')
+
   const packUserId = useAppSelector(packUserIdSelector)
   const userId = useAppSelector(userIdSelector)
-
+  const [imageQuestion, setImageQuestion] = useState('')
+  const [imageAnswer, setImageAnswer] = useState('')
+  const [format, setFormat] = useState('')
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value)
+    setFormat(event.target.value)
   }
   const handlerQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.currentTarget.value)
@@ -58,6 +61,8 @@ export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValu
           _id: id,
           question: question,
           answer: answer,
+          answerImg: imageAnswer,
+          questionImg: imageQuestion,
         },
         data: {
           cardsPack_id: packId,
@@ -96,34 +101,44 @@ export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValu
             <p className={s.title}>Edit pack</p>
             <img onClick={handlerOnClickCancel} className={s.img} src={Close} alt={'close'} />
           </div>
+
           <FormControl variant="standard" sx={{ width: '100%', marginBottom: '23px' }}>
             <InputLabel id="demo-simple-select-standard-label">Choose a question format</InputLabel>
             <Select
               labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={age}
+              id="select"
+              value={format}
+              defaultValue="Text"
               onChange={handleChange}
-              label="Age"
+              label="Choose a question format"
             >
-              <MenuItem value={10}>Text</MenuItem>
+              <MenuItem value="Text">Text</MenuItem>
+              <MenuItem value="Image">Image</MenuItem>
             </Select>
           </FormControl>
-          <TextField
-            className={s.input}
-            id="standard-basic"
-            label="Question"
-            variant="standard"
-            onChange={handlerQuestion}
-            defaultValue={question}
-          />
-          <TextField
-            className={s.input}
-            id="standard-basic"
-            label="Answer"
-            variant="standard"
-            onChange={handlerAnswer}
-            defaultValue={answer}
-          />
+          {format === 'Text' ? (
+            <>
+              <TextField
+                className={s.input}
+                id="standard-basic"
+                label="Question"
+                variant="standard"
+                onChange={handlerQuestion}
+              />
+              <TextField
+                className={s.input}
+                id="standard-basic"
+                label="Answer"
+                variant="standard"
+                onChange={handlerAnswer}
+              />
+            </>
+          ) : (
+            <InputTypeFileCard
+              addAnswerImage={setImageAnswer}
+              addQuestionImage={setImageQuestion}
+            />
+          )}
           <div className={s.buttonContainer}>
             <Button onClick={handlerOnClickCancel} variant="text" className={s.buttonCancel}>
               Cancel

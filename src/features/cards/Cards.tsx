@@ -103,6 +103,8 @@ export const Cards = () => {
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <Card
+                            answerImg={card.answerImg}
+                            questionImg={card.questionImg}
                             answer={card.answer}
                             question={card.question}
                             grade={card.grade}
