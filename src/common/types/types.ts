@@ -126,6 +126,8 @@ export type UpdateCardRequestType = {
   question?: string
   answer?: string
   comment?: string
+  answerImg?: string
+  questionImg?: string
 }
 
 export type UrlCardsParamsType = {
@@ -147,6 +149,8 @@ export type CardType = {
   created: string
   updated: string
   __v: number
+  answerImg: string
+  questionImg: string
   _id: string
 }
 //PacksType
@@ -159,6 +163,7 @@ export type CardsPackType = {
   created: string
   updated: string
   user_name: string
+  deckCover: string
 }
 export type GetPackSPayloadType = {
   packName?: string
@@ -170,6 +175,7 @@ export type GetPackSPayloadType = {
   user_id?: string
   block?: boolean
   isMyPacks?: boolean
+  deckCover?: string
 }
 export type GetPacksResponseType = {
   cardPacks: CardsPackType[]
@@ -230,6 +236,7 @@ export type DeletePackResponseType = {
 export type UpdatePackPayloadType = {
   cardsPack: {
     _id: string
+    deckCover?: string
     cardsCount?: number
     created?: string
     grade?: number

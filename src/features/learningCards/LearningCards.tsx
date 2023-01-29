@@ -61,6 +61,8 @@ export const LearningCards = () => {
     updated: '',
     user_id: '',
     __v: 0,
+    answerImg: '',
+    questionImg: '',
   })
 
   useEffect(() => {

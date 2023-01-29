@@ -205,6 +205,7 @@ export const CardsPack = () => {
                       updated={el.updated}
                       user_name={el.user_name}
                       userId={el.user_id}
+                      deckCover={el.deckCover}
                     />
                   )
                 })}

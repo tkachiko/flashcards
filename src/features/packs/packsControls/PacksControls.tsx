@@ -1,16 +1,17 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
-import s from '../CardsPack.module.scss'
+import defaultAva from '../../../assets/images/person.png'
 import { ChangePacks } from '../ChangePacks/ChangePacks'
-import style from '../packsControls/PacksControls.module.scss'
+
+import style from './PacksControls.module.scss'
 
 import { PATH } from 'app/routes/routes'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch, useAppSelector } from 'app/store'
 import { setPackId } from 'features/cards/cards-reducer'
 
 type PacksControlsType = {
@@ -20,6 +21,7 @@ type PacksControlsType = {
   updated: string
   user_name: string
   userId: string
+  deckCover: string
 }
 export const PacksControls: FC<PacksControlsType> = ({
   id,
@@ -28,9 +30,11 @@ export const PacksControls: FC<PacksControlsType> = ({
   userId,
   updated,
   cardsCount,
+  deckCover,
 }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const [isAvaBroken, setIsAvaBroken] = useState(false)
   const handlerOpenCards = (packId: string) => {
     if (packId) {
       dispatch(setPackId(packId))
@@ -46,7 +50,10 @@ export const PacksControls: FC<PacksControlsType> = ({
         scope="row"
         onClick={() => handlerOpenCards(id)}
       >
-        <span className={style.packName}>{name}</span>
+        <div className={style.tableCell}>
+          <img src={isAvaBroken ? defaultAva : deckCover} className={style.image} />{' '}
+          <span className={style.packName}>{name}</span>
+        </div>
       </TableCell>
       <TableCell sx={{ width: '22%' }} align="left">
         {cardsCount}
@@ -57,7 +64,7 @@ export const PacksControls: FC<PacksControlsType> = ({
       <TableCell sx={{ width: '22%' }} align="left">
         {user_name}
       </TableCell>
-      <TableCell sx={{ width: '12%' }} className={s.icons} align="left">
+      <TableCell sx={{ width: '12%' }} align="left">
         <ChangePacks cardscount={cardsCount} id={id} userId={userId} name={name} />
       </TableCell>
     </TableRow>

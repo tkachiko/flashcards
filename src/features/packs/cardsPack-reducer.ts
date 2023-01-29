@@ -30,6 +30,7 @@ const slice = createSlice({
           created: '' as string,
           updated: '' as string,
           user_name: '' as string,
+          deckCover: '' as string,
         },
       ],
       cardPacksTotalCount: 0 as number,
@@ -177,20 +178,17 @@ export const updatePack = createAsyncThunk<
   }
 )
 
-export const packSelector = (state: RootStateType): GetPacksResponseType => state.pack.packs
-export const isMyPackSelector = (state: RootStateType): boolean => state.pack.searchParams.isMyPacks
-export const pageSelector = (state: RootStateType): number => state.pack.packs.page
-export const cardPacksTotalCountSelector = (state: RootStateType): number =>
+export const packSelector = (state: RootStateType) => state.pack.packs
+export const isMyPackSelector = (state: RootStateType) => state.pack.searchParams.isMyPacks
+export const pageSelector = (state: RootStateType) => state.pack.packs.page
+export const cardPacksTotalCountSelector = (state: RootStateType) =>
   state.pack.packs.cardPacksTotalCount
-export const pageCountSelector = (state: RootStateType): number => state.pack.packs.pageCount
-export const maxCardsCountSelector = (state: RootStateType): number =>
-  state.pack.packs.maxCardsCount
-export const minCardsCountSelector = (state: RootStateType): number =>
-  state.pack.packs.minCardsCount
-export const packNameSearchSelector = (state: RootStateType): string =>
-  state.pack.searchParams.packName
-export const idSearchSelector = (state: RootStateType): string => state.pack.searchParams.idSearch
-export const isNewCardPackAddedSelector = (state: RootStateType): boolean =>
+export const pageCountSelector = (state: RootStateType) => state.pack.packs.pageCount
+export const maxCardsCountSelector = (state: RootStateType) => state.pack.packs.maxCardsCount
+export const minCardsCountSelector = (state: RootStateType) => state.pack.packs.minCardsCount
+export const packNameSearchSelector = (state: RootStateType) => state.pack.searchParams.packName
+export const idSearchSelector = (state: RootStateType) => state.pack.searchParams.idSearch
+export const isNewCardPackAddedSelector = (state: RootStateType) =>
   state.pack.searchParams.isNewCardPackAdded
 
 export type CardsPacksActionType =

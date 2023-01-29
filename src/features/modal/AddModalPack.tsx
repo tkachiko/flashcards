@@ -3,7 +3,7 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { Checkbox, FormControlLabel, TextField } from '@mui/material'
 import Button from '@mui/material/Button'
 
-import { InputTypeFile } from '../../common/inputFile/InputTypeFile'
+import { InputTypeFilePack } from '../../common/inputFile/InputTypeFilePack'
 
 import s from './AddandUpdateModal.module.scss'
 import { BasicModals } from './basicModals'
@@ -30,6 +30,7 @@ export const AddModalPack: FC<AddModalsType> = ({
   const dispatch = useAppDispatch()
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
   const [text, setText] = useState('')
+  const [image, setImage] = useState('')
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.currentTarget.value)
   }
@@ -37,7 +38,7 @@ export const AddModalPack: FC<AddModalsType> = ({
     setIsModalOpen(false)
   }
   const handlerOnClickAddPack = () => {
-    dispatch(addPackTC({ cardsPack: { name: text } }))
+    dispatch(addPackTC({ cardsPack: { name: text, deckCover: image } }))
   }
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export const AddModalPack: FC<AddModalsType> = ({
           <p className={s.title}>Add new pack</p>
           <img onClick={handlerOnClickCancel} className={s.img} src={Close} alt={'close'} />
         </div>
-        <InputTypeFile />
+        <InputTypeFilePack setImage={setImage} />
         <TextField
           className={s.input}
           id="standard-basic"

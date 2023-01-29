@@ -8,6 +8,8 @@ import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 
+import { InputTypeFilePack } from '../../common/inputFile/InputTypeFilePack'
+
 import s from './AddandUpdateModal.module.scss'
 import { BasicModals } from './basicModals'
 
@@ -29,6 +31,7 @@ export const EditModalPack: FC<AddModalsType> = ({ id, name }) => {
   const isNewCardPackAdded = useAppSelector(isNewCardPackAddedSelector)
   const [text, setText] = useState(name)
   const [open, setOpen] = useState(false)
+  const [image, setImage] = useState('')
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +41,7 @@ export const EditModalPack: FC<AddModalsType> = ({ id, name }) => {
     setOpen(false)
   }
   const handlerOnClickEditPack = () => {
-    dispatch(updatePack({ cardsPack: { _id: id, name: text } }))
+    dispatch(updatePack({ cardsPack: { _id: id, name: text, deckCover: image } }))
   }
 
   useEffect(() => {
@@ -64,6 +67,7 @@ export const EditModalPack: FC<AddModalsType> = ({ id, name }) => {
             <p className={s.title}>Edit pack</p>
             <img onClick={handlerOnClickCancel} className={s.img} src={Close} alt={'close'} />
           </div>
+          <InputTypeFilePack setImage={setImage} />
           <TextField
             className={s.input}
             id="standard-basic"

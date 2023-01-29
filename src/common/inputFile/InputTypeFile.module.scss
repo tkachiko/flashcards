@@ -1,0 +1,25 @@
+@import 'src/common/styles/sass/variables';
+
+@import 'src/common/styles/sass/mixins';
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 7px;
+  .p {
+
+    @include text(16px, 500, 20px);
+  }
+  .button {
+
+    @include text(14px, 500, 20px);
+
+    color: $primaryColor;
+    text-transform: none;
+  }
+}
+.image {
+  width: 100%;
+  margin-bottom: 25px;
+}
