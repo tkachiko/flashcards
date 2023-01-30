@@ -4,6 +4,7 @@ import Rating from '@mui/material/Rating'
 import TableCell from '@mui/material/TableCell'
 import dayjs from 'dayjs'
 
+import s from './Card.module.scss'
 type PropsType = {
   question: string
   answer: string
@@ -24,9 +25,11 @@ export const Card: FC<PropsType> = ({
   return (
     <>
       <TableCell component="th" scope="row">
-        {questionImg ? <img src={questionImg} /> : <>{question}</>}
+        {questionImg ? <img className={s.image} src={questionImg} /> : <>{question}</>}
       </TableCell>
-      <TableCell align="left">{answerImg ? <img src={answerImg} /> : <>{answer}</>}</TableCell>
+      <TableCell align="left">
+        {answerImg ? <img className={s.image} src={answerImg} /> : <>{answer}</>}
+      </TableCell>
       <TableCell align="left">{dayjs(updated).format('DD.MM.YYYY')}</TableCell>
       <TableCell align="left">
         <Rating name="read-only" value={grade} precision={0.5} readOnly />

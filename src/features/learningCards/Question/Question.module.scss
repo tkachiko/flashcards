@@ -4,17 +4,17 @@
 
 .question {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
-  justify-content: center;
-  align-items: center;
 
   margin-bottom: 13px;
   .questionTitle {
+    margin-bottom: 12px;
+
     font-weight: 600;
   }
-  .questionImg{
-    width: 200px;
-    height: 200px;
+  .questionImg {
+    height: 100px;
   }
 }
 .questionsShots {

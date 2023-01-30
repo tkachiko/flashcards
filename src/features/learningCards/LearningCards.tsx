@@ -51,8 +51,8 @@ export const LearningCards = () => {
   const [card, setCard] = useState<CardType>({
     _id: 'fake',
     cardsPack_id: '',
-    answer: 'answer fake',
-    question: 'question fake',
+    answer: '',
+    question: '',
     grade: 0,
     shots: 0,
     type: '',
