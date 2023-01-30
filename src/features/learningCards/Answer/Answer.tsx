@@ -9,6 +9,7 @@ type AnswerPropsType = {
   answer: string
   sendGrade: (grade: number) => void
   nextQuestion: () => void
+  answerImg: string
 }
 
 export const Answer = (props: AnswerPropsType) => {
@@ -16,7 +17,9 @@ export const Answer = (props: AnswerPropsType) => {
     <>
       <div className={style.answerBlock}>
         <span className={style.answerTitle}>Answer:</span>
-        <span>{props.answer}</span>
+        {(props.answerImg && <img className={style.answerImg} src={props.answerImg} />) || (
+          <span>{props.answer}</span>
+        )}
       </div>
       <div className={style.radioBlock}>
         <span className={style.rate}>Rate yourself:</span>

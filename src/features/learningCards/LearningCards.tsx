@@ -112,6 +112,7 @@ export const LearningCards = () => {
             shots={card.shots}
             showAnswer={showAnswer}
             showButton={showButtonHandler}
+            questionImg={card.questionImg}
           />
           {isChecked && (
             <Answer
@@ -119,6 +120,7 @@ export const LearningCards = () => {
               answer={card.answer}
               sendGrade={sendGrade}
               nextQuestion={onNext}
+              answerImg={card.answerImg}
             />
           )}
         </div>

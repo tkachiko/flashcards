@@ -9,6 +9,7 @@ type QuestionPropsType = {
   shots: number
   showAnswer: boolean
   showButton: () => void
+  questionImg: string
 }
 
 export const Question = (props: QuestionPropsType) => {
@@ -16,7 +17,9 @@ export const Question = (props: QuestionPropsType) => {
     <>
       <div className={style.question}>
         <span className={style.questionTitle}>Question:</span>
-        <span>{props.question}</span>
+        {(props.questionImg && <img className={style.questionImg} src={props.questionImg} />) || (
+          <span>{props.question}</span>
+        )}
       </div>
       <div className={style.questionsShots}>
         <span>Quantity of answers on this question:</span>
