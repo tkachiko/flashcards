@@ -1,5 +1,6 @@
 @import './src/common/styles/sass/variables';
 
+@import './src/common/styles/sass/mixins';
 .header {
   display: flex;
   align-items: center;
@@ -7,6 +8,13 @@
 
   width: 100%;
   margin: 40px 0;
+
+  .h2 {
+
+    @include text(22px, 600, 27px);
+
+    margin-bottom: 13px;
+  }
 
   .modal {
     display: none;

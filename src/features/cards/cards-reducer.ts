@@ -202,7 +202,6 @@ export const cardNameSelector = (state: RootStateType): string => state.cards.se
 export const pageCardsSelector = (state: RootStateType): number => state.cards.cardsData.page
 export const pageCountCardsSelector = (state: RootStateType): number =>
   state.cards.cardsData.pageCount
-
 // types
 export type CardsReducerType =
   | ReturnType<typeof setPackId>
