@@ -43,7 +43,7 @@ export const InputTypeFilePack = (props: Props) => {
           Change cover
         </Button>
       </label>
-      <img src={ava} className={s.image}  />
+      <img src={ava} className={s.image} />
     </>
   )
 }
