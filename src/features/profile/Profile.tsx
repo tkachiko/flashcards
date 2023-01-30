@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import FormGroup from '@mui/material/FormGroup'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useFormik } from 'formik'
+
+import { InputTypeFileProfile } from '../../common/inputFile/InputTypeFileProfile'
 
 import { changeNameTC, emailSelector, nameSelector } from './profile-reducer'
 import style from './Profile.module.scss'
@@ -24,7 +26,7 @@ export const Profile = () => {
   const email = useAppSelector(emailSelector)
   const status = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
-
+  const [avatar, setImage] = useState('')
   const formik = useFormik({
     initialValues: {
       nickname,
@@ -43,9 +45,13 @@ export const Profile = () => {
     },
 
     onSubmit: values => {
-      dispatch(changeNameTC(values.nickname))
+      dispatch(changeNameTC(values.nickname, avatar))
     },
   })
+
+  useEffect(() => {
+    dispatch(changeNameTC(formik.values.nickname, avatar))
+  }, [avatar])
 
   const onLogout = () => {
     dispatch(logoutTC())
@@ -61,9 +67,7 @@ export const Profile = () => {
           <FormGroup>
             <div className={style.container}>
               <h1 className={style.heading}>Personal Information</h1>
-              <div className={style.image}>
-                <div className={style.cameraIcon}></div>
-              </div>
+              <InputTypeFileProfile setImage={setImage} />
               <SuperEditableSpan
                 labelValue={'Nickname'}
                 type={'text'}

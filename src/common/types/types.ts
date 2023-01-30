@@ -25,6 +25,7 @@ export type ProfileDataType = {
   __v?: number
   token?: string
   tokenDeathTime?: number
+  avatar: string
 }
 
 //Request types
@@ -51,7 +52,7 @@ export type ResponseType = {
   _id: string
   email: string
   name: string
-  avatar?: string
+  avatar: string
   publicCardPacksCount: number
   created: Date
   updated: Date
@@ -64,7 +65,10 @@ export type ResponseType = {
 export type UpdatedUserResponseType = {
   updatedUser: ResponseType
 }
-
+export type PayloadUpdateUserType = {
+  name: string
+  avatar: string
+}
 export type ResponseForgotType = {
   info: string
   error: string

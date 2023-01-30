@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios, { AxiosError } from 'axios'
 
 import { profileApi } from 'api/profileApi'
@@ -21,7 +21,7 @@ const initialState = {
     __v: 0,
     token: '',
     tokenDeathTime: 0,
-    avatar: null,
+    avatar: '',
   } as ProfileDataType,
 }
 
@@ -38,20 +38,24 @@ const slice = createSlice({
     setNewNameAC(state, action: PayloadAction<{ name: string }>) {
       state.profile.name = action.payload.name
     },
+    setNewAvaAC(state, action: PayloadAction<{ avatar: string }>) {
+      state.profile.avatar = action.payload.avatar
+    },
   },
 })
 
 export const profileReducer = slice.reducer
-export const { setDataAC, deleteUserDataAC, setNewNameAC } = slice.actions
+export const { setDataAC, deleteUserDataAC, setNewNameAC, setNewAvaAC } = slice.actions
 
 export const changeNameTC =
-  (name: string): ThunkAppDispatchType =>
+  (name: string, avatar: string): ThunkAppDispatchType =>
   async dispatch => {
     dispatch(setSubmittingAC({ status: 'loading' }))
     try {
-      const res = await profileApi.changeName(name)
+      const res = await profileApi.changeName(name, avatar)
 
       dispatch(setSubmittingAC({ status: 'success' }))
+      dispatch(setNewAvaAC({ avatar: res.data.updatedUser.avatar }))
       dispatch(setNewNameAC({ name: res.data.updatedUser.name }))
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -66,7 +70,9 @@ export type ProfileActionsType =
   | ReturnType<typeof setDataAC>
   | ReturnType<typeof setNewNameAC>
   | ReturnType<typeof deleteUserDataAC>
+  | ReturnType<typeof setNewAvaAC>
 
 export const nameSelector = (state: RootStateType) => state.profile.profile.name
 export const emailSelector = (state: RootStateType) => state.profile.profile.email
 export const userIdSelector = (state: RootStateType) => state.profile.profile._id
+export const avatarSelector = (state: RootStateType) => state.profile.profile.avatar

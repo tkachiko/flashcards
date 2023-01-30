@@ -116,7 +116,12 @@ export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValu
               <MenuItem value="Image">Image</MenuItem>
             </Select>
           </FormControl>
-          {format === 'Text' ? (
+          {format === 'Image' ? (
+            <InputTypeFileCard
+              addAnswerImage={setImageAnswer}
+              addQuestionImage={setImageQuestion}
+            />
+          ) : (
             <>
               <TextField
                 className={s.input}
@@ -133,11 +138,6 @@ export const EditModalCard: FC<AddModalsType> = ({ id, questionValue, answerValu
                 onChange={handlerAnswer}
               />
             </>
-          ) : (
-            <InputTypeFileCard
-              addAnswerImage={setImageAnswer}
-              addQuestionImage={setImageQuestion}
-            />
           )}
           <div className={s.buttonContainer}>
             <Button onClick={handlerOnClickCancel} variant="text" className={s.buttonCancel}>

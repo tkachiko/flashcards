@@ -6,7 +6,7 @@ export const profileApi = {
   authMe() {
     return instance.post<ResponseType>('/auth/me')
   },
-  changeName(name: string) {
-    return instance.put<UpdatedUserResponseType>('/auth/me', { name })
+  changeName(name: string, avatar: string) {
+    return instance.put<UpdatedUserResponseType>('/auth/me', { name, avatar })
   },
 }
