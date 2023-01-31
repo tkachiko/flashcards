@@ -14,7 +14,7 @@ const startState = {
     __v: 0,
     token: '',
     tokenDeathTime: 0,
-    avatar: null,
+    avatar: '',
   },
   isLoggedIn: false,
 }
@@ -34,7 +34,7 @@ describe('profile reducer', () => {
       __v: 0,
       token: 'fbb0f300-904e-11ed-8e82-dfcf030a587d',
       tokenDeathTime: 1673301242288,
-      avatar: null,
+      avatar: '',
     }
     const action = setDataAC({ data })
 
