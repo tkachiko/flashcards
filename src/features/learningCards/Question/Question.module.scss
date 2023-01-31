@@ -6,11 +6,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  align-items: center;
 
   margin-bottom: 13px;
   .questionTitle {
-    margin-bottom: 12px;
-
     font-weight: 600;
   }
   .questionImg {

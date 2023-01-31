@@ -1,20 +1,19 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
 import { IconButton } from '@mui/material'
 
 import { useAppSelector } from '../../app/store'
 import icon from '../../assets/icons/photo.png'
-import defaultAva from '../../assets/images/person.png'
+import defaultAva from '../../assets/images/no-image.svg'
 import { avatarSelector } from '../../features/profile/profile-reducer'
 
-import s from './InputTypeFileProfile.module.scss'
+import style from './InputTypeFileProfile.module.scss'
 
 type InputTypeFileProfileType = {
   setImage: Dispatch<SetStateAction<string>>
 }
 export const InputTypeFileProfile = (props: InputTypeFileProfileType) => {
   const avatar = useAppSelector(avatarSelector)
-  const [isAvaBroken, setIsAvaBroken] = useState(false)
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
@@ -42,11 +41,11 @@ export const InputTypeFileProfile = (props: InputTypeFileProfileType) => {
   }
 
   return (
-    <div className={s.containerLabel}>
-      <img src={isAvaBroken ? defaultAva : avatar} style={{ width: '100px' }} alt="ava" />
+    <div className={style.containerLabel}>
+      <img className={style.avatar} src={avatar ? avatar : defaultAva} alt="ava" />
       <label>
-        <input type="file" onChange={uploadHandler} style={{ display: 'none' }} />
-        <IconButton component="span" className={s.icon}>
+        <input className={style.input} type="file" onChange={uploadHandler} />
+        <IconButton component="span" className={style.icon}>
           <img src={icon} />
         </IconButton>
       </label>

@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  align-items: center;
 
   margin: 35px 0 25px;
 
@@ -16,8 +17,6 @@
   .answerTitle {
 
     @include text(18px, 600, 24px);
-
-    margin-bottom: 12px;
 
     font-style: normal;
   }

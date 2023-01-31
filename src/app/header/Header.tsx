@@ -6,14 +6,16 @@ import style from './Header.module.scss'
 
 import { PATH } from 'app/routes/routes'
 import { useAppSelector } from 'app/store'
-import itIncubator from 'assets/images/It-incubator.svg'
-import avatar from 'assets/images/person.png'
+import logo from 'assets/images/cards.svg'
+import defaultAva from 'assets/images/person.png'
 import { isLoggedInSelector } from 'features/auth/login/auth-reducer'
-import { nameSelector } from 'features/profile/profile-reducer'
+import { avatarSelector, nameSelector } from 'features/profile/profile-reducer'
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const nickname = useAppSelector(nameSelector)
+  const avatar = useAppSelector(avatarSelector)
+
   const navigate = useNavigate()
 
   const handlerSignIn = () => {
@@ -26,12 +28,12 @@ export const Header = () => {
 
   return (
     <div className={style.container}>
-      <img src={itIncubator} alt={'incubator logo'} />
+      <img className={style.logo} src={logo} alt={'incubator logo'} />
       {isLoggedIn ? (
         <div onClick={navigateToProfile} className={style.login_info}>
           <span className={style.nickname}>{nickname}</span>
           <div className={style.avatar}>
-            <img src={avatar} alt={'avatar'} />
+            <img src={avatar ? avatar : defaultAva} alt={'avatar'} />
           </div>
         </div>
       ) : (

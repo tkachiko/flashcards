@@ -58,7 +58,7 @@ export const Profile = () => {
   }
 
   return (
-    <div>
+    <div className={style.profile_container}>
       {status === 'loading' && <LinearProgress color={'primary'} />}
       <Back2Packs />
       <div className={`${style.wrapper} ${styleContainer.container}`}>

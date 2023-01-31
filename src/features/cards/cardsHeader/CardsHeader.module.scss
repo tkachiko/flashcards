@@ -9,11 +9,17 @@
   width: 100%;
   margin: 40px 0;
 
-  .h2 {
+  .cover {
+    h2 {
 
-    @include text(22px, 600, 27px);
+      @include text(22px, 600, 27px);
 
-    margin-bottom: 13px;
+      margin-bottom: 13px;
+    }
+    img {
+      width: 170px;
+      height: 100px;
+    }
   }
 
   .modal {

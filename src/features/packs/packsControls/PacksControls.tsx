@@ -1,17 +1,17 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
-import defaultAva from '../../../assets/images/person.png'
+import defaultAva from '../../../assets/images/no-image.svg'
 import { ChangePacks } from '../ChangePacks/ChangePacks'
 
 import style from './PacksControls.module.scss'
 
 import { PATH } from 'app/routes/routes'
-import { useAppDispatch, useAppSelector } from 'app/store'
+import { useAppDispatch } from 'app/store'
 import { setPackId } from 'features/cards/cards-reducer'
 
 type PacksControlsType = {
@@ -34,7 +34,6 @@ export const PacksControls: FC<PacksControlsType> = ({
 }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const [isAvaBroken, setIsAvaBroken] = useState(false)
   const handlerOpenCards = (packId: string) => {
     if (packId) {
       dispatch(setPackId(packId))
@@ -45,13 +44,13 @@ export const PacksControls: FC<PacksControlsType> = ({
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell
-        sx={{ cursor: 'pointer', width: '22%' }}
+        sx={{ cursor: 'pointer', width: '40%' }}
         component="th"
         scope="row"
         onClick={() => handlerOpenCards(id)}
       >
         <div className={style.tableCell}>
-          <img src={isAvaBroken ? defaultAva : deckCover} className={style.image} />{' '}
+          <img src={deckCover ? deckCover : defaultAva} className={style.image} />{' '}
           <span className={style.packName}>{name}</span>
         </div>
       </TableCell>

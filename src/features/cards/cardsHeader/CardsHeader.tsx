@@ -35,9 +35,9 @@ export const CardsHeader: FC<CardsHeaderPropsType> = ({ packId }) => {
 
   return (
     <div className={style.header}>
-      <div>
+      <div className={style.cover}>
         <h2 className={style.h2}>{packName}</h2>
-        <img src={image?.deckCover} />
+        {image && <img src={image?.deckCover} />}
       </div>
       <div className={style.modal}>
         <AddModalCard

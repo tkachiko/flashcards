@@ -190,7 +190,6 @@ export const packNameSearchSelector = (state: RootStateType) => state.pack.searc
 export const idSearchSelector = (state: RootStateType) => state.pack.searchParams.idSearch
 export const isNewCardPackAddedSelector = (state: RootStateType) =>
   state.pack.searchParams.isNewCardPackAdded
-
 export const imageSelector = (state: RootStateType) =>
   state.pack.packs.cardPacks.find(el => el.deckCover)
 
