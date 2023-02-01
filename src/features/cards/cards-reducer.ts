@@ -114,14 +114,31 @@ export const deleteCard = createAsyncThunk<
   }
 )
 
+export type UpdatedGradeResponseType = {
+  updatedGrade: {
+    card_id: string
+    cardsPack_id: string
+    created: Date
+    grade: number
+    more_id: string
+    shots: number
+    updated: string
+    user_id: string
+    __v: number
+    _id: string
+  }
+}
+
 export const setGrade = createAsyncThunk<
-  { card_id: string; grade: number | null },
-  { card_id: string; grade: number | null },
+  UpdatedGradeResponseType,
+  { card_id: string; grade: number },
   AsyncThunkConfig
 >('cards/fetchGrade', async (data: GradeRequestType, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
   try {
     const result = await cardsApi.setGrade(data)
+
+    console.log(result.data.updatedGrade)
 
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
@@ -161,9 +178,20 @@ const slice = createSlice({
     setCardPage(state, action: PayloadAction<number>) {
       state.cardsData.page = action.payload
     },
+    // setUpdatedCard(state, action: PayloadAction<UpdatedGradeResponseType>) {
+    //   state.cardsData.cards.map(card =>
+    //     card._id === action.payload.card_id
+    //       ? {
+    //           grade: action.payload.grade,
+    //           shots: action.payload.shots,
+    //         }
+    //       : card
+    //   )
+    // },
   },
   extraReducers: builder => {
     builder.addCase(fetchCards.fulfilled, (state, action) => {
+      console.log(action.payload)
       if (action.payload) {
         state.cardsData = { ...action.payload.data }
         state.isLoaded = true
@@ -177,14 +205,21 @@ const slice = createSlice({
       }
     })
     builder.addCase(setGrade.fulfilled, (state, action) => {
+      //console.log(action.payload)
+      //console.log(state.cardsData.cards[0]._id === action.payload.updatedGrade.card_id)
+      //debugger
       if (action.payload) {
-        state.cardsData.cards.map(card =>
-          card._id === action.payload.card_id
+        state.cardsData.cards.map(card => {
+          console.log(action.payload.updatedGrade.shots)
+          console.log(state.cardsData.cards[0].shots)
+
+          return card._id === action.payload.updatedGrade.card_id
             ? {
-                grade: action.payload.grade,
+                grade: action.payload.updatedGrade.grade,
+                shots: action.payload.updatedGrade.shots,
               }
             : card
-        )
+        })
       }
     })
   },

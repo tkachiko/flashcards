@@ -25,8 +25,6 @@ const getCard = (cards: CardType[]) => {
     { sum: 0, id: -1 }
   )
 
-  console.log('test: ', sum, rand, res)
-
   return cards[res.id + 1]
 }
 
@@ -79,8 +77,9 @@ export const LearningCards = () => {
       )
       setFirst(false)
     }
-
-    if (cardsData.cards.length > 0) setCard(getCard(cardsData.cards))
+    if (cardsData.cards.length > 0) {
+      setCard(getCard(cardsData.cards))
+    }
 
     return () => {
       console.log('LearnContainer useEffect off')

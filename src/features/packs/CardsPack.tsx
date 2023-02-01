@@ -53,38 +53,21 @@ export const CardsPack = () => {
   const onChangePagination = (newPage: number, newCount: number) => {
     dispatch(setPageAC({ page: newPage }))
     setPageCount(newCount)
-    setSearchParams({
-      page: newPage.toString(),
-      pageCount: newCount.toString(),
-      packName: packNameSearch,
-      user_id: searchId,
-      min: value[0].toString(),
-      max: value[1].toString(),
-    })
-    dispatch(
-      fetchPacks({
-        page: newPage,
-        pageCount: newCount,
-        packName: packNameSearch,
-        user_id: searchId,
-        min: value[0],
-        max: value[1],
-      })
-    )
+    searchParams.set('page', newPage.toString())
+    searchParams.set('pageCount', newCount.toString())
+    setSearchParams(searchParams)
   }
 
   const handleChangeSearch = (search: string) => {
     setSearch(search)
     dispatch(setPackNameAC({ packName: search }))
-    setSearchParams({
-      page: page.toString(),
-      pageCount: pageCount.toString(),
-      user_id: searchId,
-      packName: search,
-      min: value[0].toString(),
-      max: value[1].toString(),
-    })
   }
+
+  useEffect(() => {
+    if (page === 1 && debouncedSearch === '') return
+    searchParams.set('packName', debouncedSearch)
+    setSearchParams(searchParams)
+  }, [debouncedSearch])
 
   const change = (value: number | number[]) => {
     setValue(value as number[])
@@ -95,24 +78,10 @@ export const CardsPack = () => {
 
     setValue([min, max])
     dispatch(setPageAC({ page: 1 }))
-    setSearchParams({
-      page: '1',
-      pageCount: pageCount.toString(),
-      packName: search,
-      user_id: searchId,
-      min: min.toString(),
-      max: max.toString(),
-    })
-    dispatch(
-      fetchPacks({
-        page: 1,
-        pageCount: pageCount,
-        packName: packNameSearch,
-        user_id: searchId,
-        min,
-        max,
-      })
-    )
+    searchParams.set('min', min.toString())
+    searchParams.set('max', max.toString())
+    searchParams.delete('page')
+    setSearchParams(searchParams)
   }
 
   useEffect(() => {
@@ -127,46 +96,33 @@ export const CardsPack = () => {
     dispatch(setPackNameAC({ packName: '' }))
     setSearch('')
     setValue([minCardsCount, maxCardsCount])
-    setSearchParams({
-      page: '1',
-      pageCount: pageCount.toString(),
-      user_id: searchId,
-      packName: '',
-    })
-    dispatch(fetchPacks({}))
+    searchParams.delete('page')
+    searchParams.delete('packName')
+    searchParams.delete('min')
+    searchParams.delete('max')
+    setSearchParams(searchParams)
   }
 
   const sortPacks = (newSort: string) => {
     searchParams.set('sortPacks', newSort)
     setSearchParams(searchParams)
-    dispatch(
-      fetchPacks({
-        sortPacks: newSort,
-        pageCount,
-        packName: packNameSearch,
-        min: value[0],
-        max: value[1],
-        user_id: searchId,
-      })
-    )
   }
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams)
 
-    console.log(params)
-
     dispatch(
       fetchPacks({
-        page: +params.page ? +params.page : 1,
-        pageCount: +params.pageCount ? +params.pageCount : 4,
+        page: params.page ? +params.page : 1,
+        pageCount: params.pageCount ? +params.pageCount : 4,
         packName: params.packName,
         user_id: params.user_id,
         min: params.min,
         max: params.max,
+        sortPacks: params.sortPacks,
       })
     )
-  }, [debouncedSearch])
+  }, [searchParams])
 
   return (
     <div className={s.container}>
@@ -175,7 +131,7 @@ export const CardsPack = () => {
       <FiltersField
         resetFilters={resetFilters}
         page={page}
-        pageCount={pageCount}
+        pageCount={+pageCount}
         search={search}
         setSearch={setSearch}
         debouncedSearch={debouncedSearch}
@@ -215,7 +171,7 @@ export const CardsPack = () => {
           <SuperPagination
             page={page}
             onChange={onChangePagination}
-            pageCount={pageCount}
+            pageCount={+pageCount}
             itemsTotalCount={cardPacksTotalCount}
           />
         </div>
