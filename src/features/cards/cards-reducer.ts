@@ -27,8 +27,6 @@ export const fetchCards = createAsyncThunk<
   try {
     const response = await cardsApi.getCards(data)
 
-    console.log(response)
-
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { packId: data.cardsPack_id, data: response.data }
@@ -138,8 +136,6 @@ export const setGrade = createAsyncThunk<
   try {
     const result = await cardsApi.setGrade(data)
 
-    console.log(result.data.updatedGrade)
-
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return result.data
@@ -178,20 +174,9 @@ const slice = createSlice({
     setCardPage(state, action: PayloadAction<number>) {
       state.cardsData.page = action.payload
     },
-    // setUpdatedCard(state, action: PayloadAction<UpdatedGradeResponseType>) {
-    //   state.cardsData.cards.map(card =>
-    //     card._id === action.payload.card_id
-    //       ? {
-    //           grade: action.payload.grade,
-    //           shots: action.payload.shots,
-    //         }
-    //       : card
-    //   )
-    // },
   },
   extraReducers: builder => {
     builder.addCase(fetchCards.fulfilled, (state, action) => {
-      console.log(action.payload)
       if (action.payload) {
         state.cardsData = { ...action.payload.data }
         state.isLoaded = true
@@ -205,20 +190,14 @@ const slice = createSlice({
       }
     })
     builder.addCase(setGrade.fulfilled, (state, action) => {
-      //console.log(action.payload)
-      //console.log(state.cardsData.cards[0]._id === action.payload.updatedGrade.card_id)
-      //debugger
       if (action.payload) {
         state.cardsData.cards.map(card => {
-          console.log(action.payload.updatedGrade.shots)
-          console.log(state.cardsData.cards[0].shots)
-
-          return card._id === action.payload.updatedGrade.card_id
-            ? {
-                grade: action.payload.updatedGrade.grade,
-                shots: action.payload.updatedGrade.shots,
-              }
-            : card
+          if (card._id === action.payload.updatedGrade.card_id) {
+            card.shots = action.payload.updatedGrade.shots
+            card.grade = action.payload.updatedGrade.grade
+          } else {
+            return card
+          }
         })
       }
     })
