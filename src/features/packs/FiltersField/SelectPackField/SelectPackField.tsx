@@ -8,7 +8,6 @@ import style from '../SelectPackField/SelectPackField.module.scss'
 import { appStatusSelector } from 'app/app-reducer'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import {
-  fetchPacks,
   setIdSearchAC,
   isMyPacksAC,
   packNameSearchSelector,
@@ -35,7 +34,6 @@ export const SelectPackField = () => {
       user_id: '',
       packName: packNameSearch,
     })
-    dispatch(fetchPacks({ page: 1, pageCount, user_id: '', packName: packNameSearch }))
   }
   const onClickMyPacksHandler = () => {
     dispatch(isMyPacksAC({ isMyPacks: true }))
@@ -47,7 +45,6 @@ export const SelectPackField = () => {
       user_id: userId,
       packName: packNameSearch,
     })
-    dispatch(fetchPacks({ page: 1, pageCount, user_id: userId, packName: packNameSearch }))
   }
 
   const isMy = searchParams.get('user_id')

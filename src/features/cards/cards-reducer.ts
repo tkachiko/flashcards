@@ -27,8 +27,6 @@ export const fetchCards = createAsyncThunk<
   try {
     const response = await cardsApi.getCards(data)
 
-    console.log(response)
-
     thunkAPI.dispatch(setSubmittingAC({ status: 'success' }))
 
     return { packId: data.cardsPack_id, data: response.data }
@@ -114,9 +112,24 @@ export const deleteCard = createAsyncThunk<
   }
 )
 
+export type UpdatedGradeResponseType = {
+  updatedGrade: {
+    card_id: string
+    cardsPack_id: string
+    created: Date
+    grade: number
+    more_id: string
+    shots: number
+    updated: string
+    user_id: string
+    __v: number
+    _id: string
+  }
+}
+
 export const setGrade = createAsyncThunk<
-  { card_id: string; grade: number | null },
-  { card_id: string; grade: number | null },
+  UpdatedGradeResponseType,
+  { card_id: string; grade: number },
   AsyncThunkConfig
 >('cards/fetchGrade', async (data: GradeRequestType, thunkAPI) => {
   thunkAPI.dispatch(setSubmittingAC({ status: 'loading' }))
@@ -178,13 +191,14 @@ const slice = createSlice({
     })
     builder.addCase(setGrade.fulfilled, (state, action) => {
       if (action.payload) {
-        state.cardsData.cards.map(card =>
-          card._id === action.payload.card_id
-            ? {
-                grade: action.payload.grade,
-              }
-            : card
-        )
+        state.cardsData.cards.map(card => {
+          if (card._id === action.payload.updatedGrade.card_id) {
+            card.shots = action.payload.updatedGrade.shots
+            card.grade = action.payload.updatedGrade.grade
+          } else {
+            return card
+          }
+        })
       }
     })
   },
