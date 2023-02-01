@@ -1,4 +1,4 @@
-import { profileReducer, setDataAC, setNewNameAC } from './profile-reducer'
+import { profileReducer, setDataAC } from './profile-reducer'
 
 const startState = {
   profile: {
@@ -41,13 +41,5 @@ describe('profile reducer', () => {
     const endState = profileReducer(startState, action)
 
     expect(endState.profile.name).toBe('name')
-  })
-  test('name should be changed', () => {
-    const name = 'new name'
-    const action = setNewNameAC({ name })
-
-    const endState = profileReducer(startState, action)
-
-    expect(endState.profile.name).toBe(name)
   })
 })
