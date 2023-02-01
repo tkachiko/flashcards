@@ -1,12 +1,12 @@
 import { instance } from './instance'
 
-import { ResponseType, UpdatedUserResponseType } from 'common/types/types'
+import { ResponseType, UpdatedUserResponseType, UpdateUserType } from 'common/types/types'
 
 export const profileApi = {
   authMe() {
     return instance.post<ResponseType>('/auth/me')
   },
-  changeName(name: string, avatar: string) {
-    return instance.put<UpdatedUserResponseType>('/auth/me', { name, avatar })
+  changeName(params: UpdateUserType) {
+    return instance.put<UpdatedUserResponseType>('/auth/me', params)
   },
 }

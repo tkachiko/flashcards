@@ -1,10 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
 import { profileApi } from 'api/profileApi'
 import { setSubmittingAC } from 'app/app-reducer'
 import { RootStateType } from 'app/store'
-import { ProfileDataType, ThunkAppDispatchType } from 'common/types/types'
+import {
+  AsyncThunkConfig,
+  ProfileDataType,
+  UpdatedUserResponseType,
+  UpdateUserType,
+} from 'common/types/types'
 import { errorMessage } from 'utils/error-utils'
 
 const initialState = {
@@ -35,42 +40,38 @@ const slice = createSlice({
     deleteUserDataAC(state) {
       state = initialState
     },
-    setNewNameAC(state, action: PayloadAction<{ name: string }>) {
-      state.profile.name = action.payload.name
-    },
-    setNewAvaAC(state, action: PayloadAction<{ avatar: string }>) {
-      state.profile.avatar = action.payload.avatar
-    },
+  },
+  extraReducers: builder => {
+    builder.addCase(changeNameAndAvatarTC.fulfilled, (state, action) => {
+      state.profile.name = action.payload.data.updatedUser.name
+      state.profile.avatar = action.payload.data.updatedUser.avatar
+
+      return state
+    })
   },
 })
 
 export const profileReducer = slice.reducer
-export const { setDataAC, deleteUserDataAC, setNewNameAC, setNewAvaAC } = slice.actions
+export const { setDataAC, deleteUserDataAC } = slice.actions
+export const changeNameAndAvatarTC = createAsyncThunk<
+  { data: UpdatedUserResponseType },
+  UpdateUserType,
+  AsyncThunkConfig
+>('profile/changeNameAva', async (params, { dispatch, rejectWithValue }) => {
+  dispatch(setSubmittingAC({ status: 'loading' }))
+  try {
+    const res = await profileApi.changeName(params)
 
-export const changeNameTC =
-  (name: string, avatar: string): ThunkAppDispatchType =>
-  async dispatch => {
-    dispatch(setSubmittingAC({ status: 'loading' }))
-    try {
-      const res = await profileApi.changeName(name, avatar)
+    dispatch(setSubmittingAC({ status: 'success' }))
 
-      dispatch(setSubmittingAC({ status: 'success' }))
-      dispatch(setNewAvaAC({ avatar: res.data.updatedUser.avatar }))
-      dispatch(setNewNameAC({ name: res.data.updatedUser.name }))
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        const error = e as AxiosError<{ error: string }>
+    return { data: res.data }
+  } catch (e) {
+    const error = e as Error | AxiosError
 
-        errorMessage(dispatch, error)
-      }
-    }
+    return rejectWithValue(errorMessage(dispatch, error))
   }
-
-export type ProfileActionsType =
-  | ReturnType<typeof setDataAC>
-  | ReturnType<typeof setNewNameAC>
-  | ReturnType<typeof deleteUserDataAC>
-  | ReturnType<typeof setNewAvaAC>
+})
+export type ProfileActionsType = ReturnType<typeof setDataAC> | ReturnType<typeof deleteUserDataAC>
 
 export const nameSelector = (state: RootStateType) => state.profile.profile.name
 export const emailSelector = (state: RootStateType) => state.profile.profile.email

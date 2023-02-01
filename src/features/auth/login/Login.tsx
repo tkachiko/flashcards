@@ -42,7 +42,7 @@ export const Login = () => {
       .required('Password is required'),
   })
 
-  const formik = useFormik({
+  const { touched, values, errors, handleSubmit, getFieldProps } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -72,13 +72,13 @@ export const Login = () => {
         <FormControl className={style.formControl}>
           {status === 'loading' && <LinearProgress color={'primary'} />}
           <h1 className={style.singIn}>Sign in</h1>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <FormGroup>
               <FormControl sx={{ m: 1 }} variant="standard">
                 <InputLabel>Email</InputLabel>
-                <Input className={style.input} {...formik.getFieldProps('email')} />
-                {formik.touched.email && formik.errors.email && (
-                  <div className={style.fieldError}>{formik.errors.email}</div>
+                <Input className={style.input} {...getFieldProps('email')} />
+                {touched.email && errors.email && (
+                  <div className={style.fieldError}>{errors.email}</div>
                 )}
               </FormControl>
 
@@ -88,7 +88,7 @@ export const Login = () => {
                   className={style.input}
                   id="standard-adornment-password"
                   type={showPassword ? 'text' : 'password'}
-                  {...formik.getFieldProps('password')}
+                  {...getFieldProps('password')}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -101,18 +101,15 @@ export const Login = () => {
                     </InputAdornment>
                   }
                 />
-                {formik.touched.password && formik.errors.password && (
-                  <div className={style.fieldError}>{formik.errors.password}</div>
+                {touched.password && errors.password && (
+                  <div className={style.fieldError}>{errors.password}</div>
                 )}
               </FormControl>
               <FormControl sx={{ m: 1 }} variant="standard">
                 <FormControlLabel
                   label={'Remember me'}
                   control={
-                    <Checkbox
-                      {...formik.getFieldProps('rememberMe')}
-                      checked={formik.values.rememberMe}
-                    />
+                    <Checkbox {...getFieldProps('rememberMe')} checked={values.rememberMe} />
                   }
                 />
               </FormControl>

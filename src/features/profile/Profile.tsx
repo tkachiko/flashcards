@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 
 import { InputTypeFileProfile } from '../../common/inputFile/InputTypeFileProfile'
 
-import { changeNameTC, emailSelector, nameSelector } from './profile-reducer'
+import { changeNameAndAvatarTC, emailSelector, nameSelector } from './profile-reducer'
 import style from './Profile.module.scss'
 
 import { appStatusSelector } from 'app/app-reducer'
@@ -27,7 +27,7 @@ export const Profile = () => {
   const status = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
   const [avatar, setImage] = useState('')
-  const formik = useFormik({
+  const { values, errors, handleSubmit, isValid, getFieldProps } = useFormik({
     initialValues: {
       nickname,
     },
@@ -45,12 +45,12 @@ export const Profile = () => {
     },
 
     onSubmit: values => {
-      dispatch(changeNameTC(values.nickname, avatar))
+      dispatch(changeNameAndAvatarTC({ name: values.nickname, avatar }))
     },
   })
 
   useEffect(() => {
-    dispatch(changeNameTC(formik.values.nickname, avatar))
+    dispatch(changeNameAndAvatarTC({ name: values.nickname, avatar }))
   }, [avatar])
 
   const onLogout = () => {
@@ -63,7 +63,7 @@ export const Profile = () => {
       <Back2Packs />
       <div className={`${style.wrapper} ${styleContainer.container}`}>
         <ErrorSnackbar />
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <FormGroup>
             <div className={style.container}>
               <h1 className={style.heading}>Personal Information</h1>
@@ -71,13 +71,13 @@ export const Profile = () => {
               <SuperEditableSpan
                 labelValue={'Nickname'}
                 type={'text'}
-                {...formik.getFieldProps('nickname')}
-                onEnter={formik.handleSubmit}
-                onBlur={() => formik.handleSubmit()}
-                onClick={() => formik.handleSubmit()}
-                isDisabled={!formik.isValid}
+                {...getFieldProps('nickname')}
+                onEnter={handleSubmit}
+                onBlur={() => handleSubmit()}
+                onClick={() => handleSubmit()}
+                isDisabled={!isValid}
               />
-              <div className={style.fieldError}>{formik.errors.nickname}</div>
+              <div className={style.fieldError}>{errors.nickname}</div>
               <div className={style.email}>{email}</div>
               <button className={style.button} type={'button'} onClick={onLogout}>
                 Log out

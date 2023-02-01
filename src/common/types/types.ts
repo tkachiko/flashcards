@@ -29,6 +29,10 @@ export type ProfileDataType = {
 }
 
 //Request types
+export type UpdateUserType = {
+  name: string
+  avatar: string
+}
 
 export type LoginType = {
   email: string
