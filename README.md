@@ -2,7 +2,7 @@
 
 Improve your learning experience with flashcards: create your own study sets, and select your favorite way to memorize the cards.
 
-[Demo](https://tkachiko.github.io/flashcards/).
+# [Demo](https://tkachiko.github.io/flashcards/)
 
 ## Stack
 
@@ -12,3 +12,5 @@ Improve your learning experience with flashcards: create your own study sets, an
 - [x] TypeScript
 - [x] Material-UI
 - [x] Axios
+- [x] SCSS
+- [x] Formik
